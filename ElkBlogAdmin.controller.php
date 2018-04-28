@@ -8,6 +8,7 @@ class ElkBlogAdmin_Controller extends Action_Controller
 		// Where do you want to go today?
 		$subActions = array(
 			'index' => array($this, 'action_admin'),
+			'edit' 	=> array($this, 'action_edit'),
 		);
 		// We like action, so lets get ready for some
 		$action = new Action('');
@@ -24,4 +25,22 @@ class ElkBlogAdmin_Controller extends Action_Controller
 		loadTemplate('ElkBlogAdmin');
 	}
 
+	public function action_edit() 
+	{
+		global $context;
+		if (!empty($_POST['blog_subject']) && !empty($_POST['blog_body'])) {
+			die(var_export($_POST, TRUE));
+		}
+
+		if (checkSession('post', '', false) !== '') {
+			return;
+		}
+
+		$context['blog_subject'] 	= $_POST['blog_subject'];
+		$context['blog_body'] 		= $_POST['blog_body'];
+
+		$context['sub_template'] = 'elkblog_admin';
+		loadTemplate('ElkBlogAdmin');
+
+	}
 }

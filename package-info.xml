@@ -16,11 +16,10 @@
 	<version>1.0.0</version>
 	<type>modification</type>
 	<install for="1.1 - 1.1.99">
+		<require-dir name="themes" destination="BOARDDIR" />
 		<require-file name="ElkBlog.integrate.php" destination="SOURCEDIR" />
 		<require-file name="ElkBlog.controller.php" destination="CONTROLLERDIR" />
 		<require-file name="ElkBlogAdmin.controller.php" destination="ADMINDIR" />
-		<require-file name="ElkBlog.template.php" destination="THEMEDIR" />
-		<require-file name="ElkBlogAdmin.template.php" destination="THEMEDIR" />
 		<require-file name="ElkBlog.english.php" destination="LANGUAGEDIR/english" />
 		<hook hook="integrate_action_frontpage" function="ElkBlog::integrate_action_frontpage" file="SOURCEDIR/ElkBlog.integrate.php" />
 		<hook hook="integrate_menu_buttons" function="ElkBlog::integrate_menu_buttons" file="SOURCEDIR/ElkBlog.integrate.php" />
@@ -41,6 +40,8 @@
 		<remove-file name="LANGUAGEDIR/english/ElkBlog.english.php" />
 		<remove-file name="THEMEDIR/ElkBlog.template.php" />
 		<remove-file name="THEMEDIR/ElkBlogAdmin.template.php" />
+		<remove-file name="THEMEDIR/css/pell.css" />
+		<remove-file name="THEMEDIR/scripts/pell.js" />
 		<database>install.php</database>
 	</uninstall>
 </package-info>
