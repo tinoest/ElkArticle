@@ -11,7 +11,12 @@ function template_elkblog_edit()
 	if(isset($context['blog_id'])) {
 		echo '<input type="hidden" name="blog_id" value="'.$context['blog_id'].'"> </input>';
 	}
-	echo 'Subject: <input type="text" name="blog_subject" value="'.$context['blog_subject'].'"> </input><br />';
+	if(!empty($context['blog_subject'])) {
+		echo 'Subject: <input type="text" name="blog_subject" value="'.$context['blog_subject'].'"> </input><br />';
+	}
+	else {
+		echo 'Subject: <input type="text" name="blog_subject" value=""> </input><br />';
+	}
 	echo 'Body: <input type="hidden" id="blog_body" name="blog_body"> </input>';
 	echo '<input type="hidden" name="'.$context['session_var'].'" value="'.$context['session_id'].'" />';
 	echo '<div id="eb_editor" class="eb_editor"></div>';
@@ -32,8 +37,11 @@ function template_elkblog_edit()
 			document.getElementById(\'blog_body\').value = html
         	}
       	})
-	editor.content.innerHTML = \''.$context['blog_body'].'\'
-    	</script>';
+	';
+	if(!empty($context['blog_body'])) {
+		echo 'editor.content.innerHTML = \''.$context['blog_body'].'\'';
+	}
+	echo '</script>';
 }
 
 function template_elkblog_list()
