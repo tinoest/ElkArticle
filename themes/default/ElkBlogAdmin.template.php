@@ -1,13 +1,16 @@
 <?php
 
-function template_elkblog_admin()
+function template_elkblog_edit()
 {
 	global $settings, $context, $scripturl;
 
 	echo '<link rel="stylesheet" type="text/css" href="'.$settings['theme_url'].'/css/pell.css">';
 	echo '<div class="editor_wrapper" style="height:50em;">';
 	
-	echo '<form id="blog_form_edit" action="'.$scripturl.'?action=admin;area=blogconfig;sa=edit;" value="Submit" method="post" accept-charset="UTF-8">';
+	echo '<form id="blog_form_edit" action="'.$scripturl.'?action=admin;area=blogconfig;sa=editarticle;" value="Submit" method="post" accept-charset="UTF-8">';
+	if(isset($context['blog_id'])) {
+		echo '<input type="hidden" name="blog_id" value="'.$context['blog_id'].'"> </input>';
+	}
 	echo 'Subject: <input type="text" name="blog_subject" value="'.$context['blog_subject'].'"> </input><br />';
 	echo 'Body: <input type="hidden" id="blog_body" name="blog_body"> </input>';
 	echo '<input type="hidden" name="'.$context['session_var'].'" value="'.$context['session_id'].'" />';
@@ -31,4 +34,11 @@ function template_elkblog_admin()
       	})
 	editor.content.innerHTML = \''.$context['blog_body'].'\'
     	</script>';
+}
+
+function template_elkblog_list()
+{
+
+
+
 }

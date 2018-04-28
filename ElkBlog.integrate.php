@@ -59,7 +59,7 @@ class ElkBlog
 			'title' => $txt['elkblog-admin'],
 			'permission' => array ('admin_forum'),
 			'areas' => array (
-				'portalconfig' => array (
+				'blogconfig' => array (
 					'label' => $txt['elkblog-adminConfiguration'],
 					'file' => 'ElkBlogAdmin.controller.php',
 					'controller' => 'ElkBlogAdmin_Controller',
@@ -68,8 +68,8 @@ class ElkBlog
 					'class' => 'admin_home_page',
 					'permission' => array ( 'admin_forum' ),
 					'subsections' => array (
-						'information' => array ( $txt['elkblog-info_title'] ),
-						'generalsettings' => array ( $txt['elkblog-adminGeneralSettingsName'] ),
+						'editarticle' => array ( $txt['elkblog-addarticle'] ),
+						'listarticle' => array ( $txt['elkblog-listarticle'] ),
 					),
 				),
 			),
