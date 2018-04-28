@@ -17,7 +17,7 @@ function template_elkblog()
 		echo '<article class="post_wrapper forumposts">';
 		echo $article['body'];
 		echo '<header class="keyinfo">';	
-		echo sprintf('Posted By: %s<br />Category: %s<br />Published: %s', $article['member'], $article['category'], $article['dt_published']);
+		echo sprintf('Posted By: %s<br />Category: %s<br />Published: %s', $article['member'], $article['category'], htmlTime($article['dt_published']));
 		echo '</header>';
 		echo '</article>';
 		echo '</section>';

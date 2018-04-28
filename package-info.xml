@@ -17,10 +17,9 @@
 	<type>modification</type>
 	<install for="1.1 - 1.1.99">
 		<require-dir name="themes" destination="BOARDDIR" />
+		<require-dir name="sources" destination="SOURCEDIR" />
+		<require-dir name="themes" destination="BOARDDIR" />
 		<require-file name="ElkBlog.integrate.php" destination="SOURCEDIR" />
-		<require-file name="ElkBlog.controller.php" destination="CONTROLLERDIR" />
-		<require-file name="ElkBlogAdmin.controller.php" destination="ADMINDIR" />
-		<require-file name="ElkBlog.english.php" destination="LANGUAGEDIR/english" />
 		<hook hook="integrate_action_frontpage" function="ElkBlog::integrate_action_frontpage" file="SOURCEDIR/ElkBlog.integrate.php" />
 		<hook hook="integrate_menu_buttons" function="ElkBlog::integrate_menu_buttons" file="SOURCEDIR/ElkBlog.integrate.php" />
 		<hook hook="integrate_current_action" function="ElkBlog::integrate_current_action" file="SOURCEDIR/ElkBlog.integrate.php" />
