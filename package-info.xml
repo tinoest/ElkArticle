@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.elkarte.net/site/package-info">
+<package-info xmlns="http://www.elkarte.net/site/package-info" xmlns:elk="http://www.elkarte.net/">
+	<license><![CDATA[
+/**
+ * Elk Blog
+ *
+ * @author tinoest 
+ * @license BSD http://opensource.org/licenses/BSD-3-Clause
+ *
+ * @version 1.0.0
+ */
+	]]></license>
+	<id>tinoest:ElkBlog</id>
+	<name>Elk Blog</name>
+	<version>1.0.0</version>
+	<type>modification</type>
+	<install for="1.1 - 1.1.99">
+		<require-file name="ElkBlog.integrate.php" destination="SOURCEDIR" />
+		<require-file name="ElkBlog.controller.php" destination="CONTROLLERDIR" />
+		<require-file name="ElkBlogAdmin.controller.php" destination="ADMINDIR" />
+		<require-file name="ElkBlog.template.php" destination="THEMEDIR" />
+		<require-file name="ElkBlogAdmin.template.php" destination="THEMEDIR" />
+		<require-file name="ElkBlog.english.php" destination="LANGUAGEDIR/english" />
+		<hook hook="integrate_action_frontpage" function="ElkBlog::integrate_action_frontpage" file="SOURCEDIR/ElkBlog.integrate.php" />
+		<hook hook="integrate_menu_buttons" function="ElkBlog::integrate_menu_buttons" file="SOURCEDIR/ElkBlog.integrate.php" />
+		<hook hook="integrate_current_action" function="ElkBlog::integrate_current_action" file="SOURCEDIR/ElkBlog.integrate.php" />
+		<hook hook="integrate_actions" function="ElkBlog::integrate_actions" file="SOURCEDIR/ElkBlog.integrate.php" />
+		<hook hook="integrate_admin_areas" function="ElkBlog::integrate_admin_areas" file="SOURCEDIR/ElkBlog.integrate.php" />
+		<database>install.php</database>
+	</install>
+	<uninstall for="1.1 - 1.1.99">
+		<hook reverse="true" hook="integrate_action_frontpage" function="ElkBlog::integrate_action_frontpage" file="SOURCEDIR/ElkBlog.integrate.php" />
+		<hook reverse="true" hook="integrate_menu_buttons" function="ElkBlog::integrate_menu_buttons" file="SOURCEDIR/ElkBlog.integrate.php" />
+		<hook reverse="true" hook="integrate_current_action" function="ElkBlog::integrate_current_action" file="SOURCEDIR/ElkBlog.integrate.php" />
+		<hook reverse="true" hook="integrate_actions" function="ElkBlog::integrate_actions" file="SOURCEDIR/ElkBlog.integrate.php" />
+		<hook reverse="true" hook="integrate_admin_areas" function="ElkBlog::integrate_admin_areas" file="SOURCEDIR/ElkBlog.integrate.php" />
+		<remove-file name="SOURCEDIR/ElkBlog.integrate.php" />
+		<remove-file name="CONTROLLERDIR/ElkBlog.controller.php" />
+		<remove-file name="ADMINDIR/ElkBlogAdmin.controller.php" />
+		<remove-file name="LANGUAGEDIR/english/ElkBlog.english.php" />
+		<remove-file name="THEMEDIR/ElkBlog.template.php" />
+		<remove-file name="THEMEDIR/ElkBlogAdmin.template.php" />
+		<database>install.php</database>
+	</uninstall>
+</package-info>
