@@ -31,11 +31,24 @@ class ElkBlogAdmin_Controller extends Action_Controller
 	{
 		global $context, $user_info;
 
+
+		$db = database();
+		$request 	= $db->query('', '
+			SELECT id, name
+			FROM {db_prefix}blog_categories
+			WHERE status = 1'
+		);
+	
+		$context['blog_categories'] = array();	
+		while ($row = $db->fetch_assoc($request)) {
+			$context['blog_categories'][$row['id']] = $row['name'];
+		}
+	
+
 		if (!empty($_POST['blog_subject']) && !empty($_POST['blog_body']) && empty($_POST['blog_id'])) {
 			if (checkSession('post', '', false) !== '') {
 				return;
 			}
-			$db = database();
 			$db->insert('', 
 				'{db_prefix}blog_articles',
 				array( 
@@ -55,12 +68,12 @@ class ElkBlogAdmin_Controller extends Action_Controller
 			$context['blog_id'] 		= $db->insert_id('{db_prefix}blog_articles', 'id');
 			$context['blog_subject'] 	= $_POST['blog_subject'];
 			$context['blog_body'] 		= $_POST['blog_body'];
+			$context['blog_category']	= '';
 		}
 		else if (!empty($_POST['blog_subject']) && !empty($_POST['blog_body']) && !empty($_POST['blog_id'])) {
 			if (checkSession('post', '', false) !== '') {
 				return;
 			}
-			$db = database();
 			$db->query('', '
 				UPDATE {db_prefix}blog_articles
 				SET title = {string:title}, body = {string:body}
@@ -75,6 +88,7 @@ class ElkBlogAdmin_Controller extends Action_Controller
 			$context['blog_id'] 		= $_POST['blog_id'];
 			$context['blog_subject'] 	= $_POST['blog_subject'];
 			$context['blog_body'] 		= $_POST['blog_body'];
+			$context['blog_category']	= '';
 		}
 
 	
