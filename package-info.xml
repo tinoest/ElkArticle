@@ -35,6 +35,8 @@
 		<remove-file name="SOURCEDIR/ElkBlog.integrate.php" />
 		<remove-file name="CONTROLLERDIR/ElkBlog.controller.php" />
 		<remove-file name="ADMINDIR/ElkBlogAdmin.controller.php" />
+		<remove-file name="SUBSDIR/ElkBlog.subs.php" />
+		<remove-file name="SUBSDIR/ElkBlogAdmin.subs.php" />
 		<remove-file name="LANGUAGEDIR/english/ElkBlog.english.php" />
 		<remove-file name="THEMEDIR/ElkBlog.template.php" />
 		<remove-file name="THEMEDIR/ElkBlogAdmin.template.php" />

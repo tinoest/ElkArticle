@@ -21,46 +21,21 @@ class ElkBlog_Controller extends Action_Controller implements Frontpage_Interfac
 
 	public function action_elkblog()
 	{
-		global $context;
+		global $context, $scripturl;
+		
+		require_once(SUBSDIR . '/ElkBlog.subs.php');	
 
 		$context['page_title']		= 'Elk Blog';
 		$context['sub_template'] 	= 'elkblog';
-		
-		$db 		= database();
-		$request 	= $db->query('', '
-			SELECT id, name
-			FROM {db_prefix}blog_categories
-			WHERE status = 1'
-		);
-		
-		while ($row = $db->fetch_assoc($request)) {
-			$categories[$row['id']] = $row['name'];
-		}
-	
-		$request 	= $db->query('', '
-			SELECT category_id, member_id, dt_published, title, body, views, comments
-			FROM {db_prefix}blog_articles
-			WHERE status = 1
-			ORDER BY id DESC
-			LIMIT 10'
-		);
 
-		$articles 	= array();
-		while ($row = $db->fetch_assoc($request)) {
-			$member	= $db->query('', '
-				SELECT member_name
-				FROM {db_prefix}members
-				WHERE id_member = {int:member_id}',
-				array ( 
-					'member_id' => $row['member_id'],
-				)
-			);
-			$row['member'] 		= $db->fetch_assoc($member)['member_name'];
-			$row['category']	= $categories[$row['category_id']];	
-			$articles[] 		= $row; 
-			
-		}
-		$context['blog_articles'] = $articles;
+		// Set up for pagination
+		$start 		= !empty($_REQUEST['start']) ? (int) $_REQUEST['start'] : 0;
+		$per_page	= 10;
+		$articles	= get_blog_articles($start, $per_page);	
+		$total_articles = get_total_blog_articles(); 
+
+		$context['blog_articles'] 	= $articles;
+		$context['page_index'] 		= constructPageIndex($scripturl . '?action=home;start=%1$d', $start, $total_articles, $per_page, true);
 
 		loadTemplate('ElkBlog');
 	}

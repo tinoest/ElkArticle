@@ -24,8 +24,10 @@ function template_elkblog()
 		echo '</div>';
 	}
 	
-
-
 	echo '</div>';
+
+	if (!empty($context['page_index'])) {
+		template_pagesection();
+	}
 
 }

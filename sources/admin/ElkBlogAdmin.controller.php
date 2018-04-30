@@ -59,69 +59,47 @@ class ElkBlogAdmin_Controller extends Action_Controller
 	{
 		global $context, $user_info;
 
+		require_once(SUBSDIR . '/ElkBlog.subs.php');
+		require_once(SUBSDIR . '/ElkBlogAdmin.subs.php');
+
 		// Set the defaults
 		$context['blog_category']	= 1;
 		$context['blog_subject'] 	= '';
 		$context['blog_body'] 		= '';
 
-		$db = database();
-		$request 	= $db->query('', '
-			SELECT id, name
-			FROM {db_prefix}blog_categories
-			WHERE status = 1'
-		);
-	
-		$context['blog_categories'] = array();	
-		while ($row = $db->fetch_assoc($request)) {
-			$context['blog_categories'][$row['id']] = $row['name'];
-		}
-
 		if (!empty($_POST['blog_subject']) && !empty($_POST['blog_body']) && empty($_POST['blog_id'])) {
 			if (checkSession('post', '', false) !== '') {
 				return;
 			}
-			$db->insert('', 
-				'{db_prefix}blog_articles',
-				array( 
-					'member_id' 	=> 'int',
-					'title'		=> 'string',
-					'body'		=> 'string',
-					'dt_published'	=> 'int',
-				),
-				array (
-					$user_info['id'],
-					$_POST['blog_subject'],
-					$_POST['blog_body'],
-					time(),
-				),
-				array('id')
-			);
-			$context['blog_id'] 		= $db->insert_id('{db_prefix}blog_articles', 'id');
-			$context['blog_subject'] 	= $_POST['blog_subject'];
-			$context['blog_body'] 		= $_POST['blog_body'];
-			$context['blog_category']	= $_POST['blog_category'];
+
+			$subject			= $_POST['blog_subject'];
+			$body				= $_POST['blog_body'];
+			$category_id			= $_POST['blog_category'];
+
+			$context['blog_id']		= insert_blog_article($subject, $body, $category_id, $user_info['id']);
+			$context['blog_subject'] 	= $subject;
+			$context['blog_body'] 		= $body;
+			$context['blog_category']	= $category_id;
 		}
 		else if (!empty($_POST['blog_subject']) && !empty($_POST['blog_body']) && !empty($_POST['blog_id'])) {
 			if (checkSession('post', '', false) !== '') {
 				return;
 			}
-			$db->query('', '
-				UPDATE {db_prefix}blog_articles
-				SET title = {string:title}, body = {string:body}
-				WHERE id = {int:id}',
-				array (
-					'title' => $_POST['blog_subject'],
-					'body'	=> $_POST['blog_body'],
-					'id'	=> $_POST['blog_id'],
-				)
-			);
+	
+			$subject			= $_POST['blog_subject'];
+			$body				= $_POST['blog_body'];
+			$category_id			= $_POST['blog_category'];
+			$blog_id	 		= $_POST['blog_id'];
 
-			$context['blog_id'] 		= $_POST['blog_id'];
-			$context['blog_subject'] 	= $_POST['blog_subject'];
-			$context['blog_body'] 		= $_POST['blog_body'];
-			$context['blog_category']	= $_POST['blog_category'];
+			update_blog_article($subject, $body, $category_id, $blog_id);
+
+			$context['blog_id'] 		= $blog_id;
+			$context['blog_subject'] 	= $subject;
+			$context['blog_body'] 		= $body;
+			$context['blog_category']	= $category_id;
 		}
 
+		$context['blog_categories']	= get_blog_categories();
 	
 		$context['sub_template'] 	= 'elkblog_edit';
 		loadTemplate('ElkBlogAdmin');
