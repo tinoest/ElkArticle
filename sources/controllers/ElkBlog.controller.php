@@ -33,20 +33,20 @@ class ElkBlog_Controller extends Action_Controller implements Frontpage_Interfac
 			WHERE status = 1'
 		);
 		
-		while ($row = $db->fetch_assoc($request))
-		{
+		while ($row = $db->fetch_assoc($request)) {
 			$categories[$row['id']] = $row['name'];
 		}
 	
 		$request 	= $db->query('', '
 			SELECT category_id, member_id, dt_published, title, body, views, comments
 			FROM {db_prefix}blog_articles
-			WHERE status = 1'
+			WHERE status = 1
+			ORDER BY id DESC
+			LIMIT 10'
 		);
 
 		$articles 	= array();
-		while ($row = $db->fetch_assoc($request))
-		{
+		while ($row = $db->fetch_assoc($request)) {
 			$member	= $db->query('', '
 				SELECT member_name
 				FROM {db_prefix}members
@@ -60,8 +60,7 @@ class ElkBlog_Controller extends Action_Controller implements Frontpage_Interfac
 			$articles[] 		= $row; 
 			
 		}
-
-		$context['articles'] = $articles;
+		$context['blog_articles'] = $articles;
 
 		loadTemplate('ElkBlog');
 	}
@@ -77,9 +76,8 @@ class ElkBlog_Controller extends Action_Controller implements Frontpage_Interfac
 		$file = CONTROLLERDIR . '/ElkBlog.controller.php';
 		$controller = 'ElkBlog_Controller';
 		$function = 'action_index';
-		// Something portal-ish, then set the new action
-		if (isset($file, $function))
-		{
+		// Something blog-ish, then set the new action
+		if (isset($file, $function)) {
 			$default_action = array(
 				'file' => $file,
 				'controller' => isset($controller) ? $controller : null,

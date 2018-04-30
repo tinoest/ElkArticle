@@ -23,7 +23,35 @@ class ElkBlogAdmin_Controller extends Action_Controller
 	public function action_list()
 	{
 		global $context;
-		$context['sub_template'] = 'elkblog_list';
+
+		$db = database();
+
+		$context['sub_template']	= 'elkblog_list';
+		
+		$request 	= $db->query('', '
+			SELECT category_id, member_id, dt_published, title
+			FROM {db_prefix}blog_articles
+			WHERE status = 1
+			ORDER BY id DESC'
+		);
+
+		$articles 	= array();
+		while ($row = $db->fetch_assoc($request)) {
+			$member	= $db->query('', '
+				SELECT member_name
+				FROM {db_prefix}members
+				WHERE id_member = {int:member_id}',
+				array ( 
+					'member_id' => $row['member_id'],
+				)
+			);
+			$row['member'] 		= $db->fetch_assoc($member)['member_name'];
+			$row['category']	= $categories[$row['category_id']];	
+			$articles[] 		= $row; 
+		}
+
+		$context['blog_articles'] = $articles;
+
 		loadTemplate('ElkBlogAdmin');
 	}
 
@@ -31,6 +59,10 @@ class ElkBlogAdmin_Controller extends Action_Controller
 	{
 		global $context, $user_info;
 
+		// Set the defaults
+		$context['blog_category']	= 1;
+		$context['blog_subject'] 	= '';
+		$context['blog_body'] 		= '';
 
 		$db = database();
 		$request 	= $db->query('', '
@@ -43,7 +75,6 @@ class ElkBlogAdmin_Controller extends Action_Controller
 		while ($row = $db->fetch_assoc($request)) {
 			$context['blog_categories'][$row['id']] = $row['name'];
 		}
-	
 
 		if (!empty($_POST['blog_subject']) && !empty($_POST['blog_body']) && empty($_POST['blog_id'])) {
 			if (checkSession('post', '', false) !== '') {
@@ -68,7 +99,7 @@ class ElkBlogAdmin_Controller extends Action_Controller
 			$context['blog_id'] 		= $db->insert_id('{db_prefix}blog_articles', 'id');
 			$context['blog_subject'] 	= $_POST['blog_subject'];
 			$context['blog_body'] 		= $_POST['blog_body'];
-			$context['blog_category']	= '';
+			$context['blog_category']	= $_POST['blog_category'];
 		}
 		else if (!empty($_POST['blog_subject']) && !empty($_POST['blog_body']) && !empty($_POST['blog_id'])) {
 			if (checkSession('post', '', false) !== '') {
@@ -88,7 +119,7 @@ class ElkBlogAdmin_Controller extends Action_Controller
 			$context['blog_id'] 		= $_POST['blog_id'];
 			$context['blog_subject'] 	= $_POST['blog_subject'];
 			$context['blog_body'] 		= $_POST['blog_body'];
-			$context['blog_category']	= '';
+			$context['blog_category']	= $_POST['blog_category'];
 		}
 
 	

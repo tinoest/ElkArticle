@@ -27,7 +27,7 @@ function template_elkblog_edit()
 				echo '<select name="blog_category">';
 				if(!empty($context['blog_categories']) && is_array($context['blog_categories'])) {
 					foreach($context['blog_categories'] as $k => $v) {
-						if($v == $context['blog_category']) {
+						if($k == $context['blog_category']) {
 							echo '<option value="'.$k.'" selected="selected">'.$v.'</option>';
 						}
 						else {
@@ -67,7 +67,8 @@ function template_elkblog_edit()
 
 function template_elkblog_list()
 {
+	global $context;
 
-
+	var_dump($context['blog_articles']);
 
 }
