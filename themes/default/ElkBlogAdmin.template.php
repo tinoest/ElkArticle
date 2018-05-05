@@ -69,6 +69,6 @@ function template_elkblog_list()
 {
 	global $context;
 
-	var_dump($context['blog_articles']);
+	template_show_list('blog_articles_list');
 
 }

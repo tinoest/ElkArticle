@@ -22,36 +22,123 @@ class ElkBlogAdmin_Controller extends Action_Controller
 
 	public function action_list()
 	{
-		global $context;
+		global $context, $scripturl, $txt;
 
-		$db = database();
-
-		$context['sub_template']	= 'elkblog_list';
-		
-		$request 	= $db->query('', '
-			SELECT category_id, member_id, dt_published, title
-			FROM {db_prefix}blog_articles
-			WHERE status = 1
-			ORDER BY id DESC'
-		);
-
-		$articles 	= array();
-		while ($row = $db->fetch_assoc($request)) {
-			$member	= $db->query('', '
-				SELECT member_name
-				FROM {db_prefix}members
-				WHERE id_member = {int:member_id}',
-				array ( 
-					'member_id' => $row['member_id'],
-				)
-			);
-			$row['member'] 		= $db->fetch_assoc($member)['member_name'];
-			$row['category']	= $categories[$row['category_id']];	
-			$articles[] 		= $row; 
-		}
-
-		$context['blog_articles'] = $articles;
-
+		$list = array (
+			'id' => 'blog_articles_list',
+			'title' => 'Blog Articles',
+			'items_per_page' => 25,
+			'no_items_label' => 'No Articles Found',
+			'base_href' => $scripturl . '?action=admin;area=blogconfig;sa=listarticle;',
+			'default_sort_col' => 'title',
+			'get_items' => array(
+				'function' => array($this, 'list_blog_articles'),
+			),
+			'get_count' => array(
+				'function' => array($this, 'list_total_articles'),
+			),
+			'columns' => array(
+				'title' => array(
+					'header' => array(
+						'value' => 'Title',
+					),
+					'data' => array(
+						'db' => 'title',
+					),
+					'sort' => array(
+						'default' => 'title ASC',
+						'reverse' => 'title DESC',
+					),
+				),
+				
+				'category' => array(
+					'header' => array(
+						'value' => 'Category',
+					),
+					'data' => array(
+						'db' => 'category',
+					),
+					'sort' => array(
+						'default' => 'category_id ASC',
+						'reverse' => 'category_id DESC',
+					),
+				),
+				'author' => array(
+					'header' => array(
+						'value' => 'Author',
+					),
+					'data' => array(
+						'db' => 'member',
+					),
+					'sort' => array(
+						'default' => 'member_id ASC',
+						'reverse' => 'member_id DESC',
+					),
+				),
+				'date' => array(
+					'header' => array(
+						'value' => 'Date Published',
+					),
+					'data' => array(
+						'db' => 'dt_published',
+					),
+					'sort' => array(
+						'default' => 'dt_published ASC',
+						'reverse' => 'dt_published DESC',
+					),
+				),
+				'status' => array(
+					'header' => array(
+						'value' => 'Status',
+						'class' => 'centertext',
+					),
+					'data' => array(
+						'db' => 'status',
+						'class' => 'centertext',
+					),
+					'sort' => array(
+						'default' => 'status',
+						'reverse' => 'status DESC',
+					),
+				),
+				'action' => array(
+					'header' => array(
+						'value' => 'Actions',
+						'class' => 'centertext',
+					),
+					'data' => array(
+						'sprintf' => array(
+							'format' => '<a href="?action=admin;area=blogconfig;sa=editarticle">Modify</a>&nbsp;',
+							'params' => array(
+								'id' => true,
+							),
+						),
+						'class' => 'centertext nowrap',
+					),
+				),
+			),
+			'form' => array(
+				'href' => $scripturl . '?action=admin;area=blogconfig;sa=deletearticle',
+				'include_sort' => true,
+				'include_start' => true,
+				'hidden_fields' => array(
+					$context['session_var'] => $context['session_id'],
+				),
+			),
+			'additional_rows' => array(
+				array(
+					'position' => 'below_table_data',
+					'value' => '<input type="submit" name="remove_articles" value="remove_blog_article" class="right_submit" />',
+				),
+			),
+		);	
+	
+		$context['page_title']		= 'Blog List';
+		$context['sub_template'] 	= 'elkblog_list';	
+		$context['default_list'] 	= 'blog_list';
+		// Create the list.
+		require_once(SUBSDIR . '/GenericList.class.php');
+		createList($list);
 		loadTemplate('ElkBlogAdmin');
 	}
 
@@ -104,4 +191,16 @@ class ElkBlogAdmin_Controller extends Action_Controller
 		$context['sub_template'] 	= 'elkblog_edit';
 		loadTemplate('ElkBlogAdmin');
 	}
+
+	public function list_blog_articles()
+	{
+		require_once(SUBSDIR . '/ElkBlogAdmin.subs.php');
+		return get_blog_articles_list();
+	}
+ 
+	public function list_total_articles()
+	{
+		require_once(SUBSDIR . '/ElkBlog.subs.php');
+		return get_total_blog_articles();
+	} 
 }

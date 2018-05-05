@@ -1,5 +1,41 @@
 <?php
 
+function get_blog_articles_list() 
+{
+
+	$db = database();
+
+	require_once( SUBSDIR . '/ElkBlog.subs.php');
+
+	$categories 	= get_blog_categories();
+	$request 	= $db->query('', '
+		SELECT id, category_id, member_id, dt_created, dt_published, title, status
+		FROM {db_prefix}blog_articles
+		WHERE status = 1
+		ORDER BY id DESC'
+	);
+
+	$articles 	= array();
+	while ($row = $db->fetch_assoc($request)) {
+		$member	= $db->query('', '
+			SELECT member_name
+			FROM {db_prefix}members
+			WHERE id_member = {int:member_id}',
+			array ( 
+				'member_id' => $row['member_id'],
+			)
+		);
+		$row['member'] 		= $db->fetch_assoc($member)['member_name'];
+		$row['category']	= $categories[$row['category_id']];
+		$row['dt_created']	= htmlTime($row['dt_created']);
+		$row['dt_published']	= htmlTime($row['dt_published']);
+		$articles[] 		= $row; 
+	}
+
+	return $articles;
+
+}
+
 
 function insert_blog_article($subject, $body, $category_id, $member_id) 
 {
