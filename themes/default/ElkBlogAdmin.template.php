@@ -37,15 +37,14 @@ function template_elkblog_edit()
 				}
 				echo '</select>
 				</dl>
-				<input type="hidden" id="blog_body" name="blog_body"> </input>
+				<input type="hidden" id="blog_body" name="blog_body" />
 				<input type="hidden" name="'.$context['session_var'].'" value="'.$context['session_id'].'" />
 				<div id="editor_toolbar_container">
 					<div id="eb_editor" class="eb_editor"></div>
 				</div>
-			</div>
-			<div id="post_confirm_buttons" class="submitbutton">
-				<input type="submit" value="Submit">
-			</div>
+				<div id="post_confirm_buttons" class="submitbutton">
+					<input type="submit" value="Submit">
+				</div>
 			</form>
 		</div>
 		<script src="'.$settings['theme_url'].'/scripts/pell.js"></script>
@@ -60,7 +59,7 @@ function template_elkblog_edit()
 		})
 		';
 		if(!empty($context['blog_body'])) {
-			echo 'editor.content.innerHTML = \''.$context['blog_body'].'\'';
+			echo 'editor.content.innerHTML = '.JavaScriptEscape($context['blog_body']);
 		}
 		echo '</script>';
 }

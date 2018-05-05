@@ -9,7 +9,12 @@ function get_blog_articles_list()
 
 	$categories 	= get_blog_categories();
 	$request 	= $db->query('', '
-		SELECT id, category_id, member_id, dt_created, dt_published, title, IF( status = 1, "Enabled", "Disabled") AS status
+		SELECT id, category_id, member_id, dt_created, dt_published, title,
+			CASE WHEN status = 1 
+				THEN \'Enabled\'
+				ELSE \'Disabled\'
+			END
+			AS status
 		FROM {db_prefix}blog_articles
 		ORDER BY id DESC'
 	);
