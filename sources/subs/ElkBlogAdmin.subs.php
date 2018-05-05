@@ -9,9 +9,8 @@ function get_blog_articles_list()
 
 	$categories 	= get_blog_categories();
 	$request 	= $db->query('', '
-		SELECT id, category_id, member_id, dt_created, dt_published, title, status
+		SELECT id, category_id, member_id, dt_created, dt_published, title, IF( status = 1, "Enabled", "Disabled") AS status
 		FROM {db_prefix}blog_articles
-		WHERE status = 1
 		ORDER BY id DESC'
 	);
 
@@ -84,3 +83,17 @@ function update_blog_article( $subject, $body, $category_id, $article_id)
 	);
 }
 
+function delete_blog_article($id)
+{
+
+	$db = database();
+	
+	$db->query('', '
+		DELETE FROM {db_prefix}blog_articles
+		WHERE id = {int:id}
+		LIMIT 1',
+		array (
+			'id'		=> $id,
+		)
+	);
+}

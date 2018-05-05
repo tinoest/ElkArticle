@@ -10,6 +10,7 @@ class ElkBlogAdmin_Controller extends Action_Controller
 			'index' 	=> array($this, 'action_list'),
 			'listarticle' 	=> array($this, 'action_list'),
 			'editarticle' 	=> array($this, 'action_edit'),
+			'deletearticle'	=> array($this, 'action_delete'),
 		);
 		// We like action, so lets get ready for some
 		$action = new Action('');
@@ -107,8 +108,10 @@ class ElkBlogAdmin_Controller extends Action_Controller
 						'class' => 'centertext',
 					),
 					'data' => array(
-						'sprintf' => array(
-							'format' => '<a href="?action=admin;area=blogconfig;sa=editarticle">Modify</a>&nbsp;',
+						'sprintf' => array (
+							'format' => '
+								<a href="?action=admin;area=blogconfig;sa=editarticle;blog_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" accesskey="p">Modify</a>&nbsp;
+								<a href="?action=admin;area=blogconfig;sa=deletearticle;blog_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" onclick="return confirm(' . JavaScriptEscape('Are you sure you want to delete?') . ') && submitThisOnce(this);" accesskey="d">Delete</a>',
 							'params' => array(
 								'id' => true,
 							),
@@ -123,12 +126,6 @@ class ElkBlogAdmin_Controller extends Action_Controller
 				'include_start' => true,
 				'hidden_fields' => array(
 					$context['session_var'] => $context['session_id'],
-				),
-			),
-			'additional_rows' => array(
-				array(
-					'position' => 'below_table_data',
-					'value' => '<input type="submit" name="remove_articles" value="remove_blog_article" class="right_submit" />',
 				),
 			),
 		);	
@@ -185,11 +182,39 @@ class ElkBlogAdmin_Controller extends Action_Controller
 			$context['blog_body'] 		= $body;
 			$context['blog_category']	= $category_id;
 		}
+		else if (!empty($_GET['blog_id'])) {
+			if (checkSession('get', '', false) !== '') {
+				return;
+			}
+			
+			$blog_id	 		= $_GET['blog_id'];
+			$blog_data			= get_blog_article($blog_id);
+			$context['blog_id'] 		= $blog_data['id'];
+			$context['blog_subject'] 	= $blog_data['title'];
+			$context['blog_body'] 		= $blog_data['body'];
+			$context['blog_category']	= $blog_data['category_id'];
+		}
 
 		$context['blog_categories']	= get_blog_categories();
 	
 		$context['sub_template'] 	= 'elkblog_edit';
 		loadTemplate('ElkBlogAdmin');
+	}
+
+	public function action_delete()
+	{
+		require_once(SUBSDIR . '/ElkBlogAdmin.subs.php');
+		if (!empty($_GET['blog_id'])) {
+			if (checkSession('get', '', false) !== '') {
+				return;
+			}
+			
+			$id	=  $_GET['blog_id'];
+			delete_blog_article($id);
+		}
+
+		// Just Load the list again
+		$this->action_list();
 	}
 
 	public function list_blog_articles()

@@ -33,6 +33,41 @@ function get_blog_articles( $start, $per_page)
 	return $articles;	
 }
 
+function get_blog_article( $id )
+{
+	$db 		= database();
+	
+	$categories	= get_blog_categories();
+	$request  	= $db->query('', '
+		SELECT id, category_id, member_id, dt_published, title, body, views, comments
+		FROM {db_prefix}blog_articles
+		WHERE id = {int:id}',
+		array (
+			'id' => $id,
+		)
+	);
+
+	$article 	= array();
+	while ($row = $db->fetch_assoc($request)) {
+		$member	= $db->query('', '
+			SELECT member_name
+			FROM {db_prefix}members
+			WHERE id_member = {int:member_id}',
+			array ( 
+				'member_id' => $row['member_id'],
+			)
+		);
+		$row['member'] 		= $db->fetch_assoc($member)['member_name'];
+		$row['category']	= $categories[$row['category_id']];	
+		$article 		= $row; 
+	}
+
+	$db->free_result($request);
+
+	return $article;	
+}
+
+
 
 function get_total_blog_articles()
 {
