@@ -1,6 +1,6 @@
 <?php
 
-function template_elkblog()
+function template_elkarticle()
 {
 	global $context, $txt;
 	

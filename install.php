@@ -15,7 +15,7 @@ $db 		= database();
 $db_table 	= db_table();
 
 $tables = array(
-	'blog_articles' => array(
+	'article' => array(
 		'columns' => array(
 			array('name' => 'id', 'type' => 'mediumint', 'size' => 8, 'auto' => true, 'unsigned' => true),
 			array('name' => 'category_id', 'type' => 'mediumint', 'size' => 8, 'default' => 0, 'unsigned' => true),
@@ -37,7 +37,7 @@ $tables = array(
 			array('type' => 'primary', 'columns' => array('id')),
 		),
 	),
-	'blog_categories' => array(
+	'article_categories' => array(
 		'columns' => array(
 			array('name' => 'id', 'type' => 'mediumint', 'size' => 8, 'auto' => true, 'unsigned' => true),
 			array('name' => 'name', 'type' => 'varchar', 'size' => 255, 'default' => ''),
@@ -50,7 +50,7 @@ $tables = array(
 			array('type' => 'primary', 'columns' => array('id')),
 		),
 	),
-	'blog_comments' => array(
+	'article_comments' => array(
 		'columns' => array(
 			array('name' => 'id', 'type' => 'mediumint', 'size' => 8, 'auto' => true, 'unsigned' => true),
 			array('name' => 'article_id', 'type' => 'mediumint', 'size' => 8, 'default' => 0, 'unsigned' => true),
@@ -70,5 +70,5 @@ foreach ($tables as $table => $data)
 	$db_table->db_create_table('{db_prefix}' . $table, $data['columns'], $data['indexes'], array(), 'ignore');
 }
 
-updateSettings(array('front_page' => 'ElkBlog_Controller'));
+updateSettings(array('front_page' => 'ElkArticle_Controller'));
 ?>

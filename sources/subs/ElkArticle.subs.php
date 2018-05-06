@@ -1,13 +1,13 @@
 <?php
 
-function get_blog_articles( $start, $per_page)
+function get_articles( $start, $per_page)
 {
 	$db 		= database();
 	
-	$categories	= get_blog_categories();
+	$categories	= get_article_categories();
 	$request  	= $db->query('', '
 		SELECT category_id, member_id, dt_published, title, body, views, comments
-		FROM {db_prefix}blog_articles
+		FROM {db_prefix}articles
 		WHERE status = 1
 		ORDER BY id DESC
 		LIMIT '.$start.', '.$per_page
@@ -33,14 +33,14 @@ function get_blog_articles( $start, $per_page)
 	return $articles;	
 }
 
-function get_blog_article( $id )
+function get_article( $id )
 {
 	$db 		= database();
 	
-	$categories	= get_blog_categories();
+	$categories	= get_article_categories();
 	$request  	= $db->query('', '
 		SELECT id, category_id, member_id, dt_published, title, body, views, comments
-		FROM {db_prefix}blog_articles
+		FROM {db_prefix}articles
 		WHERE id = {int:id}',
 		array (
 			'id' => $id,
@@ -69,14 +69,14 @@ function get_blog_article( $id )
 
 
 
-function get_total_blog_articles()
+function get_total_articles()
 {
 	$total_articles	= 0;
 
 	$db 		= database();
 	$request 	= $db->query('', '
 		SELECT COUNT(id) as num_articles
-		FROM {db_prefix}blog_articles
+		FROM {db_prefix}articles
 		WHERE status = 1'
 	);
 	
@@ -87,13 +87,13 @@ function get_total_blog_articles()
 	return $total_articles;
 }
 
-function get_blog_categories()
+function get_article_categories()
 {
 	$categories	= array();
 	$db 		= database();
 	$request 	= $db->query('', '
 		SELECT id, name
-		FROM {db_prefix}blog_categories
+		FROM {db_prefix}article_categories
 		WHERE status = 1'
 	);
 	

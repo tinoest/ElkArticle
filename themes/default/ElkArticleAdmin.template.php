@@ -1,6 +1,6 @@
 <?php
 
-function template_elkblog_edit()
+function template_elkarticle_edit()
 {
 	global $settings, $context, $scripturl;
 
@@ -64,7 +64,7 @@ function template_elkblog_edit()
 		echo '</script>';
 }
 
-function template_elkblog_list()
+function template_elkarticle_list()
 {
 	global $context;
 

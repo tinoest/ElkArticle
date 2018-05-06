@@ -1,6 +1,6 @@
 <?php
 
-class ElkBlogAdmin_Controller extends Action_Controller
+class ElkArticleAdmin_Controller extends Action_Controller
 {
 	public function action_index()
 	{
@@ -26,14 +26,14 @@ class ElkBlogAdmin_Controller extends Action_Controller
 		global $context, $scripturl, $txt;
 
 		$list = array (
-			'id' => 'blog_articles_list',
+			'id' => 'articles_list',
 			'title' => 'Blog Articles',
 			'items_per_page' => 25,
 			'no_items_label' => 'No Articles Found',
-			'base_href' => $scripturl . '?action=admin;area=blogconfig;sa=listarticle;',
+			'base_href' => $scripturl . '?action=admin;area=articleconfig;sa=listarticle;',
 			'default_sort_col' => 'title',
 			'get_items' => array(
-				'function' => array($this, 'list_blog_articles'),
+				'function' => array($this, 'list_articles'),
 			),
 			'get_count' => array(
 				'function' => array($this, 'list_total_articles'),
@@ -110,8 +110,8 @@ class ElkBlogAdmin_Controller extends Action_Controller
 					'data' => array(
 						'sprintf' => array (
 							'format' => '
-								<a href="?action=admin;area=blogconfig;sa=editarticle;blog_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" accesskey="p">Modify</a>&nbsp;
-								<a href="?action=admin;area=blogconfig;sa=deletearticle;blog_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" onclick="return confirm(' . JavaScriptEscape('Are you sure you want to delete?') . ') && submitThisOnce(this);" accesskey="d">Delete</a>',
+								<a href="?action=admin;area=articleconfig;sa=editarticle;article_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" accesskey="p">Modify</a>&nbsp;
+								<a href="?action=admin;area=articleconfig;sa=deletearticle;article_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" onclick="return confirm(' . JavaScriptEscape('Are you sure you want to delete?') . ') && submitThisOnce(this);" accesskey="d">Delete</a>',
 							'params' => array(
 								'id' => true,
 							),
@@ -121,7 +121,7 @@ class ElkBlogAdmin_Controller extends Action_Controller
 				),
 			),
 			'form' => array(
-				'href' => $scripturl . '?action=admin;area=blogconfig;sa=deletearticle',
+				'href' => $scripturl . '?action=admin;area=articleconfig;sa=deletearticle',
 				'include_sort' => true,
 				'include_start' => true,
 				'hidden_fields' => array(
@@ -131,101 +131,101 @@ class ElkBlogAdmin_Controller extends Action_Controller
 		);	
 	
 		$context['page_title']		= 'Blog List';
-		$context['sub_template'] 	= 'elkblog_list';	
-		$context['default_list'] 	= 'blog_list';
+		$context['sub_template'] 	= 'elkarticle_list';	
+		$context['default_list'] 	= 'article_list';
 		// Create the list.
 		require_once(SUBSDIR . '/GenericList.class.php');
 		createList($list);
-		loadTemplate('ElkBlogAdmin');
+		loadTemplate('ElkArticleAdmin');
 	}
 
 	public function action_edit() 
 	{
 		global $context, $user_info;
 
-		require_once(SUBSDIR . '/ElkBlog.subs.php');
-		require_once(SUBSDIR . '/ElkBlogAdmin.subs.php');
+		require_once(SUBSDIR . '/ElkArticle.subs.php');
+		require_once(SUBSDIR . '/ElkArticleAdmin.subs.php');
 
 		// Set the defaults
-		$context['blog_category']	= 1;
-		$context['blog_subject'] 	= '';
-		$context['blog_body'] 		= '';
+		$context['article_category']	= 1;
+		$context['article_subject'] 	= '';
+		$context['article_body'] 		= '';
 
-		if (!empty($_POST['blog_subject']) && !empty($_POST['blog_body']) && empty($_POST['blog_id'])) {
+		if (!empty($_POST['article_subject']) && !empty($_POST['article_body']) && empty($_POST['article_id'])) {
 			if (checkSession('post', '', false) !== '') {
 				return;
 			}
 
-			$subject			= $_POST['blog_subject'];
-			$body				= $_POST['blog_body'];
-			$category_id			= $_POST['blog_category'];
+			$subject			= $_POST['article_subject'];
+			$body				= $_POST['article_body'];
+			$category_id			= $_POST['article_category'];
 
-			$context['blog_id']		= insert_blog_article($subject, $body, $category_id, $user_info['id']);
-			$context['blog_subject'] 	= $subject;
-			$context['blog_body'] 		= $body;
-			$context['blog_category']	= $category_id;
+			$context['article_id']		= insert_articles($subject, $body, $category_id, $user_info['id']);
+			$context['article_subject'] 	= $subject;
+			$context['article_body'] 		= $body;
+			$context['article_category']	= $category_id;
 		}
-		else if (!empty($_POST['blog_subject']) && !empty($_POST['blog_body']) && !empty($_POST['blog_id'])) {
+		else if (!empty($_POST['article_subject']) && !empty($_POST['article_body']) && !empty($_POST['article_id'])) {
 			if (checkSession('post', '', false) !== '') {
 				return;
 			}
 	
-			$subject			= $_POST['blog_subject'];
-			$body				= $_POST['blog_body'];
-			$category_id			= $_POST['blog_category'];
-			$blog_id	 		= $_POST['blog_id'];
+			$subject			= $_POST['article_subject'];
+			$body				= $_POST['article_body'];
+			$category_id			= $_POST['article_category'];
+			$article_id	 		= $_POST['article_id'];
 
-			update_blog_article($subject, $body, $category_id, $blog_id);
+			update_articles($subject, $body, $category_id, $article_id);
 
-			$context['blog_id'] 		= $blog_id;
-			$context['blog_subject'] 	= $subject;
-			$context['blog_body'] 		= $body;
-			$context['blog_category']	= $category_id;
+			$context['article_id'] 		= $article_id;
+			$context['article_subject'] 	= $subject;
+			$context['article_body'] 		= $body;
+			$context['article_category']	= $category_id;
 		}
-		else if (!empty($_GET['blog_id'])) {
+		else if (!empty($_GET['article_id'])) {
 			if (checkSession('get', '', false) !== '') {
 				return;
 			}
 			
-			$blog_id	 		= $_GET['blog_id'];
-			$blog_data			= get_blog_article($blog_id);
-			$context['blog_id'] 		= $blog_data['id'];
-			$context['blog_subject'] 	= $blog_data['title'];
-			$context['blog_body'] 		= $blog_data['body'];
-			$context['blog_category']	= $blog_data['category_id'];
+			$article_id	 		= $_GET['article_id'];
+			$article_data			= get_articles($article_id);
+			$context['article_id'] 		= $article_data['id'];
+			$context['article_subject'] 	= $article_data['title'];
+			$context['article_body'] 		= $article_data['body'];
+			$context['article_category']	= $article_data['category_id'];
 		}
 
-		$context['blog_categories']	= get_blog_categories();
+		$context['article_categories']	= get_article_categories();
 	
-		$context['sub_template'] 	= 'elkblog_edit';
-		loadTemplate('ElkBlogAdmin');
+		$context['sub_template'] 	= 'elkarticle_edit';
+		loadTemplate('ElkArticleAdmin');
 	}
 
 	public function action_delete()
 	{
-		require_once(SUBSDIR . '/ElkBlogAdmin.subs.php');
-		if (!empty($_GET['blog_id'])) {
+		require_once(SUBSDIR . '/ElkArticleAdmin.subs.php');
+		if (!empty($_GET['article_id'])) {
 			if (checkSession('get', '', false) !== '') {
 				return;
 			}
 			
-			$id	=  $_GET['blog_id'];
-			delete_blog_article($id);
+			$id	=  $_GET['article_id'];
+			delete_articles($id);
 		}
 
 		// Just Load the list again
 		$this->action_list();
 	}
 
-	public function list_blog_articles()
+	public function list_articles()
 	{
-		require_once(SUBSDIR . '/ElkBlogAdmin.subs.php');
-		return get_blog_articles_list();
+		require_once(SUBSDIR . '/ElkArticleAdmin.subs.php');
+		return get_articles_list();
 	}
  
 	public function list_total_articles()
 	{
-		require_once(SUBSDIR . '/ElkBlog.subs.php');
-		return get_total_blog_articles();
+		require_once(SUBSDIR . '/ElkArticle.subs.php');
+		return get_total_articles();
 	} 
 }

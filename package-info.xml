@@ -11,35 +11,35 @@
  * @version 1.0.0
  */
 	]]></license>
-	<id>tinoest:ElkBlog</id>
+	<id>tinoest:ElkArticle</id>
 	<name>Elk Blog</name>
 	<version>1.0.0</version>
 	<type>modification</type>
 	<install for="1.1 - 1.1.99">
 		<require-dir name="themes" destination="BOARDDIR" />
 		<require-dir name="sources" destination="BOARDDIR" />
-		<require-file name="ElkBlog.integrate.php" destination="SOURCEDIR" />
-		<hook hook="integrate_action_frontpage" function="ElkBlog::integrate_action_frontpage" file="SOURCEDIR/ElkBlog.integrate.php" />
-		<hook hook="integrate_menu_buttons" function="ElkBlog::integrate_menu_buttons" file="SOURCEDIR/ElkBlog.integrate.php" />
-		<hook hook="integrate_current_action" function="ElkBlog::integrate_current_action" file="SOURCEDIR/ElkBlog.integrate.php" />
-		<hook hook="integrate_actions" function="ElkBlog::integrate_actions" file="SOURCEDIR/ElkBlog.integrate.php" />
-		<hook hook="integrate_admin_areas" function="ElkBlog::integrate_admin_areas" file="SOURCEDIR/ElkBlog.integrate.php" />
+		<require-file name="ElkArticle.integrate.php" destination="SOURCEDIR" />
+		<hook hook="integrate_action_frontpage" function="ElkArticle::integrate_action_frontpage" file="SOURCEDIR/ElkArticle.integrate.php" />
+		<hook hook="integrate_menu_buttons" function="ElkArticle::integrate_menu_buttons" file="SOURCEDIR/ElkArticle.integrate.php" />
+		<hook hook="integrate_current_action" function="ElkArticle::integrate_current_action" file="SOURCEDIR/ElkArticle.integrate.php" />
+		<hook hook="integrate_actions" function="ElkArticle::integrate_actions" file="SOURCEDIR/ElkArticle.integrate.php" />
+		<hook hook="integrate_admin_areas" function="ElkArticle::integrate_admin_areas" file="SOURCEDIR/ElkArticle.integrate.php" />
 		<database>install.php</database>
 	</install>
 	<uninstall for="1.1 - 1.1.99">
-		<hook reverse="true" hook="integrate_action_frontpage" function="ElkBlog::integrate_action_frontpage" file="SOURCEDIR/ElkBlog.integrate.php" />
-		<hook reverse="true" hook="integrate_menu_buttons" function="ElkBlog::integrate_menu_buttons" file="SOURCEDIR/ElkBlog.integrate.php" />
-		<hook reverse="true" hook="integrate_current_action" function="ElkBlog::integrate_current_action" file="SOURCEDIR/ElkBlog.integrate.php" />
-		<hook reverse="true" hook="integrate_actions" function="ElkBlog::integrate_actions" file="SOURCEDIR/ElkBlog.integrate.php" />
-		<hook reverse="true" hook="integrate_admin_areas" function="ElkBlog::integrate_admin_areas" file="SOURCEDIR/ElkBlog.integrate.php" />
-		<remove-file name="SOURCEDIR/ElkBlog.integrate.php" />
-		<remove-file name="CONTROLLERDIR/ElkBlog.controller.php" />
-		<remove-file name="ADMINDIR/ElkBlogAdmin.controller.php" />
-		<remove-file name="SUBSDIR/ElkBlog.subs.php" />
-		<remove-file name="SUBSDIR/ElkBlogAdmin.subs.php" />
-		<remove-file name="LANGUAGEDIR/english/ElkBlog.english.php" />
-		<remove-file name="THEMEDIR/ElkBlog.template.php" />
-		<remove-file name="THEMEDIR/ElkBlogAdmin.template.php" />
+		<hook reverse="true" hook="integrate_action_frontpage" function="ElkArticle::integrate_action_frontpage" file="SOURCEDIR/ElkArticle.integrate.php" />
+		<hook reverse="true" hook="integrate_menu_buttons" function="ElkArticle::integrate_menu_buttons" file="SOURCEDIR/ElkArticle.integrate.php" />
+		<hook reverse="true" hook="integrate_current_action" function="ElkArticle::integrate_current_action" file="SOURCEDIR/ElkArticle.integrate.php" />
+		<hook reverse="true" hook="integrate_actions" function="ElkArticle::integrate_actions" file="SOURCEDIR/ElkArticle.integrate.php" />
+		<hook reverse="true" hook="integrate_admin_areas" function="ElkArticle::integrate_admin_areas" file="SOURCEDIR/ElkArticle.integrate.php" />
+		<remove-file name="SOURCEDIR/ElkArticle.integrate.php" />
+		<remove-file name="CONTROLLERDIR/ElkArticle.controller.php" />
+		<remove-file name="ADMINDIR/ElkArticleAdmin.controller.php" />
+		<remove-file name="SUBSDIR/ElkArticle.subs.php" />
+		<remove-file name="SUBSDIR/ElkArticleAdmin.subs.php" />
+		<remove-file name="LANGUAGEDIR/english/ElkArticle.english.php" />
+		<remove-file name="THEMEDIR/ElkArticle.template.php" />
+		<remove-file name="THEMEDIR/ElkArticleAdmin.template.php" />
 		<remove-file name="THEMEDIR/css/pell.css" />
 		<remove-file name="THEMEDIR/scripts/pell.js" />
 		<database>install.php</database>
