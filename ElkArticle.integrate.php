@@ -59,7 +59,7 @@ class ElkArticle
 			'title' => $txt['elkarticle-admin'],
 			'permission' => array ('admin_forum'),
 			'areas' => array (
-				'blogconfig' => array (
+				'articleconfig' => array (
 					'label' => $txt['elkarticle-adminConfiguration'],
 					'file' => 'ElkArticleAdmin.controller.php',
 					'controller' => 'ElkArticleAdmin_Controller',

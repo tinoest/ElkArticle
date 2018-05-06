@@ -6,7 +6,7 @@ function template_elkarticle()
 	
 	echo '<div id="eb_view_articles">';
 
-	foreach($context['blog_articles'] as $article) {
+	foreach($context['articles'] as $article) {
 
 		echo '<div class="eb_article" style="padding: 0.1em;">';
 		echo '<h3 class="category_header">';

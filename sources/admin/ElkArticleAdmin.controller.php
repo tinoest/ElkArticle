@@ -14,7 +14,7 @@ class ElkArticleAdmin_Controller extends Action_Controller
 		);
 		// We like action, so lets get ready for some
 		$action = new Action('');
-		// Get the subAction, or just go to action_portal_index
+		// Get the subAction, or just go to action_index
 		$subAction = $action->initialize($subActions, 'index');
 		// Finally go to where we want to go
 
@@ -26,8 +26,8 @@ class ElkArticleAdmin_Controller extends Action_Controller
 		global $context, $scripturl, $txt;
 
 		$list = array (
-			'id' => 'articles_list',
-			'title' => 'Blog Articles',
+			'id' => 'article_list',
+			'title' => 'Articles',
 			'items_per_page' => 25,
 			'no_items_label' => 'No Articles Found',
 			'base_href' => $scripturl . '?action=admin;area=articleconfig;sa=listarticle;',
@@ -128,9 +128,9 @@ class ElkArticleAdmin_Controller extends Action_Controller
 					$context['session_var'] => $context['session_id'],
 				),
 			),
-		);	
+		);
 	
-		$context['page_title']		= 'Blog List';
+		$context['page_title']		= 'Article List';
 		$context['sub_template'] 	= 'elkarticle_list';	
 		$context['default_list'] 	= 'article_list';
 		// Create the list.
@@ -149,7 +149,7 @@ class ElkArticleAdmin_Controller extends Action_Controller
 		// Set the defaults
 		$context['article_category']	= 1;
 		$context['article_subject'] 	= '';
-		$context['article_body'] 		= '';
+		$context['article_body'] 	= '';
 
 		if (!empty($_POST['article_subject']) && !empty($_POST['article_body']) && empty($_POST['article_id'])) {
 			if (checkSession('post', '', false) !== '') {
@@ -160,9 +160,9 @@ class ElkArticleAdmin_Controller extends Action_Controller
 			$body				= $_POST['article_body'];
 			$category_id			= $_POST['article_category'];
 
-			$context['article_id']		= insert_articles($subject, $body, $category_id, $user_info['id']);
+			$context['article_id']		= insert_article($subject, $body, $category_id, $user_info['id']);
 			$context['article_subject'] 	= $subject;
-			$context['article_body'] 		= $body;
+			$context['article_body'] 	= $body;
 			$context['article_category']	= $category_id;
 		}
 		else if (!empty($_POST['article_subject']) && !empty($_POST['article_body']) && !empty($_POST['article_id'])) {
@@ -175,11 +175,11 @@ class ElkArticleAdmin_Controller extends Action_Controller
 			$category_id			= $_POST['article_category'];
 			$article_id	 		= $_POST['article_id'];
 
-			update_articles($subject, $body, $category_id, $article_id);
+			update_article($subject, $body, $category_id, $article_id);
 
 			$context['article_id'] 		= $article_id;
 			$context['article_subject'] 	= $subject;
-			$context['article_body'] 		= $body;
+			$context['article_body'] 	= $body;
 			$context['article_category']	= $category_id;
 		}
 		else if (!empty($_GET['article_id'])) {
@@ -188,10 +188,10 @@ class ElkArticleAdmin_Controller extends Action_Controller
 			}
 			
 			$article_id	 		= $_GET['article_id'];
-			$article_data			= get_articles($article_id);
+			$article_data			= get_article($article_id);
 			$context['article_id'] 		= $article_data['id'];
 			$context['article_subject'] 	= $article_data['title'];
-			$context['article_body'] 		= $article_data['body'];
+			$context['article_body'] 	= $article_data['body'];
 			$context['article_category']	= $article_data['category_id'];
 		}
 
@@ -210,7 +210,7 @@ class ElkArticleAdmin_Controller extends Action_Controller
 			}
 			
 			$id	=  $_GET['article_id'];
-			delete_articles($id);
+			delete_article($id);
 		}
 
 		// Just Load the list again

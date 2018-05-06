@@ -15,7 +15,7 @@ $db 		= database();
 $db_table 	= db_table();
 
 $tables = array(
-	'article' => array(
+	'articles' => array(
 		'columns' => array(
 			array('name' => 'id', 'type' => 'mediumint', 'size' => 8, 'auto' => true, 'unsigned' => true),
 			array('name' => 'category_id', 'type' => 'mediumint', 'size' => 8, 'default' => 0, 'unsigned' => true),
