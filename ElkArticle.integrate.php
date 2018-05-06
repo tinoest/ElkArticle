@@ -1,13 +1,13 @@
 <?php
 
-class ElkBlog
+class ElkArticle
 {
 	public static function integrate_action_frontpage(&$default_action)
 	{
 		$default_action = array (
-			'file' 		=> CONTROLLERDIR . '/ElkBlog.controller.php',
-			'controller' 	=> 'ElkBlog_Controller',
-			'function' 	=> 'action_elkblog'
+			'file' 		=> CONTROLLERDIR . '/ElkArticle.controller.php',
+			'controller' 	=> 'ElkArticle_Controller',
+			'function' 	=> 'action_elkarticle'
 		);
 	}
 
@@ -33,7 +33,7 @@ class ElkBlog
 	{
 		global $txt, $boardurl, $scripturl;
 
-		loadLanguage('ElkBlog');
+		loadLanguage('ElkArticle');
 		$buttons = elk_array_insert($buttons, 'home', array (
 			'base' => array(
 				'title' 	=> $txt['home_btn'],
@@ -53,23 +53,23 @@ class ElkBlog
 	{
 		global $txt;
 
-		loadLanguage('ElkBlog');
+		loadLanguage('ElkArticle');
 
-		$admin_areas['elkblog'] = array (
-			'title' => $txt['elkblog-admin'],
+		$admin_areas['elkarticle'] = array (
+			'title' => $txt['elkarticle-admin'],
 			'permission' => array ('admin_forum'),
 			'areas' => array (
 				'blogconfig' => array (
-					'label' => $txt['elkblog-adminConfiguration'],
-					'file' => 'ElkBlogAdmin.controller.php',
-					'controller' => 'ElkBlogAdmin_Controller',
+					'label' => $txt['elkarticle-adminConfiguration'],
+					'file' => 'ElkArticleAdmin.controller.php',
+					'controller' => 'ElkArticleAdmin_Controller',
 					'function' => 'action_index',
 					'icon' => 'transparent.png',
 					'class' => 'admin_home_page',
 					'permission' => array ( 'admin_forum' ),
 					'subsections' => array (
-						'editarticle' => array ( $txt['elkblog-addarticle'] ),
-						'listarticle' => array ( $txt['elkblog-listarticle'] ),
+						'editarticle' => array ( $txt['elkarticle-addarticle'] ),
+						'listarticle' => array ( $txt['elkarticle-listarticle'] ),
 					),
 				),
 			),
