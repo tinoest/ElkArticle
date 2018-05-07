@@ -68,8 +68,9 @@ class ElkArticle
 					'class' => 'admin_home_page',
 					'permission' => array ( 'admin_forum' ),
 					'subsections' => array (
-						'editarticle' => array ( $txt['elkarticle-addarticle'] ),
-						'listarticle' => array ( $txt['elkarticle-listarticle'] ),
+						'editarticle' 	=> array ( $txt['elkarticle-addarticle'] ),
+						'listarticle' 	=> array ( $txt['elkarticle-listarticle'] ),
+						'listcategory' 	=> array ( $txt['elkarticle-listcategory'] ),
 					),
 				),
 			),

@@ -7,10 +7,14 @@ class ElkArticleAdmin_Controller extends Action_Controller
 		require_once(SUBSDIR . '/Action.class.php');
 		// Where do you want to go today?
 		$subActions = array(
-			'index' 	=> array($this, 'action_list'),
-			'listarticle' 	=> array($this, 'action_list'),
-			'editarticle' 	=> array($this, 'action_edit'),
-			'deletearticle'	=> array($this, 'action_delete'),
+			'index' 		=> array($this, 'action_list'),
+			'listarticle' 		=> array($this, 'action_list'),
+			'editarticle' 		=> array($this, 'action_edit'),
+			'deletearticle'		=> array($this, 'action_delete'),
+			'listcategory' 		=> array($this, 'action_list_category'),
+			'addcategory' 		=> array($this, 'action_add_category'),
+			'editcategory' 		=> array($this, 'action_edit_category'),
+			'deletecategory' 	=> array($this, 'action_delete_category'),
 		);
 		// We like action, so lets get ready for some
 		$action = new Action('');
@@ -217,6 +221,111 @@ class ElkArticleAdmin_Controller extends Action_Controller
 		$this->action_list();
 	}
 
+	public function action_list_category()
+	{
+		global $context, $scripturl, $txt;
+
+		$list = array (
+			'id' => 'category_list',
+			'title' => 'Categories',
+			'items_per_page' => 25,
+			'no_items_label' => 'No Categories Found',
+			'base_href' => $scripturl . '?action=admin;area=articleconfig;sa=listcategories;',
+			'default_sort_col' => 'name',
+			'get_items' => array (
+				'function' => array($this, 'list_categories'),
+			),
+			'get_count' => array (
+				'function' => array($this, 'list_total_categories'),
+			),
+			'columns' => array (
+				'name' => array (
+					'header' => array (
+						'value' => 'Name',
+					),
+					'data' => array (
+						'db' => 'name',
+					),
+					'sort' => array (
+						'default' => 'name ASC',
+						'reverse' => 'name DESC',
+					),
+				),
+				'description' => array(
+					'header' => array(
+						'value' => 'Description',
+					),
+					'data' => array(
+						'db' => 'description',
+					),
+					'sort' => array(
+						'default' => 'description ASC',
+						'reverse' => 'description DESC',
+					),
+				),
+				'ariticles' => array(
+					'header' => array(
+						'value' => 'Articles',
+					),
+					'data' => array(
+						'db' => 'articles',
+					),
+					'sort' => array(
+						'default' => 'articles ASC',
+						'reverse' => 'articles DESC',
+					),
+				),
+				'status' => array(
+					'header' => array(
+						'value' => 'Status',
+						'class' => 'centertext',
+					),
+					'data' => array(
+						'db' => 'status',
+						'class' => 'centertext',
+					),
+					'sort' => array(
+						'default' => 'status ASC',
+						'reverse' => 'status DESC',
+					),
+				),
+				'action' => array(
+					'header' => array(
+						'value' => 'Actions',
+						'class' => 'centertext',
+					),
+					'data' => array(
+						'sprintf' => array (
+							'format' => '
+								<a href="?action=admin;area=articleconfig;sa=editcategory;category_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" accesskey="p">Modify</a>&nbsp;
+								<a href="?action=admin;area=articleconfig;sa=deletecategory;category_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" onclick="return confirm(' . JavaScriptEscape('Are you sure you want to delete?') . ') && submitThisOnce(this);" accesskey="d">Delete</a>',
+							'params' => array(
+								'id' => true,
+							),
+						),
+						'class' => 'centertext nowrap',
+					),
+				),
+			),
+			'form' => array(
+				'href' => $scripturl . '?action=admin;area=articleconfig;sa=addcategory',
+				'include_sort' => true,
+				'include_start' => true,
+				'hidden_fields' => array(
+					$context['session_var'] => $context['session_id'],
+				),
+			),
+		);
+	
+		$context['page_title']		= 'Category List';
+		$context['sub_template'] 	= 'elkcategory_list';	
+		$context['default_list'] 	= 'category_list';
+		// Create the list.
+		require_once(SUBSDIR . '/GenericList.class.php');
+		createList($list);
+		loadTemplate('ElkArticleAdmin');
+	}
+
 	public function list_articles()
 	{
 		require_once(SUBSDIR . '/ElkArticleAdmin.subs.php');
@@ -227,5 +336,18 @@ class ElkArticleAdmin_Controller extends Action_Controller
 	{
 		require_once(SUBSDIR . '/ElkArticle.subs.php');
 		return get_total_articles();
+	}
+
+	public function list_categories()
+	{
+		require_once(SUBSDIR . '/ElkArticle.subs.php');
+		return get_category_list();
+	}
+ 
+	public function list_total_categories()
+	{
+		require_once(SUBSDIR . '/ElkArticle.subs.php');
+		return get_total_categories();
 	} 
+ 
 }

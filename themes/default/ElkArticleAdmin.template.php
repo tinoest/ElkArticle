@@ -71,3 +71,11 @@ function template_elkarticle_list()
 	template_show_list('article_list');
 
 }
+
+function template_elkcategory_list()
+{
+	global $context;
+
+	template_show_list('category_list');
+
+}

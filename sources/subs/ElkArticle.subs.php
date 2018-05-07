@@ -105,3 +105,37 @@ function get_article_categories()
 
 	return $categories;
 }
+
+function get_category_list()
+{
+	$categories	= array();
+	$db 		= database();
+	$request	= $db->query('', '
+		SELECT id, name, description, articles, status
+		FROM {db_prefix}article_categories'
+	);
+	
+	while ($row = $db->fetch_assoc($request)) {
+		$categories[] = $row;
+	}
+
+	$db->free_result($request);
+
+	return $categories;
+}
+
+function get_total_categories()
+{
+	$db 		= database();
+	$request	= $db->query('', '
+		SELECT COUNT(id) AS count
+		FROM {db_prefix}article_categories
+		WHERE status = 1'
+	);
+	
+	$count 		= $db->fetch_assoc($request)['count'];
+
+	$db->free_result($request);
+
+	return $count;
+}

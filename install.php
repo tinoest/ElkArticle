@@ -70,5 +70,18 @@ foreach ($tables as $table => $data)
 	$db_table->db_create_table('{db_prefix}' . $table, $data['columns'], $data['indexes'], array(), 'ignore');
 }
 
+$db->insert('ignore',
+	'{db_prefix}article_categories',
+	array (
+		'name' 		=> 'string',
+		'description' 	=> 'string',
+		'status'	=> 'int'
+	),
+	array (
+		array ( 'Default Category', 'Default Category', '1')
+	),
+	array ()
+);
+
 updateSettings(array('front_page' => 'ElkArticle_Controller'));
 ?>
