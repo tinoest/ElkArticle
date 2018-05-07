@@ -1,5 +1,19 @@
 <?php
 
+/**
+ * @package "Elk Article" Addon for Elkarte
+ * @author tinoest
+ * @license BSD http://opensource.org/licenses/BSD-3-Clause
+ *
+ * @version 1.0.0
+ *
+ */
+
+if (!defined('ELK'))
+{
+	die('No access...');
+}
+
 use ElkArte\sources\Frontpage_Interface;
 
 class ElkArticle_Controller extends Action_Controller implements Frontpage_Interface

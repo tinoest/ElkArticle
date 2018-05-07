@@ -1,5 +1,19 @@
 <?php
 
+/**
+ * @package "Elk Article" Addon for Elkarte
+ * @author tinoest
+ * @license BSD http://opensource.org/licenses/BSD-3-Clause
+ *
+ * @version 1.0.0
+ *
+ */
+
+if (!defined('ELK'))
+{
+	die('No access...');
+}
+
 function template_elkarticle()
 {
 	global $context, $txt;
