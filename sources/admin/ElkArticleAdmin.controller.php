@@ -315,6 +315,12 @@ class ElkArticleAdmin_Controller extends Action_Controller
 					$context['session_var'] => $context['session_id'],
 				),
 			),
+			'additional_rows' => array(
+				array(
+					'position' => 'below_table_data',
+					'value' => '<input type="submit" name="action_add_category" value="' . $txt['elkarticle-addcategory'] . '" class="right_submit" />',
+				),
+			),
 		);
 	
 		$context['page_title']		= 'Category List';
@@ -324,6 +330,23 @@ class ElkArticleAdmin_Controller extends Action_Controller
 		require_once(SUBSDIR . '/GenericList.class.php');
 		createList($list);
 		loadTemplate('ElkArticleAdmin');
+	}
+
+	public function action_add_category()
+	{
+		global $context;
+
+		if(!empty($_POST['category_name'])) {
+			require_once(SUBSDIR . '/ElkArticleAdmin.subs.php');
+			$name = $_POST['category_name'];
+			insert_category($name);	
+			$this->action_list_category();
+		}
+		else {
+			$context['page_title']		= 'Add Category';
+			$context['sub_template'] 	= 'elkcategory_add';	
+			loadTemplate('ElkArticleAdmin');
+		}
 	}
 
 	public function list_articles()

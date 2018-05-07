@@ -79,3 +79,20 @@ function template_elkcategory_list()
 	template_show_list('category_list');
 
 }
+
+function template_elkcategory_add()
+{
+	global $context, $scripturl;
+
+	echo '
+	<h2 class="category_header">Add Category</h2>
+	<div class="forumposts">
+		<form id="article_form_edit" action="'.$scripturl.'?action=admin;area=articleconfig;sa=addcategory;" value="Submit" method="post" accept-charset="UTF-8">
+			<br /><label for="category_name">Category Name:</label>
+			<input type="text" name="category_name" value=""> </input>
+			<div id="post_confirm_buttons" class="submitbutton">
+					<input type="submit" value="Submit">
+			</div>
+		</form>
+	</div>';
+}

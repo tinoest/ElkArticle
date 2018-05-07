@@ -102,3 +102,22 @@ function delete_article($id)
 		)
 	);
 }
+
+function insert_category($name)
+{
+
+	$db = database();
+	
+	$db->insert('', 
+		'{db_prefix}article_categories',
+		array( 
+			'name' 		=> 'string',
+			'status'	=> 'int',
+		),
+		array (
+			$name,
+			1,
+		),
+		array('id')
+	);
+}
