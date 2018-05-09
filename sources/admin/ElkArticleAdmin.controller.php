@@ -21,7 +21,7 @@ class ElkArticleAdmin_Controller extends Action_Controller
 		require_once(SUBSDIR . '/Action.class.php');
 		// Where do you want to go today?
 		$subActions = array(
-			'index' 		=> array($this, 'action_list'),
+			'index' 		=> array($this, 'action_default'),
 			'listarticle' 		=> array($this, 'action_list'),
 			'editarticle' 		=> array($this, 'action_edit'),
 			'deletearticle'		=> array($this, 'action_delete'),
@@ -29,6 +29,7 @@ class ElkArticleAdmin_Controller extends Action_Controller
 			'addcategory' 		=> array($this, 'action_add_category'),
 			'editcategory' 		=> array($this, 'action_edit_category'),
 			'deletecategory' 	=> array($this, 'action_delete_category'),
+			'listsettings' 		=> array($this, 'action_list_settings'),
 		);
 		// We like action, so lets get ready for some
 		$action = new Action('');
@@ -37,6 +38,11 @@ class ElkArticleAdmin_Controller extends Action_Controller
 		// Finally go to where we want to go
 
 		$action->dispatch($subAction);
+	}
+
+	public function action_default()
+	{
+
 	}
 
 	public function action_list()
@@ -139,11 +145,17 @@ class ElkArticleAdmin_Controller extends Action_Controller
 				),
 			),
 			'form' => array(
-				'href' => $scripturl . '?action=admin;area=articleconfig;sa=deletearticle',
+				'href' => $scripturl . '?action=admin;area=articleconfig;sa=editarticle',
 				'include_sort' => true,
 				'include_start' => true,
 				'hidden_fields' => array(
 					$context['session_var'] => $context['session_id'],
+				),
+			),
+			'additional_rows' => array(
+				array(
+					'position' => 'below_table_data',
+					'value' => '<input type="submit" name="action_edit" value="' . $txt['elkarticle-addarticle'] . '" class="right_submit" />',
 				),
 			),
 		);
@@ -363,6 +375,52 @@ class ElkArticleAdmin_Controller extends Action_Controller
 		}
 	}
 
+	public function action_edit_category()
+	{
+		global $context;
+
+		require_once(SUBSDIR . '/ElkArticleAdmin.subs.php');
+
+		if ( !empty($_POST['category_id']) && !empty($_POST['category_name']) ) {
+			if (checkSession('get', '', false) !== '') {
+				return;
+			}
+	
+			$category_id			= $_POST['category_id'];
+			$category_id			= $_POST['category_name'];
+
+			update_category($category_id, $category_name);
+
+			$context['category_id']		= $category_id;
+			$context['category_name']	= $category_name;
+			$this->action_list_category();
+		}
+			
+		$this->action_list_category();
+	}
+
+	public function action_delete_category()
+	{
+		require_once(SUBSDIR . '/ElkArticleAdmin.subs.php');
+		if (!empty($_GET['category_id'])) {
+			if (checkSession('get', '', false) !== '') {
+				return;
+			}
+			
+			$id	=  $_GET['category_id'];
+			delete_category($id);
+		}
+
+		// Just Load the list again
+		$this->action_list_category();
+	}
+
+	public function action_list_settings()
+	{
+
+
+	}
+
 	public function list_articles()
 	{
 		require_once(SUBSDIR . '/ElkArticleAdmin.subs.php');
@@ -386,5 +444,4 @@ class ElkArticleAdmin_Controller extends Action_Controller
 		require_once(SUBSDIR . '/ElkArticle.subs.php');
 		return get_total_categories();
 	} 
- 
 }

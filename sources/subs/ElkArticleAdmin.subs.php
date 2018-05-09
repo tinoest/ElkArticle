@@ -135,3 +135,33 @@ function insert_category($name)
 		array('id')
 	);
 }
+
+function update_category( $category_id, $category_name) 
+{
+	$db = database();
+	
+	$db->query('', '
+	UPDATE {db_prefix}article_categories
+	SET name = {string:category_name}
+	WHERE id = {int:category_id}',
+		array (
+			'category_name' => $category_name,
+			'category_id'	=> $category_id,
+		)
+	);
+}
+
+function delete_category($id)
+{
+
+	$db = database();
+	
+	$db->query('', '
+		DELETE FROM {db_prefix}article_categories
+		WHERE id = {int:id}
+		LIMIT 1',
+		array (
+			'id'		=> $id,
+		)
+	);
+}
