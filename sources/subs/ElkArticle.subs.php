@@ -125,7 +125,12 @@ function get_category_list()
 	$categories	= array();
 	$db 		= database();
 	$request	= $db->query('', '
-		SELECT id, name, description, articles, status
+		SELECT id, name, description, articles,
+			CASE WHEN status = 1 
+				THEN \'Enabled\'
+				ELSE \'Disabled\'
+			END
+			AS status
 		FROM {db_prefix}article_categories'
 	);
 	
