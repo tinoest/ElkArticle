@@ -365,7 +365,8 @@ class ElkArticleAdmin_Controller extends Action_Controller
 		if(!empty($_POST['category_name'])) {
 			require_once(SUBSDIR . '/ElkArticleAdmin.subs.php');
 			$name = $_POST['category_name'];
-			insert_category($name);	
+			$desc = $_POST['category_desc'];
+			insert_category($name, $desc);	
 			$this->action_list_category();
 		}
 		else {

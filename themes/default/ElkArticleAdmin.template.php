@@ -96,14 +96,21 @@ function template_elkcategory_list()
 
 function template_elkcategory_add()
 {
-	global $context, $scripturl;
+	global $context, $scripturl, $txt;
 
 	echo '
 	<h2 class="category_header">Add Category</h2>
 	<div class="forumposts">
 		<form id="article_form_edit" action="'.$scripturl.'?action=admin;area=articleconfig;sa=addcategory;" value="Submit" method="post" accept-charset="UTF-8">
-			<br /><label for="category_name">Category Name:</label>
+			<dl id="post_header">
+				<dt class="clear"><label for="category_name">'.$txt['elkarticle-category-name'].'</label></dt>
 			<input type="text" name="category_name" value=""> </input>
+			</dl>
+			<dl id="post_header">
+				<dt class="clear"><label for="category_desc">'.$txt['elkarticle-category-desc'].'</label></dt>
+				<input type="text" name="category_desc" value=""> </input>
+			<dl>
+
 			<div id="post_confirm_buttons" class="submitbutton">
 					<input type="submit" value="Submit">
 			</div>

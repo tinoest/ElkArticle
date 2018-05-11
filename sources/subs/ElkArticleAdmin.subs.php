@@ -117,7 +117,7 @@ function delete_article($id)
 	);
 }
 
-function insert_category($name)
+function insert_category($name, $desc)
 {
 
 	$db = database();
@@ -126,10 +126,12 @@ function insert_category($name)
 		'{db_prefix}article_categories',
 		array( 
 			'name' 		=> 'string',
+			'description' 	=> 'string',
 			'status'	=> 'int',
 		),
 		array (
 			$name,
+			$desc,
 			1,
 		),
 		array('id')
