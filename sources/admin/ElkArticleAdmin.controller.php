@@ -418,6 +418,37 @@ class ElkArticleAdmin_Controller extends Action_Controller
 	public function action_list_settings()
 	{
 
+		global $txt, $context, $scripturl, $modSettings;
+		loadLanguage('ElkArticle');
+		// Lets build a settings form
+		require_once(SUBSDIR . '/SettingsForm.class.php');
+		// Instantiate the form
+		$elkArticleSettings = new Settings_Form();
+		// All the options, well at least some of them!
+		$config_vars = array (
+			array('check', 'elkarticle-frontpage'),
+		);
+		// Load the settings to the form class
+		$elkArticleSettings->settings($config_vars);
+		// Saving?
+		if (isset($_GET['save'])) {
+			if(!empty($_POST['elkarticle-frontpage'])) {
+				updateSettings(array('front_page' => 'ElkArticle_Controller'));
+			}
+			else {
+				removeSettings('front_page');
+			}
+			checkSession();
+			Settings_Form::save_db($config_vars);
+			redirectexit('action=admin;area=articleconfig;sa=listsettings');
+		}
+
+		$context['sub_template']	= 'show_settings';
+		// Continue on to the settings template
+		$context['settings_title'] 	= $txt['elkarticle-options'];
+		$context['page_title'] 		= $context['elkarticle_settings_title'] = $txt['elkarticle-settings'];
+		$context['post_url'] 		= $scripturl . '?action=admin;area=articleconfig;sa=listsettings;save';
+		Settings_Form::prepare_db($config_vars);
 
 	}
 

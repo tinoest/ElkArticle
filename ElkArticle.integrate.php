@@ -18,25 +18,35 @@ class ElkArticle
 {
 	public static function integrate_action_frontpage(&$default_action)
 	{
-		$default_action = array (
-			'file' 		=> CONTROLLERDIR . '/ElkArticle.controller.php',
-			'controller' 	=> 'ElkArticle_Controller',
-			'function' 	=> 'action_elkarticle'
-		);
+		global $modSettings;
+
+		if(!empty($modSettings['elkarticle-frontpage'])) {
+			$default_action = array (
+				'file' 		=> CONTROLLERDIR . '/ElkArticle.controller.php',
+				'controller' 	=> 'ElkArticle_Controller',
+				'function' 	=> 'action_elkarticle'
+			);
+		}
 	}
 
 	public static function integrate_actions(&$actionArray, &$adminActions)
 	{
-		$actionArray['forum'] = array (
-			'BoardIndex.controller.php',
-			'BoardIndex_Controller',
-			'action_boardindex'
-		);
+		global $modSettings;
+		
+		if(!empty($modSettings['elkarticle-frontpage'])) {
+			$actionArray['forum'] = array (
+				'BoardIndex.controller.php',
+				'BoardIndex_Controller',
+				'action_boardindex'
+			);
+		}
 	}
 
 	public static function integrate_current_action(&$current_action)
 	{
-		if ($current_action === 'home') {
+		global $modSettings;
+
+		if(!empty($modSettings['elkarticle-frontpage']) && ($current_action === 'home')) {
 			if (empty($_REQUEST['action'])) {
 				$current_action = 'base';
 			}
@@ -45,22 +55,24 @@ class ElkArticle
 
 	public static function integrate_menu_buttons(&$buttons, &$menu_count)
 	{
-		global $txt, $boardurl, $scripturl;
+		global $txt, $boardurl, $scripturl, $modSettings;
 
-		loadLanguage('ElkArticle');
-		$buttons = elk_array_insert($buttons, 'home', array (
-			'base' => array(
-				'title' 	=> $txt['home_btn'],
-				'href' 		=> $boardurl,
-				'data-icon' 	=> 'i-home',
-				'show' 		=> true,
-				'action_hook' 	=> true,
-			),
-		));
+		if(!empty($modSettings['elkarticle-frontpage'])) {
+			loadLanguage('ElkArticle');
+			$buttons = elk_array_insert($buttons, 'home', array (
+				'base' => array(
+					'title' 	=> $txt['home_btn'],
+					'href' 		=> $boardurl,
+					'data-icon' 	=> 'i-home',
+					'show' 		=> true,
+					'action_hook' 	=> true,
+				),
+			));
 
-		// Change the home icon to something else and rewrite the standard action
-		$buttons['home']['data-icon'] = 'i-users';
-		$buttons['home']['href'] = $scripturl . '?action=forum';
+			// Change the home icon to something else and rewrite the standard action
+			$buttons['home']['data-icon'] = 'i-users';
+			$buttons['home']['href'] = $scripturl . '?action=forum';
+		}
 	}
 
 	public static function integrate_admin_areas(&$admin_areas)
