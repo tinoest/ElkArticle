@@ -12,3 +12,6 @@ $txt['elkarticle-frontpage']			= 'Show Article\'s on Front Page?';
 $txt['elkarticle-options']			= 'ElkArticle Options';
 $txt['elkarticle-enabled']			= 'Enable ElkArticle';
 $txt['elkarticle-enabled-desc']			= 'Enable the Elkartle Article Modification?';
+$txt['elkarticle-category-name']		= 'Category Name:';
+$txt['elkarticle-category-desc']		= 'Category Description:';
+$txt['elkarticle-not-found']			= 'The Article you requested doesn\'t exist';

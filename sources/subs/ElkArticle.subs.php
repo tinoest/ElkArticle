@@ -20,7 +20,7 @@ function get_articles( $start, $per_page)
 	
 	$categories	= get_article_categories();
 	$request  	= $db->query('', '
-		SELECT category_id, member_id, dt_published, title, body, views, comments
+		SELECT id, category_id, member_id, dt_published, title, body, views, comments
 		FROM {db_prefix}articles
 		WHERE status = 1
 		ORDER BY id DESC
@@ -157,4 +157,18 @@ function get_total_categories()
 	$db->free_result($request);
 
 	return $count;
+}
+
+function update_article_views($article_id) 
+{
+	$db = database();
+	
+	$db->query('', '
+	UPDATE {db_prefix}articles
+	SET views = views + 1 
+		WHERE id = {int:id}',
+		array (
+			'id'		=> $article_id,
+		)
+	);
 }

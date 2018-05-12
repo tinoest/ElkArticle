@@ -23,24 +23,49 @@ class ElkArticle_Controller extends Action_Controller implements Frontpage_Inter
 		require_once(SUBSDIR . '/Action.class.php');
 		// Where do you want to go today?
 		$subActions = array(
-			'index' => array($this, 'action_elkarticle'),
+			'index'		=> array($this, 'action_elkarticle_index'),
+			'article' 	=> array($this, 'action_elkarticle'),
 		);
+
 		// We like action, so lets get ready for some
 		$action = new Action('');
 		// Get the subAction, or just go to action_sportal_index
 		$subAction = $action->initialize($subActions, 'index');
+
 		// Finally go to where we want to go
 		$action->dispatch($subAction);
 	}
 
 	public function action_elkarticle()
 	{
-		global $context, $scripturl;
+		global $context, $scripturl, $txt;
+		loadLanguage('ElkArticle');
 		
 		require_once(SUBSDIR . '/ElkArticle.subs.php');	
 
 		$context['page_title']		= $context['forum_name'];
 		$context['sub_template'] 	= 'elkarticle';
+		$article_id 			= !empty($_REQUEST['article']) ? (int) $_REQUEST['article'] : 0;
+		$article			= get_article($article_id);
+		if(is_array($article) && !empty($article)) {
+			update_article_views($article_id);	
+			$context['article'] 	= $article;
+		}
+		else {
+			$context['article_error'] = $txt['elkarticle-not-found'];
+		}
+
+		loadTemplate('ElkArticle');
+	}
+
+	public function action_elkarticle_index()
+	{
+		global $context, $scripturl;
+		
+		require_once(SUBSDIR . '/ElkArticle.subs.php');	
+
+		$context['page_title']		= $context['forum_name'];
+		$context['sub_template'] 	= 'elkarticle_index';
 
 		// Set up for pagination
 		$start 		= !empty($_REQUEST['start']) ? (int) $_REQUEST['start'] : 0;
