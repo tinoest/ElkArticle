@@ -42,23 +42,23 @@ function template_elkarticle_edit()
 				if(!empty($context['article_categories']) && is_array($context['article_categories'])) {
 					foreach($context['article_categories'] as $k => $v) {
 						if($k == $context['article_category']) {
-							echo '<option value="'.$k.'" selected="selected">'.$v.'</option>';
+							echo '<option value="'.$k.'" selected>'.$v.'</option>';
 						}
 						else {
-							echo '<option value="'.$k.'" selected="">'.$v.'</option>';
+							echo '<option value="'.$k.'">'.$v.'</option>';
 						}
 					}
 				}
 				echo '</select>
 				</dl>
 				<input type="hidden" id="article_body" name="article_body" />
-				<input type="hidden" name="'.$context['session_var'].'" value="'.$context['session_id'].'" />
 				<div id="editor_toolbar_container">
 					<div id="eb_editor" class="eb_editor"></div>
 				</div>
 				<div id="post_confirm_buttons" class="submitbutton">
 					<input type="submit" value="Submit">
 				</div>
+				<input type="hidden" name="'.$context['session_var'].'" value="'.$context['session_id'].'" />
 			</form>
 		</div>
 		<script src="'.$settings['theme_url'].'/scripts/pell.js"></script>
@@ -114,6 +114,32 @@ function template_elkcategory_add()
 			<div id="post_confirm_buttons" class="submitbutton">
 					<input type="submit" value="Submit">
 			</div>
+		</form>
+	</div>';
+}
+
+function template_elkcategory_edit()
+{
+	global $context, $scripturl, $txt;
+
+	echo '
+	<h2 class="category_header">Add Category</h2>
+	<div class="forumposts">
+		<form id="article_form_edit" action="'.$scripturl.'?action=admin;area=articleconfig;sa=editcategory;" value="Submit" method="post" accept-charset="UTF-8">
+			<input type="hidden" name="category_id" value="'.$context['category_id'].'"> </input>
+			<dl id="post_header">
+				<dt class="clear"><label for="category_name">'.$txt['elkarticle-category-name'].'</label></dt>
+			<input type="text" name="category_name" value="'.$context['category_name'].'"> </input>
+			</dl>
+			<dl id="post_header">
+				<dt class="clear"><label for="category_desc">'.$txt['elkarticle-category-desc'].'</label></dt>
+				<input type="text" name="category_desc" value="'.$context['category_desc'].'"> </input>
+			<dl>
+
+			<div id="post_confirm_buttons" class="submitbutton">
+					<input type="submit" value="Submit">
+			</div>
+			<input type="hidden" name="'.$context['session_var'].'" value="'.$context['session_id'].'" />
 		</form>
 	</div>';
 }

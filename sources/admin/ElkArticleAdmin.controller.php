@@ -195,7 +195,7 @@ class ElkArticleAdmin_Controller extends Action_Controller
 			$context['article_body'] 	= $body;
 			$context['article_category']	= $category_id;
 		}
-		else if (!empty($_POST['article_subject']) && !empty($_POST['article_body']) && !empty($_POST['article_id'])) {
+		else if (!empty($_POST['article_subject']) && !empty($_POST['article_body']) && !empty($_POST['article_category']) && !empty($_POST['article_id'])) {
 			if (checkSession('post', '', false) !== '') {
 				return;
 			}
