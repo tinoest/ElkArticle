@@ -363,6 +363,9 @@ class ElkArticleAdmin_Controller extends Action_Controller
 		global $context;
 
 		if(!empty($_POST['category_name'])) {
+			if (checkSession('post', '', false) !== '') {
+				return;
+			}
 			require_once(SUBSDIR . '/ElkArticleAdmin.subs.php');
 			$name = $_POST['category_name'];
 			$desc = $_POST['category_desc'];
@@ -380,23 +383,40 @@ class ElkArticleAdmin_Controller extends Action_Controller
 	{
 		global $context;
 
-		require_once(SUBSDIR . '/ElkArticleAdmin.subs.php');
 
-		if ( !empty($_POST['category_id']) && !empty($_POST['category_name']) ) {
-			if (checkSession('get', '', false) !== '') {
+		if ( !empty($_POST['category_id']) && !empty($_POST['category_name']) && !empty($_POST['category_desc'])) {
+			if (checkSession('post', '', false) !== '') {
 				return;
 			}
+			require_once(SUBSDIR . '/ElkArticleAdmin.subs.php');
 	
 			$category_id			= $_POST['category_id'];
-			$category_id			= $_POST['category_name'];
+			$category_name			= $_POST['category_name'];
+			$category_desc			= $_POST['category_desc'];
 
-			update_category($category_id, $category_name);
+			update_category($category_id, $category_name, $category_desc);
 
 			$context['category_id']		= $category_id;
 			$context['category_name']	= $category_name;
-			$this->action_list_category();
+			$context['category_desc']	= $category_desc;
 		}
-			
+		else if(!empty($_GET['category_id'])) {
+			if (checkSession('get', '', false) !== '') {
+				return;
+			}			
+			require_once(SUBSDIR . '/ElkArticle.subs.php');
+			$category_id			= $_GET['category_id'];
+			$category_details		= get_category($category_id);
+			$context['category_id']		= $category_details['id'];
+			$context['category_name']	= $category_details['name'];
+			$context['category_desc']	= $category_details['description'];
+
+			$context['page_title']		= 'Edit Category';
+			$context['sub_template'] 	= 'elkcategory_edit';
+			loadTemplate('ElkArticleAdmin');
+			return;
+		} 
+
 		$this->action_list_category();
 	}
 

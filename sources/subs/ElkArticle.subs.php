@@ -120,6 +120,33 @@ function get_article_categories()
 	return $categories;
 }
 
+function get_category($id)
+{
+	$category	= array();
+	$db 		= database();
+	$request	= $db->query('', '
+		SELECT id, name, description, articles,
+			CASE WHEN status = 1 
+				THEN \'Enabled\'
+				ELSE \'Disabled\'
+			END
+			AS status
+		FROM {db_prefix}article_categories
+		WHERE id = {int:id}',
+		array (
+			'id' => $id,
+		)
+	);
+	
+	while ($row = $db->fetch_assoc($request)) {
+		$category = $row;
+	}
+
+	$db->free_result($request);
+
+	return $category;
+}
+
 function get_category_list()
 {
 	$categories	= array();
