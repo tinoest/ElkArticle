@@ -256,7 +256,7 @@ class ElkArticleAdmin_Controller extends Action_Controller
 			'title' => 'Categories',
 			'items_per_page' => 25,
 			'no_items_label' => 'No Categories Found',
-			'base_href' => $scripturl . '?action=admin;area=articleconfig;sa=listcategories;',
+			'base_href' => $scripturl . '?action=admin;area=articleconfig;sa=listcategory;',
 			'default_sort_col' => 'name',
 			'get_items' => array (
 				'function' => array($this, 'list_categories'),
@@ -473,10 +473,10 @@ class ElkArticleAdmin_Controller extends Action_Controller
 
 	}
 
-	public function list_articles()
+	public function list_articles($start, $items_per_page, $sort)
 	{
 		require_once(SUBSDIR . '/ElkArticleAdmin.subs.php');
-		return get_articles_list();
+		return get_articles_list($start, $items_per_page, $sort);
 	}
  
 	public function list_total_articles()
@@ -485,10 +485,10 @@ class ElkArticleAdmin_Controller extends Action_Controller
 		return get_total_articles();
 	}
 
-	public function list_categories()
+	public function list_categories($start, $items_per_page, $sort)
 	{
 		require_once(SUBSDIR . '/ElkArticle.subs.php');
-		return get_category_list();
+		return get_category_list($start, $items_per_page, $sort);
 	}
  
 	public function list_total_categories()

@@ -147,7 +147,7 @@ function get_category($id)
 	return $category;
 }
 
-function get_category_list()
+function get_category_list($start, $items_per_page, $sort)
 {
 	$categories	= array();
 	$db 		= database();
@@ -158,7 +158,9 @@ function get_category_list()
 				ELSE \'Disabled\'
 			END
 			AS status
-		FROM {db_prefix}article_categories'
+		FROM {db_prefix}article_categories
+		ORDER BY '.$sort.'
+		LIMIT '.$start.' , '.$items_per_page
 	);
 	
 	while ($row = $db->fetch_assoc($request)) {

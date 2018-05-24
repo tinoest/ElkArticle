@@ -14,7 +14,7 @@ if (!defined('ELK'))
 	die('No access...');
 }
 
-function get_articles_list() 
+function get_articles_list($start, $items_per_page, $sort) 
 {
 
 	$db = database();
@@ -30,7 +30,8 @@ function get_articles_list()
 			END
 			AS status
 		FROM {db_prefix}articles
-		ORDER BY id DESC'
+		ORDER BY '.$sort.'
+		LIMIT '.$start.' , '.$items_per_page
 	);
 
 	$articles 	= array();
@@ -109,7 +110,8 @@ function delete_article($id)
 	
 	$db->query('', '
 		DELETE FROM {db_prefix}articles
-		WHERE id = {int:id}',
+		WHERE id = {int:id}
+		LIMIT 1',
 		array (
 			'id'		=> $id,
 		)
@@ -161,7 +163,8 @@ function delete_category($id)
 	
 	$db->query('', '
 		DELETE FROM {db_prefix}article_categories
-		WHERE id = {int:id}',
+		WHERE id = {int:id}
+		LIMIT 1',
 		array (
 			'id'		=> $id,
 		)
