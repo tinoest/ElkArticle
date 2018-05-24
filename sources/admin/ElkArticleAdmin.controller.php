@@ -447,7 +447,17 @@ class ElkArticleAdmin_Controller extends Action_Controller
 		$elkArticleSettings = new Settings_Form();
 		// All the options, well at least some of them!
 		$config_vars = array (
-			array('check', 'elkarticle-frontpage'),
+			array ('check', 'elkarticle-frontpage'),
+			array ('select', 'elkarticle-item-limit', 
+				array (
+					$txt['elkarticle-limit-10'], 
+					$txt['elkarticle-limit-25'], 
+					$txt['elkarticle-limit-50'], 
+					$txt['elkarticle-limit-75'], 
+					$txt['elkarticle-limit-100'], 
+				)
+			),
+			array ('check', 'elkarticle-enablecomments'),
 		);
 		// Load the settings to the form class
 		$elkArticleSettings->settings($config_vars);

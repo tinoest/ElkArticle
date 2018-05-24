@@ -60,7 +60,7 @@ class ElkArticle_Controller extends Action_Controller implements Frontpage_Inter
 
 	public function action_elkarticle_index()
 	{
-		global $context, $scripturl;
+		global $context, $scripturl, $modSettings;
 		
 		require_once(SUBSDIR . '/ElkArticle.subs.php');	
 
@@ -69,7 +69,26 @@ class ElkArticle_Controller extends Action_Controller implements Frontpage_Inter
 
 		// Set up for pagination
 		$start 		= !empty($_REQUEST['start']) ? (int) $_REQUEST['start'] : 0;
-		$per_page	= 10;
+		switch($modSettings['elkarticle-item-limit']) {
+			case 0:
+				$per_page = 10;
+				break;
+			case 1:
+				$per_page = 25;
+				break;
+			case 2:
+				$per_page = 50;
+				break;
+			case 3:
+				$per_page = 75;
+				break;
+			case 4:
+				$per_page = 100;
+				break;
+			default: 
+				$per_page = 10;
+				break;
+		}
 		$articles	= get_articles($start, $per_page);	
 		$total_articles = get_total_articles(); 
 

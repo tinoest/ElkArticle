@@ -24,7 +24,9 @@ function template_elkarticle_index()
 		echo '
 		<div class="ea_article">
 			<h3 class="category_header"><a href="'.$scripturl.'/index.php?sa=article&article='.$article['id'].'">'.$article['title'].'</a></h3>';
-			echo sprintf('<span class="views_text"> Views: %d | Comments: %d </span>', $article['views'], $article['comments']);
+			echo sprintf('<span class="views_text"> Views: %d%s</span>', $article['views'], 
+				( $context['comments-enabled'] == 1 ) ? ' | '.$txt['elkarticle-comments'] . $article['comments'] : ''
+			);
 			echo sprintf('<span class="views_text"> | Written By: %s in %s | %s </span>', $article['member'], $article['category'], htmlTime($article['dt_published']));
 			echo '<section><article class="post_wrapper forumposts"><div style="margin : 0.5em">'.$article['body'].'</div></article></section>
 		</div>';
