@@ -70,18 +70,43 @@ foreach ($tables as $table => $data)
 	$db_table->db_create_table('{db_prefix}' . $table, $data['columns'], $data['indexes'], array(), 'ignore');
 }
 
-$db->insert('ignore',
-	'{db_prefix}article_categories',
-	array (
-		'name' 		=> 'string',
-		'description' 	=> 'string',
-		'status'	=> 'int'
-	),
-	array (
-		array ( 'Default Category', 'Default Category', '1')
-	),
-	array ()
-);
+// Add a default category if none exist
+$request = $db->query('', 'SELECT COUNT(id) FROM {db_prefix}article_categories LIMIT 1');
+if($db->num_rows($request) == 0) {
+	$db->insert('ignore',
+		'{db_prefix}article_categories',
+		array (
+			'name' 		=> 'string',
+			'description' 	=> 'string',
+			'status'	=> 'int'
+		),
+		array (
+			array ( 'Default Category', 'Default Category', '1')
+		),
+		array ()
+	);
+}
+$db->free_result($request);
 
-updateSettings(array('front_page' => 'ElkArticle_Controller'));
+// Update the mod settings
+update_modSettings();
+
+function update_modSettings() 
+{
+	global $modSettings;
+
+	$mod_settings = array(
+		'front_page' 			=> 'ElkArticle_Controller',
+		'elkarticle-frontpage' 		=> 1,
+		'elkarticle-item-limit' 	=> 0,
+		'elkarticle-enablecomments' 	=> 0,
+	);
+
+	foreach ($mod_settings as $new_setting => $new_value) {
+		if (!array_key_exists($new_setting, $modSettings)) {
+			updateSettings(array($new_setting => $new_value));
+		}
+	}
+}
+
 ?>

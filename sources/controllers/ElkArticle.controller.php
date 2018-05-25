@@ -92,6 +92,7 @@ class ElkArticle_Controller extends Action_Controller implements Frontpage_Inter
 		$articles	= get_articles($start, $per_page);	
 		$total_articles = get_total_articles(); 
 
+		$context['comments-enabled'] 	= $modSettings['elkarticle-enablecomments'];
 		$context['articles'] 		= $articles;
 		$context['page_index'] 		= constructPageIndex($scripturl . '?action=home;start=%1$d', $start, $total_articles, $per_page, true);
 
