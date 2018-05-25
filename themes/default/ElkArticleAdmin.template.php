@@ -114,6 +114,7 @@ function template_elkcategory_add()
 				<dt class="clear"><label for="category_desc">'.$txt['elkarticle-category-status'].'</label></dt>
 				<input type="checkbox" name="category_enabled" '.(!empty($context['category_enabled']) ? 'checked' : '').'> </input>
 			</dl>
+			<input type="hidden" name="'.$context['session_var'].'" value="'.$context['session_id'].'" />
 			<div id="post_confirm_buttons" class="submitbutton">
 					<input type="submit" value="Submit">
 			</div>
