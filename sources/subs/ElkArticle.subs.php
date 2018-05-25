@@ -38,8 +38,13 @@ function get_articles( $start, $per_page)
 			)
 		);
 		$row['member'] 		= $db->fetch_assoc($member)['member_name'];
-		$row['category']	= $categories[$row['category_id']];	
-		$articles[] 		= $row; 
+		if(array_key_exists($row['category_id'], $categories)) {
+			$row['category']	= $categories[$row['category_id']];	
+			$articles[] 		= $row; 
+		}
+		else {
+			unset($row);
+		}
 	}
 
 	$db->free_result($request);
