@@ -125,7 +125,7 @@ function get_category($id)
 	$category	= array();
 	$db 		= database();
 	$request	= $db->query('', '
-		SELECT id, name, description, articles,
+		SELECT id, name, description, articles, status AS enabled,
 			CASE WHEN status = 1 
 				THEN \'Enabled\'
 				ELSE \'Disabled\'
@@ -152,7 +152,7 @@ function get_category_list($start, $items_per_page, $sort)
 	$categories	= array();
 	$db 		= database();
 	$request	= $db->query('', '
-		SELECT id, name, description, articles,
+		SELECT id, name, description, articles, status AS enabled,
 			CASE WHEN status = 1 
 				THEN \'Enabled\'
 				ELSE \'Disabled\'

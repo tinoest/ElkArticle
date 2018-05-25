@@ -109,8 +109,11 @@ function template_elkcategory_add()
 			<dl id="post_header">
 				<dt class="clear"><label for="category_desc">'.$txt['elkarticle-category-desc'].'</label></dt>
 				<input type="text" name="category_desc" value=""> </input>
-			<dl>
-
+			</dl>
+			<dl id="post_header">
+				<dt class="clear"><label for="category_desc">'.$txt['elkarticle-category-status'].'</label></dt>
+				<input type="checkbox" name="category_enabled" '.(!empty($context['category_enabled']) ? 'checked' : '').'> </input>
+			</dl>
 			<div id="post_confirm_buttons" class="submitbutton">
 					<input type="submit" value="Submit">
 			</div>
@@ -134,8 +137,11 @@ function template_elkcategory_edit()
 			<dl id="post_header">
 				<dt class="clear"><label for="category_desc">'.$txt['elkarticle-category-desc'].'</label></dt>
 				<input type="text" name="category_desc" value="'.$context['category_desc'].'"> </input>
-			<dl>
-
+			</dl>
+			<dl id="post_header">
+				<dt class="clear"><label for="category_desc">'.$txt['elkarticle-category-status'].'</label></dt>
+				<input type="checkbox" name="category_enabled" '.(!empty($context['category_enabled']) ? 'checked' : '').'> </input>
+			</dl>
 			<div id="post_confirm_buttons" class="submitbutton">
 					<input type="submit" value="Submit">
 			</div>

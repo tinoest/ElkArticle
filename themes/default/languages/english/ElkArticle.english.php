@@ -14,6 +14,7 @@ $txt['elkarticle-enabled']			= 'Enable ElkArticle';
 $txt['elkarticle-enabled-desc']			= 'Enable the Elkartle Article Modification?';
 $txt['elkarticle-category-name']		= 'Category Name:';
 $txt['elkarticle-category-desc']		= 'Category Description:';
+$txt['elkarticle-category-status']		= 'Category Status:';
 $txt['elkarticle-not-found']			= 'The Article you requested doesn\'t exist';
 $txt['elkarticle-item-limit']			= 'Number of items to display on front page';
 $txt['elkarticle-limit-10']			= '10';

@@ -45,7 +45,12 @@ function get_articles_list($start, $items_per_page, $sort)
 			)
 		);
 		$row['member'] 		= $db->fetch_assoc($member)['member_name'];
-		$row['category']	= $categories[$row['category_id']];
+		if(array_key_exists($row['category_id'], $categories)) {
+			$row['category']	= $categories[$row['category_id']];
+		}
+		else {
+			$row['category']	= 'Category Disabled';
+		}
 		$row['dt_created']	= htmlTime($row['dt_created']);
 		$row['dt_published']	= htmlTime($row['dt_published']);
 		$articles[] 		= $row; 
@@ -117,7 +122,7 @@ function delete_article($id)
 	);
 }
 
-function insert_category($name, $desc)
+function insert_category($name, $desc, $status)
 {
 
 	$db = database();
@@ -132,25 +137,27 @@ function insert_category($name, $desc)
 		array (
 			$name,
 			$desc,
-			1,
+			$status,
 		),
 		array('id')
 	);
 }
 
-function update_category( $category_id, $category_name, $category_desc) 
+function update_category( $category_id, $category_name, $category_desc, $category_enabled) 
 {
 	$db = database();
 	
 	$db->query('', '
 	UPDATE {db_prefix}article_categories
 	SET name = {string:category_name} ,
-	description = {string:category_desc}
+	description = {string:category_desc},
+	status = {int:category_enabled}
 	WHERE id = {int:category_id}',
 		array (
-			'category_name' => $category_name,
-			'category_desc' => $category_desc,
-			'category_id'	=> $category_id,
+			'category_name' 	=> $category_name,
+			'category_desc' 	=> $category_desc,
+			'category_enabled'	=> $category_enabled,
+			'category_id'		=> $category_id,
 		)
 	);
 }

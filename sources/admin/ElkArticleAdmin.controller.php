@@ -22,9 +22,9 @@ class ElkArticleAdmin_Controller extends Action_Controller
 		// Where do you want to go today?
 		$subActions = array(
 			'index' 		=> array($this, 'action_default'),
-			'listarticle' 		=> array($this, 'action_list'),
-			'editarticle' 		=> array($this, 'action_edit'),
-			'deletearticle'		=> array($this, 'action_delete'),
+			'listarticle' 		=> array($this, 'action_list_article'),
+			'editarticle' 		=> array($this, 'action_edit_article'),
+			'deletearticle'		=> array($this, 'action_delete_article'),
 			'listcategory' 		=> array($this, 'action_list_category'),
 			'addcategory' 		=> array($this, 'action_add_category'),
 			'editcategory' 		=> array($this, 'action_edit_category'),
@@ -45,7 +45,7 @@ class ElkArticleAdmin_Controller extends Action_Controller
 
 	}
 
-	public function action_list()
+	public function action_list_article()
 	{
 		global $context, $scripturl, $txt;
 
@@ -169,7 +169,7 @@ class ElkArticleAdmin_Controller extends Action_Controller
 		loadTemplate('ElkArticleAdmin');
 	}
 
-	public function action_edit() 
+	public function action_edit_article() 
 	{
 		global $context, $user_info;
 
@@ -231,7 +231,7 @@ class ElkArticleAdmin_Controller extends Action_Controller
 		loadTemplate('ElkArticleAdmin');
 	}
 
-	public function action_delete()
+	public function action_delete_article()
 	{
 		require_once(SUBSDIR . '/ElkArticleAdmin.subs.php');
 		if (!empty($_GET['article_id'])) {
@@ -367,9 +367,15 @@ class ElkArticleAdmin_Controller extends Action_Controller
 				return;
 			}
 			require_once(SUBSDIR . '/ElkArticleAdmin.subs.php');
-			$name = $_POST['category_name'];
-			$desc = $_POST['category_desc'];
-			insert_category($name, $desc);	
+			$name 	= $_POST['category_name'];
+			$desc 	= $_POST['category_desc'];
+			if(!empty($_POST['category_enabled'])) {
+				$status = 1;
+			}
+			else {
+				$status	= 0;
+			}
+			insert_category($name, $desc, $status);	
 			$this->action_list_category();
 		}
 		else {
@@ -384,21 +390,27 @@ class ElkArticleAdmin_Controller extends Action_Controller
 		global $context;
 
 
-		if ( !empty($_POST['category_id']) && !empty($_POST['category_name']) && !empty($_POST['category_desc'])) {
+		if ( !empty($_POST['category_id']) && !empty($_POST['category_name']) && !empty($_POST['category_desc']) ) {
 			if (checkSession('post', '', false) !== '') {
 				return;
 			}
 			require_once(SUBSDIR . '/ElkArticleAdmin.subs.php');
-	
+
 			$category_id			= $_POST['category_id'];
 			$category_name			= $_POST['category_name'];
 			$category_desc			= $_POST['category_desc'];
-
-			update_category($category_id, $category_name, $category_desc);
+			if(!empty($_POST['category_enabled'])) {
+				$category_enabled 	= 1;
+			}
+			else {
+				$category_enabled	= 0;
+			}
+			update_category($category_id, $category_name, $category_desc, $category_enabled);
 
 			$context['category_id']		= $category_id;
 			$context['category_name']	= $category_name;
 			$context['category_desc']	= $category_desc;
+			$context['category_enabled']	= $category_enabled;
 		}
 		else if(!empty($_GET['category_id'])) {
 			if (checkSession('get', '', false) !== '') {
@@ -410,6 +422,7 @@ class ElkArticleAdmin_Controller extends Action_Controller
 			$context['category_id']		= $category_details['id'];
 			$context['category_name']	= $category_details['name'];
 			$context['category_desc']	= $category_details['description'];
+			$context['category_enabled']	= $category_details['enabled'];
 
 			$context['page_title']		= 'Edit Category';
 			$context['sub_template'] 	= 'elkcategory_edit';
