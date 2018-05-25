@@ -110,8 +110,7 @@ function delete_article($id)
 	
 	$db->query('', '
 		DELETE FROM {db_prefix}articles
-		WHERE id = {int:id}
-		LIMIT 1',
+		WHERE id = {int:id}',
 		array (
 			'id'		=> $id,
 		)
@@ -163,8 +162,7 @@ function delete_category($id)
 	
 	$db->query('', '
 		DELETE FROM {db_prefix}article_categories
-		WHERE id = {int:id}
-		LIMIT 1',
+		WHERE id = {int:id}',
 		array (
 			'id'		=> $id,
 		)
