@@ -24,7 +24,7 @@ function get_articles( $start, $per_page)
 		FROM {db_prefix}articles
 		WHERE status = 1
 		ORDER BY id DESC
-		LIMIT '.$start.', '.$per_page
+		LIMIT '.$per_page.' OFFSET '.$start
 	);
 
 	$articles 	= array();
@@ -160,7 +160,7 @@ function get_category_list($start, $items_per_page, $sort)
 			AS status
 		FROM {db_prefix}article_categories
 		ORDER BY '.$sort.'
-		LIMIT '.$start.' , '.$items_per_page
+		LIMIT '.$items_per_page.' OFFSET '.$start
 	);
 	
 	while ($row = $db->fetch_assoc($request)) {

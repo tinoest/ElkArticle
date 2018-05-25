@@ -31,7 +31,7 @@ function get_articles_list($start, $items_per_page, $sort)
 			AS status
 		FROM {db_prefix}articles
 		ORDER BY '.$sort.'
-		LIMIT '.$start.' , '.$items_per_page
+		LIMIT '.$items_per_page.' OFFSET '.$start
 	);
 
 	$articles 	= array();
