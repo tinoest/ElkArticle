@@ -58,7 +58,7 @@ function get_article( $id )
 	
 	$categories	= get_article_categories();
 	$request  	= $db->query('', '
-		SELECT id, category_id, member_id, dt_published, title, body, views, comments
+		SELECT id, category_id, member_id, dt_published, title, body, views, comments, status
 		FROM {db_prefix}articles
 		WHERE id = {int:id}',
 		array (

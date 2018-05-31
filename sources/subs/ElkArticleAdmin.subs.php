@@ -61,7 +61,7 @@ function get_articles_list($start, $items_per_page, $sort)
 }
 
 
-function insert_article($subject, $body, $category_id, $member_id) 
+function insert_article($subject, $body, $category_id, $member_id, $status) 
 {
 
 	$db = database();
@@ -74,6 +74,7 @@ function insert_article($subject, $body, $category_id, $member_id)
 			'title'		=> 'string',
 			'body'		=> 'string',
 			'dt_published'	=> 'int',
+			'status'	=> 'int',
 		),
 		array (
 			$member_id,
@@ -81,6 +82,7 @@ function insert_article($subject, $body, $category_id, $member_id)
 			$subject,
 			$body,
 			time(),
+			$status,
 		),
 		array('id')
 	);
@@ -91,18 +93,19 @@ function insert_article($subject, $body, $category_id, $member_id)
 }
 
 
-function update_article( $subject, $body, $category_id, $article_id) 
+function update_article( $subject, $body, $category_id, $article_id, $status) 
 {
 	$db = database();
 	
 	$db->query('', '
 	UPDATE {db_prefix}articles
-	SET title = {string:title}, body = {string:body}, category_id = {int:category_id}
+	SET title = {string:title}, body = {string:body}, category_id = {int:category_id}, status = {int:status}
 		WHERE id = {int:id}',
 		array (
 			'title' 	=> $subject,
 			'body'		=> $body,
 			'category_id'	=> $category_id,
+			'status'	=> $status,
 			'id'		=> $article_id,
 		)
 	);

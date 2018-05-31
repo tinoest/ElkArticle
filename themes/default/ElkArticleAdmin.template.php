@@ -24,21 +24,21 @@ function template_elkarticle_edit()
 			<form id="article_form_edit" action="'.$scripturl.'?action=admin;area=articleconfig;sa=editarticle;" value="Submit" method="post" accept-charset="UTF-8">';
 	
 			if(isset($context['article_id'])) {
-				echo '<input type="hidden" name="article_id" value="'.$context['article_id'].'"> </input>';
+				echo '<input type="hidden" name="article_id" value="'.$context['article_id'].'" />';
 			}
 			
 			echo '<dl id="post_header">
 				<dt class="clear"><label for="post_subject" id="caption_subject">Subject:</label></dt>';
 
 				if(!empty($context['article_subject'])) {
-					echo '<dd><input type="text" name="article_subject" value="'.$context['article_subject'].'" tabindex="1" size="80" maxlength="80" class="input_text" placeholder="Subject" required="required"> </input><br /></dd>';
+					echo '<dd><input type="text" name="article_subject" value="'.$context['article_subject'].'" tabindex="1" size="80" maxlength="80" class="input_text" placeholder="Subject" required="required" /><br /></dd>';
 				}
 				else {
-					echo '<dd><input type="text" name="article_subject" value="" tabindex="1" size="80" maxlength="80" class="input_text" placeholder="Subject" required="required"> </input></dd>';
+					echo '<dd><input type="text" name="article_subject" value="" tabindex="1" size="80" maxlength="80" class="input_text" placeholder="Subject" required="required" /></dd>';
 				}
 				echo '<dt class="clear"><label for="article_category">Blog Category:</label></dt>';
 
-				echo '<select name="article_category">';
+				echo '<dd><select name="article_category">';
 				if(!empty($context['article_categories']) && is_array($context['article_categories'])) {
 					foreach($context['article_categories'] as $k => $v) {
 						if($k == $context['article_category']) {
@@ -49,7 +49,18 @@ function template_elkarticle_edit()
 						}
 					}
 				}
-				echo '</select>
+				echo '</select></dd>
+				<dt class="clear"><label for="article_status">Status:</label></dt>
+				<dd><select name="article_status">';
+				foreach( array( 0 => 'Disabled' , 1 => 'Show on front page', 2 => 'Don\'t show on front page' ) as $k => $v) {
+					if($k == $context['article_status']) {
+						echo '<option value="'.$k.'" selected>'.$v.'</option>';
+					}
+					else {
+						echo '<option value="'.$k.'">'.$v.'</option>';
+					}
+				}
+				echo '</select></dd>
 				</dl>
 				<input type="hidden" id="article_body" name="article_body" />
 				<div id="editor_toolbar_container">
