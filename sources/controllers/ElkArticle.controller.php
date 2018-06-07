@@ -40,6 +40,7 @@ class ElkArticle_Controller extends Action_Controller implements Frontpage_Inter
 	{
 		global $context, $scripturl, $txt;
 		loadLanguage('ElkArticle');
+		loadCSSFile('elkarticle.css');
 		
 		require_once(SUBSDIR . '/ElkArticle.subs.php');	
 
@@ -63,6 +64,8 @@ class ElkArticle_Controller extends Action_Controller implements Frontpage_Inter
 		global $context, $scripturl, $modSettings;
 		
 		require_once(SUBSDIR . '/ElkArticle.subs.php');	
+
+		loadCSSFile('elkarticle.css');
 
 		$context['page_title']		= $context['forum_name'];
 		$context['sub_template'] 	= 'elkarticle_index';
