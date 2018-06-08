@@ -96,19 +96,34 @@ function insert_article($subject, $body, $category_id, $member_id, $status)
 function update_article( $subject, $body, $category_id, $article_id, $status) 
 {
 	$db = database();
-	
-	$db->query('', '
-	UPDATE {db_prefix}articles
-	SET title = {string:title}, body = {string:body}, category_id = {int:category_id}, status = {int:status}
-		WHERE id = {int:id}',
-		array (
-			'title' 	=> $subject,
-			'body'		=> $body,
-			'category_id'	=> $category_id,
-			'status'	=> $status,
-			'id'		=> $article_id,
-		)
-	);
+
+	if(is_null($body)) {
+		$db->query('', '
+		UPDATE {db_prefix}articles
+		SET title = {string:title}, category_id = {int:category_id}, status = {int:status}
+			WHERE id = {int:id}',
+			array (
+				'title' 	=> $subject,
+				'category_id'	=> $category_id,
+				'status'	=> $status,
+				'id'		=> $article_id,
+			)
+		);
+	}
+	else {
+		$db->query('', '
+		UPDATE {db_prefix}articles
+		SET title = {string:title}, body = {string:body}, category_id = {int:category_id}, status = {int:status}
+			WHERE id = {int:id}',
+			array (
+				'title' 	=> $subject,
+				'body'		=> $body,
+				'category_id'	=> $category_id,
+				'status'	=> $status,
+				'id'		=> $article_id,
+			)
+		);
+	}
 }
 
 function delete_article($id)

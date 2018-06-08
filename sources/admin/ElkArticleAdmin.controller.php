@@ -176,6 +176,7 @@ class ElkArticleAdmin_Controller extends Action_Controller
 		require_once(SUBSDIR . '/ElkArticle.subs.php');
 		require_once(SUBSDIR . '/ElkArticleAdmin.subs.php');
 
+
 		// Set the defaults
 		$context['article_category']	= 1;
 		$context['article_subject'] 	= '';
@@ -202,22 +203,29 @@ class ElkArticleAdmin_Controller extends Action_Controller
 			$context['article_body'] 	= $body;
 			$context['article_category']	= $category_id;
 		}
-		else if (!empty($_POST['article_subject']) && !empty($_POST['article_body']) && !empty($_POST['article_category']) && !empty($_POST['article_id'])) {
+		else if ( (!empty($_POST['article_subject']) || !empty($_POST['article_body'])) && !empty($_POST['article_category']) && !empty($_POST['article_id'])) {
 			if (checkSession('post', '', false) !== '') {
 				return;
 			}
 	
 			$subject			= $_POST['article_subject'];
-			$body				= $_POST['article_body'];
+			if(array_key_exists('article_body', $_POST) && !empty($_POST['article_body'])) {
+				$body			= $_POST['article_body'];
+			}
+			else {
+				$body			= null;
+			}
 			$category_id			= $_POST['article_category'];
 			$article_id	 		= $_POST['article_id'];
 
 			update_article($subject, $body, $category_id, $article_id, $status);
 
-			$context['article_id'] 		= $article_id;
-			$context['article_subject'] 	= $subject;
-			$context['article_body'] 	= $body;
-			$context['article_category']	= $category_id;
+			$article_data			= get_article($article_id);
+			$context['article_id'] 		= $article_data['id'];
+			$context['article_subject'] 	= $article_data['title'];
+			$context['article_body'] 	= $article_data['body'];
+			$context['article_category']	= $article_data['category_id'];
+			$context['article_status']	= $article_data['status'];
 		}
 		else if (!empty($_GET['article_id'])) {
 			if (checkSession('get', '', false) !== '') {
