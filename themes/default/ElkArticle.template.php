@@ -58,6 +58,8 @@ function template_elkarticle_index()
 		
 	}
 
+	echo '</div>';
+
 	if (!empty($context['page_index'])) {
 		template_pagesection();
 	}
