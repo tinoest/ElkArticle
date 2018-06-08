@@ -35,9 +35,16 @@ function template_elkarticle_index()
 			'.$context['elkarticle_rightPanel']['content'].'
 		</div>';
 	}
-	
+
+	if(empty($context['elkarticle_rightPanel']) && empty($context['elkarticle_leftPanel'])) {	
+		$style = 'style="grid-column: span 3"';
+	}
+	else {
+		$style = '';
+	}
+
 	echo'
-	<div class="elk_article_centerPanel">';
+	<div class="elk_article_centerPanel" '.$style.'>';
 
 	foreach($context['articles'] as $article) {
 		echo '<h3 class="category_header"><a href="'.$scripturl.'?sa=article&article='.$article['id'].'">'.$article['title'].'</a></h3>';
