@@ -38,7 +38,7 @@ class ElkArticle_Controller extends Action_Controller implements Frontpage_Inter
 
 	public function action_elkarticle()
 	{
-		global $context, $scripturl, $txt;
+		global $context, $scripturl, $txt, $modSettings;
 		loadLanguage('ElkArticle');
 		loadCSSFile('elkarticle.css');
 		
@@ -55,6 +55,7 @@ class ElkArticle_Controller extends Action_Controller implements Frontpage_Inter
 		else {
 			$context['article_error'] = $txt['elkarticle-not-found'];
 		}
+		$context['comments-enabled'] 	= $modSettings['elkarticle-enablecomments'];
 
 		loadTemplate('ElkArticle');
 	}

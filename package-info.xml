@@ -19,6 +19,7 @@
 		<require-dir name="themes" destination="BOARDDIR" />
 		<require-dir name="sources" destination="BOARDDIR" />
 		<require-file name="ElkArticle.integrate.php" destination="SOURCEDIR" />
+		<hook hook="integrate_pre_load" function="ElkArticle::integrate_pre_load" file="SOURCEDIR/ElkArticle.integrate.php" />
 		<hook hook="integrate_action_frontpage" function="ElkArticle::integrate_action_frontpage" file="SOURCEDIR/ElkArticle.integrate.php" />
 		<hook hook="integrate_menu_buttons" function="ElkArticle::integrate_menu_buttons" file="SOURCEDIR/ElkArticle.integrate.php" />
 		<hook hook="integrate_current_action" function="ElkArticle::integrate_current_action" file="SOURCEDIR/ElkArticle.integrate.php" />
@@ -27,6 +28,7 @@
 		<database>install.php</database>
 	</install>
 	<uninstall for="1.1 - 1.1.99">
+		<hook reverse="true" hook="integrate_pre_load" function="ElkArticle::integrate_pre_load" file="SOURCEDIR/ElkArticle.integrate.php" />
 		<hook reverse="true" hook="integrate_action_frontpage" function="ElkArticle::integrate_action_frontpage" file="SOURCEDIR/ElkArticle.integrate.php" />
 		<hook reverse="true" hook="integrate_menu_buttons" function="ElkArticle::integrate_menu_buttons" file="SOURCEDIR/ElkArticle.integrate.php" />
 		<hook reverse="true" hook="integrate_current_action" function="ElkArticle::integrate_current_action" file="SOURCEDIR/ElkArticle.integrate.php" />

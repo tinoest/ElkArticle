@@ -16,6 +16,39 @@ if (!defined('ELK'))
 
 class ElkArticle
 {
+	public static function integrate_pre_load()
+	{
+		global $boardurl;
+		$original = $_SERVER['QUERY_STRING'];
+
+                $paths = array (        
+			'~^article/([0-9]+)/$~' => 'sa=article&article=%1$s',
+		);
+		foreach ($paths as $route => $destination) {
+			if (preg_match($route, $_SERVER['QUERY_STRING'], $matches)) {
+				// Trailing / ?
+				if (substr($_SERVER['QUERY_STRING'], -1) !== '/') {
+					header('Location: ' . $boardurl . '/index.php?' . $_SERVER['QUERY_STRING'] . '/', true, 301);
+					exit;
+				}
+
+				if (count($matches) > 1) {
+					array_shift($matches);
+					$_SERVER['QUERY_STRING'] = vsprintf($destination, $matches);
+				}
+				else {
+					$_SERVER['QUERY_STRING'] = $destination;
+				}
+			}
+		}
+		// If we've matched, we need to rewrite the original requested URI too.
+		if ($original != $_SERVER['QUERY_STRING']) {
+			$_SERVER['REQUEST_URI'] = $boardurl . '/index.php?' . $_SERVER['QUERY_STRING'];
+			// clean the request to reset the _req instance
+			cleanRequest();
+		}
+	}
+
 	public static function integrate_action_frontpage(&$default_action)
 	{
 		global $modSettings;
