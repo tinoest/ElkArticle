@@ -42,7 +42,7 @@ class ElkArticleAdmin_Controller extends Action_Controller
 
 	public function action_default()
 	{
-
+		$this->action_list_settings();
 	}
 
 	public function action_list_article()
