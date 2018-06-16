@@ -39,8 +39,11 @@ function template_elkarticle_index()
 	if(empty($context['elkarticle_rightPanel']) && empty($context['elkarticle_leftPanel'])) {	
 		$style = 'style="grid-column: span 3"';
 	}
+	else if(empty($context['elkarticle_rightPanel']) || empty($context['elkarticle_leftPanel'])) {	
+		$style = 'style="grid-column: span 2"';
+	}
 	else {
-		$style = '';
+		$style = 'style="grid-column: span 1"';
 	}
 
 	echo'
@@ -57,13 +60,12 @@ function template_elkarticle_index()
 
 		
 	}
-
-	echo '</div>';
-
+	
 	if (!empty($context['page_index'])) {
 		template_pagesection();
 	}
 
+	echo '</div>';
 
 	if(!empty($context['elkarticle_leftPanel'])) {
     		echo '
@@ -72,7 +74,7 @@ function template_elkarticle_index()
 			'.$context['elkarticle_leftPanel']['content'].'
 		</div>';
 	}
-	
+
 	if(!empty($context['elkarticle_bottomPanel'])) {
     		echo '
 		<div class="elk_article_bottomPanel">
@@ -80,6 +82,7 @@ function template_elkarticle_index()
 			'.$context['elkarticle_bottomPanel']['content'].'
 		</div>';
 	}
+
 
 	echo '</div>';
 }

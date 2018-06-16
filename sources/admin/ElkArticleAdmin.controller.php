@@ -244,6 +244,7 @@ class ElkArticleAdmin_Controller extends Action_Controller
 		$context['article_categories']	= get_article_categories();
 	
 		$context['sub_template'] 	= 'elkarticle_edit';
+
 		loadTemplate('ElkArticleAdmin');
 	}
 
@@ -486,6 +487,10 @@ class ElkArticleAdmin_Controller extends Action_Controller
 					$txt['elkarticle-limit-100'], 
 				)
 			),
+			array ('check', 'elkarticle-rightPanel'),
+			array ('check', 'elkarticle-leftPanel'),
+			array ('check', 'elkarticle-topPanel'),
+			array ('check', 'elkarticle-bottomPanel'),
 			array ('check', 'elkarticle-enablecomments'),
 		);
 		// Load the settings to the form class

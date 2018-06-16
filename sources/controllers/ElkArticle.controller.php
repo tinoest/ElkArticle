@@ -93,6 +93,14 @@ class ElkArticle_Controller extends Action_Controller implements Frontpage_Inter
 				$per_page = 10;
 				break;
 		}
+	
+		foreach(array('topPanel', 'rightPanel', 'leftPanel', 'bottomPanel') as $panel) {
+			if(!empty($modSettings['elkarticle-'.$panel])) {
+				$context['elkarticle_'.$panel]['title'] 	= $panel;
+				$context['elkarticle_'.$panel]['content'] 	= '';
+			}
+		}
+
 		$articles	= get_articles($start, $per_page);	
 		$total_articles = get_total_articles(); 
 
