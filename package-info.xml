@@ -42,6 +42,7 @@
 		<remove-file name="LANGUAGEDIR/english/ElkArticle.english.php" />
 		<remove-file name="THEMEDIR/ElkArticle.template.php" />
 		<remove-file name="THEMEDIR/ElkArticleAdmin.template.php" />
+		<remove-file name="THEMEDIR/css/elkarticle.css" />
 		<remove-file name="THEMEDIR/css/pell.css" />
 		<remove-file name="THEMEDIR/scripts/pell.js" />
 		<database>install.php</database>

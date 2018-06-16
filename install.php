@@ -98,6 +98,10 @@ function update_modSettings()
 	$mod_settings = array(
 		'front_page' 			=> 'ElkArticle_Controller',
 		'elkarticle-frontpage' 		=> 1,
+		'elkarticle-topPanel' 		=> 0,
+		'elkarticle-rightPanel' 	=> 0,
+		'elkarticle-leftPanel' 		=> 0,
+		'elkarticle-bottomPanel' 	=> 0,
 		'elkarticle-item-limit' 	=> 0,
 		'elkarticle-enablecomments' 	=> 0,
 	);
