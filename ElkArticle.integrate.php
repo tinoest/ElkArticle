@@ -129,6 +129,7 @@ class ElkArticle
 					'subsections' => array (
 						'listarticle' 	=> array ( $txt['elkarticle-listarticle'] ),
 						'listcategory' 	=> array ( $txt['elkarticle-listcategory'] ),
+						'listblock'	=> array ( $txt['elkarticle-listblocks'] ),
 						'listsettings'	=> array ( $txt['elkarticle-settings'] ),
 					),
 				),

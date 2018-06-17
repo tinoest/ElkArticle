@@ -29,6 +29,10 @@ class ElkArticleAdmin_Controller extends Action_Controller
 			'addcategory' 		=> array($this, 'action_add_category'),
 			'editcategory' 		=> array($this, 'action_edit_category'),
 			'deletecategory' 	=> array($this, 'action_delete_category'),
+			'listblock' 		=> array($this, 'action_list_block'),
+			'addblock' 		=> array($this, 'action_add_block'),
+			'editblock' 		=> array($this, 'action_edit_block'),
+			'deleteblock' 		=> array($this, 'action_delete_block'),
 			'listsettings' 		=> array($this, 'action_list_settings'),
 		);
 		// We like action, so lets get ready for some
@@ -45,9 +49,28 @@ class ElkArticleAdmin_Controller extends Action_Controller
 		$this->action_list_settings();
 	}
 
+	public function action_admin_menu()
+	{
+		global $context, $txt;
+
+		$context[$context['admin_menu_name']]['tab_data'] = array(
+			'title' => $txt['elkarticle-title'],
+			'help' => '',
+			'description' => $txt['elkarticle-desc'],
+			'tabs' => array(
+				'listarticle' 	=> array(),
+				'listcategory' 	=> array(),
+				'listblock' 	=> array(),
+				'listsettings' 	=> array(),
+			),
+		);
+	}	
+
 	public function action_list_article()
 	{
 		global $context, $scripturl, $txt;
+
+		$this->action_admin_menu();
 
 		$list = array (
 			'id' => 'article_list',
@@ -268,6 +291,8 @@ class ElkArticleAdmin_Controller extends Action_Controller
 	{
 		global $context, $scripturl, $txt;
 
+		$this->action_admin_menu();
+
 		$list = array (
 			'id' => 'category_list',
 			'title' => 'Categories',
@@ -466,10 +491,159 @@ class ElkArticleAdmin_Controller extends Action_Controller
 		$this->action_list_category();
 	}
 
-	public function action_list_settings()
+	public function action_list_block()
+	{
+		global $context, $scripturl, $txt;
+
+		$this->action_admin_menu();
+
+		$list = array (
+			'id' => 'block_list',
+			'title' => $txt['elkarticle-blocks'],
+			'items_per_page' => 25,
+			'no_items_label' => 'No Blocks Found',
+			'base_href' => $scripturl . '?action=admin;area=articleconfig;sa=listblock;',
+			'default_sort_col' => 'name',
+			'get_items' => array (
+				'function' => array($this, 'list_blocks'),
+			),
+			'get_count' => array (
+				'function' => array($this, 'list_total_blocks'),
+			),
+			'columns' => array (
+				'name' => array (
+					'header' => array (
+						'value' => 'Name',
+					),
+					'data' => array (
+						'db' => 'name',
+					),
+					'sort' => array (
+						'default' => 'name ASC',
+						'reverse' => 'name DESC',
+					),
+				),
+				'description' => array(
+					'header' => array(
+						'value' => 'Description',
+					),
+					'data' => array(
+						'db' => 'description',
+					),
+					'sort' => array(
+						'default' => 'description ASC',
+						'reverse' => 'description DESC',
+					),
+				),
+				'blocks' => array(
+					'header' => array(
+						'value' => 'Blocks',
+					),
+					'data' => array(
+						'db' => 'blocks',
+					),
+					'sort' => array(
+						'default' => 'blocks ASC',
+						'reverse' => 'blocks DESC',
+					),
+				),
+				'status' => array(
+					'header' => array(
+						'value' => 'Status',
+						'class' => 'centertext',
+					),
+					'data' => array(
+						'db' => 'status',
+						'class' => 'centertext',
+					),
+					'sort' => array(
+						'default' => 'status ASC',
+						'reverse' => 'status DESC',
+					),
+				),
+				'action' => array(
+					'header' => array(
+						'value' => 'Actions',
+						'class' => 'centertext',
+					),
+					'data' => array(
+						'sprintf' => array (
+							'format' => '
+								<a href="?action=admin;area=articleconfig;sa=editblock;block_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" accesskey="p">Modify</a>&nbsp;
+								<a href="?action=admin;area=articleconfig;sa=deleteblock;block_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" onclick="return confirm(' . JavaScriptEscape('Are you sure you want to delete?') . ') && submitThisOnce(this);" accesskey="d">Delete</a>',
+							'params' => array(
+								'id' => true,
+							),
+						),
+						'class' => 'centertext nowrap',
+					),
+				),
+			),
+			'form' => array(
+				'href' => $scripturl . '?action=admin;area=articleconfig;sa=addblock',
+				'include_sort' => true,
+				'include_start' => true,
+				'hidden_fields' => array(
+					$context['session_var'] => $context['session_id'],
+				),
+			),
+			'additional_rows' => array(
+				array(
+					'position' => 'below_table_data',
+					'value' => '<input type="submit" name="action_add_category" value="' . $txt['elkarticle-addblock'] . '" class="right_submit" />',
+				),
+			),
+		);
+	
+		$context['page_title']		= 'Block List';
+		$context['sub_template'] 	= 'elkblock_list';	
+		$context['default_list'] 	= 'block_list';
+		// Create the list.
+		require_once(SUBSDIR . '/GenericList.class.php');
+		createList($list);
+		loadTemplate('ElkArticleAdmin');
+	}
+
+	public function action_add_block()
+	{
+		global $context;
+
+		$this->action_list_block();
+	}
+
+	public function action_edit_block()
+	{
+		global $context;
+
+		$this->action_list_block();
+	}
+
+	public function action_delete_block()
 	{
 
+		$this->action_list_block();
+		return;
+
+		require_once(SUBSDIR . '/ElkArticleAdmin.subs.php');
+		if (!empty($_GET['block_id'])) {
+			if (checkSession('get', '', false) !== '') {
+				return;
+			}
+			
+			$id	=  $_GET['block_id'];
+			delete_block($id);
+		}
+
+		// Just Load the list again
+		$this->action_list_block();
+	}
+
+	public function action_list_settings()
+	{
 		global $txt, $context, $scripturl, $modSettings;
+		
+		$this->action_admin_menu();
+		
 		loadLanguage('ElkArticle');
 		// Lets build a settings form
 		require_once(SUBSDIR . '/SettingsForm.class.php');

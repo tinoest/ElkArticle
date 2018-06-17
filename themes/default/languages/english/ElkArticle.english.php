@@ -1,12 +1,14 @@
 <?php
 $txt['home_btn'] 				= 'Home';
+$txt['elkarticle-desc']				= 'The ElkArticle Modification allows you add Articles to your forum, you can also edit available Categories, and it\'s Settings';
 $txt['elkarticle-admin'] 			= 'ElkArticle';
 $txt['elkarticle-adminConfiguration'] 		= 'Admin ElkArticle';
 $txt['elkarticle-addarticle']			= 'Add Article'; 
-$txt['elkarticle-listarticle'] 			= 'ElkArticle Articles';
-$txt['elkarticle-listcategory'] 		= 'ElkArticle Categories';
 $txt['elkarticle-addcategory'] 			= 'Add Category';
-$txt['elkarticle-settings'] 			= 'ElkArticle Settings';
+$txt['elkarticle-listarticle'] 			= 'Articles';
+$txt['elkarticle-listcategory'] 		= 'Categories';
+$txt['elkarticle-listblocks'] 			= 'Blocks';
+$txt['elkarticle-settings'] 			= 'Settings';
 $txt['elkarticle-title']			= 'ElkArticle';
 $txt['elkarticle-frontpage']			= 'Show Article\'s on Front Page?';
 $txt['elkarticle-topPanel']			= 'Show Top Panel on Front Page?';
