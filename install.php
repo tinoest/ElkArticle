@@ -63,6 +63,18 @@ $tables = array(
 			array('type' => 'primary', 'columns' => array('id')),
 		),
 	),
+	'blocks' => array(
+		'columns' => array(
+			array('name' => 'id', 'type' => 'mediumint', 'size' => 8, 'auto' => true, 'unsigned' => true),
+			array('name' => 'panel', 'type' => 'mediumint', 'size' => 8, 'default' => 0, 'unsigned' => true),
+			array('name' => 'name', 'type' => 'varchar', 'size' => 80, 'default' => ''),
+			array('name' => 'status', 'type' => 'int', 'size' => 10, 'default' => 0),
+		),
+		'indexes' => array(
+			array('type' => 'primary', 'columns' => array('id')),
+		),
+	),
+
 );
 
 foreach ($tables as $table => $data)

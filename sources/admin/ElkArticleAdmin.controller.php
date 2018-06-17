@@ -74,9 +74,9 @@ class ElkArticleAdmin_Controller extends Action_Controller
 
 		$list = array (
 			'id' => 'article_list',
-			'title' => 'Articles',
+			'title' => $txt['elkarticle-articles'],
 			'items_per_page' => 25,
-			'no_items_label' => 'No Articles Found',
+			'no_items_label' => $txt['elkarticle-notfound'],
 			'base_href' => $scripturl . '?action=admin;area=articleconfig;sa=listarticle;',
 			'default_sort_col' => 'title',
 			'get_items' => array(
@@ -295,9 +295,9 @@ class ElkArticleAdmin_Controller extends Action_Controller
 
 		$list = array (
 			'id' => 'category_list',
-			'title' => 'Categories',
+			'title' => $txt['elkarticle-categories'],
 			'items_per_page' => 25,
-			'no_items_label' => 'No Categories Found',
+			'no_items_label' => $txt['elkarticle-notfound'],
 			'base_href' => $scripturl . '?action=admin;area=articleconfig;sa=listcategory;',
 			'default_sort_col' => 'name',
 			'get_items' => array (
@@ -501,7 +501,7 @@ class ElkArticleAdmin_Controller extends Action_Controller
 			'id' => 'block_list',
 			'title' => $txt['elkarticle-blocks'],
 			'items_per_page' => 25,
-			'no_items_label' => 'No Blocks Found',
+			'no_items_label' => $txt['elkarticle-notfound'],
 			'base_href' => $scripturl . '?action=admin;area=articleconfig;sa=listblock;',
 			'default_sort_col' => 'name',
 			'get_items' => array (
@@ -713,5 +713,17 @@ class ElkArticleAdmin_Controller extends Action_Controller
 	{
 		require_once(SUBSDIR . '/ElkArticle.subs.php');
 		return get_total_categories();
+	} 
+
+	public function list_blocks($start, $items_per_page, $sort)
+	{
+		require_once(SUBSDIR . '/ElkArticle.subs.php');
+		return get_block_list($start, $items_per_page, $sort);
+	}
+ 
+	public function list_total_blocks()
+	{
+		require_once(SUBSDIR . '/ElkArticle.subs.php');
+		return get_total_blocks();
 	} 
 }

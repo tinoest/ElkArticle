@@ -193,6 +193,45 @@ function get_total_categories()
 	return $count;
 }
 
+function get_block_list($start, $items_per_page, $sort)
+{
+	$blocks		= array();
+	$db 		= database();
+	$request	= $db->query('', '
+		SELECT id, panel, name, status AS enabled,
+			CASE WHEN status = 1 
+				THEN \'Enabled\'
+				ELSE \'Disabled\'
+			END
+			AS status
+		FROM {db_prefix}blocks
+		ORDER BY '.$sort.'
+		LIMIT '.$items_per_page.' OFFSET '.$start
+	);
+	
+	while ($row = $db->fetch_assoc($request)) {
+		$blocks[] = $row;
+	}
+
+	$db->free_result($request);
+
+	return $blocks;
+}
+
+function get_total_blocks()
+{
+	$db 		= database();
+	$request	= $db->query('', '
+		SELECT COUNT(id) AS count
+		FROM {db_prefix}blocks'
+	);
+	
+	$count 		= $db->fetch_assoc($request)['count'];
+
+	$db->free_result($request);
+
+	return $count;
+}
 function update_article_views($article_id) 
 {
 	$db = database();

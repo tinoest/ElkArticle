@@ -105,6 +105,14 @@ function template_elkcategory_list()
 
 }
 
+function template_elkblock_list()
+{
+	global $context;
+
+	template_show_list('block_list');
+
+}
+
 function template_elkcategory_add()
 {
 	global $context, $scripturl, $txt;
