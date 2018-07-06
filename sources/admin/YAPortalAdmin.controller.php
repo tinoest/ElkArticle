@@ -77,7 +77,7 @@ class YAPortalAdmin_Controller extends Action_Controller
 			'title' => $txt['yaportal-articles'],
 			'items_per_page' => 25,
 			'no_items_label' => $txt['yaportal-notfound'],
-			'base_href' => $scripturl . '?action=admin;area=articleconfig;sa=listarticle;',
+			'base_href' => $scripturl . '?action=admin;area=yaportalconfig;sa=listarticle;',
 			'default_sort_col' => 'title',
 			'get_items' => array(
 				'function' => array($this, 'list_articles'),
@@ -157,8 +157,8 @@ class YAPortalAdmin_Controller extends Action_Controller
 					'data' => array(
 						'sprintf' => array (
 							'format' => '
-								<a href="?action=admin;area=articleconfig;sa=editarticle;article_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" accesskey="p">Modify</a>&nbsp;
-								<a href="?action=admin;area=articleconfig;sa=deletearticle;article_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" onclick="return confirm(' . JavaScriptEscape('Are you sure you want to delete?') . ') && submitThisOnce(this);" accesskey="d">Delete</a>',
+								<a href="?action=admin;area=yaportalconfig;sa=editarticle;article_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" accesskey="p">Modify</a>&nbsp;
+								<a href="?action=admin;area=yaportalconfig;sa=deletearticle;article_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" onclick="return confirm(' . JavaScriptEscape('Are you sure you want to delete?') . ') && submitThisOnce(this);" accesskey="d">Delete</a>',
 							'params' => array(
 								'id' => true,
 							),
@@ -168,7 +168,7 @@ class YAPortalAdmin_Controller extends Action_Controller
 				),
 			),
 			'form' => array(
-				'href' => $scripturl . '?action=admin;area=articleconfig;sa=editarticle',
+				'href' => $scripturl . '?action=admin;area=yaportalconfig;sa=editarticle',
 				'include_sort' => true,
 				'include_start' => true,
 				'hidden_fields' => array(
@@ -298,7 +298,7 @@ class YAPortalAdmin_Controller extends Action_Controller
 			'title' => $txt['yaportal-categories'],
 			'items_per_page' => 25,
 			'no_items_label' => $txt['yaportal-notfound'],
-			'base_href' => $scripturl . '?action=admin;area=articleconfig;sa=listcategory;',
+			'base_href' => $scripturl . '?action=admin;area=yaportalconfig;sa=listcategory;',
 			'default_sort_col' => 'name',
 			'get_items' => array (
 				'function' => array($this, 'list_categories'),
@@ -365,8 +365,8 @@ class YAPortalAdmin_Controller extends Action_Controller
 					'data' => array(
 						'sprintf' => array (
 							'format' => '
-								<a href="?action=admin;area=articleconfig;sa=editcategory;category_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" accesskey="p">Modify</a>&nbsp;
-								<a href="?action=admin;area=articleconfig;sa=deletecategory;category_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" onclick="return confirm(' . JavaScriptEscape('Are you sure you want to delete?') . ') && submitThisOnce(this);" accesskey="d">Delete</a>',
+								<a href="?action=admin;area=yaportalconfig;sa=editcategory;category_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" accesskey="p">Modify</a>&nbsp;
+								<a href="?action=admin;area=yaportalconfig;sa=deletecategory;category_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" onclick="return confirm(' . JavaScriptEscape('Are you sure you want to delete?') . ') && submitThisOnce(this);" accesskey="d">Delete</a>',
 							'params' => array(
 								'id' => true,
 							),
@@ -376,7 +376,7 @@ class YAPortalAdmin_Controller extends Action_Controller
 				),
 			),
 			'form' => array(
-				'href' => $scripturl . '?action=admin;area=articleconfig;sa=addcategory',
+				'href' => $scripturl . '?action=admin;area=yaportalconfig;sa=addcategory',
 				'include_sort' => true,
 				'include_start' => true,
 				'hidden_fields' => array(
@@ -502,7 +502,7 @@ class YAPortalAdmin_Controller extends Action_Controller
 			'title' => $txt['yaportal-blocks'],
 			'items_per_page' => 25,
 			'no_items_label' => $txt['yaportal-notfound'],
-			'base_href' => $scripturl . '?action=admin;area=articleconfig;sa=listblock;',
+			'base_href' => $scripturl . '?action=admin;area=yaportalconfig;sa=listblock;',
 			'default_sort_col' => 'name',
 			'get_items' => array (
 				'function' => array($this, 'list_blocks'),
@@ -569,8 +569,8 @@ class YAPortalAdmin_Controller extends Action_Controller
 					'data' => array(
 						'sprintf' => array (
 							'format' => '
-								<a href="?action=admin;area=articleconfig;sa=editblock;block_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" accesskey="p">Modify</a>&nbsp;
-								<a href="?action=admin;area=articleconfig;sa=deleteblock;block_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" onclick="return confirm(' . JavaScriptEscape('Are you sure you want to delete?') . ') && submitThisOnce(this);" accesskey="d">Delete</a>',
+								<a href="?action=admin;area=yaportalconfig;sa=editblock;block_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" accesskey="p">Modify</a>&nbsp;
+								<a href="?action=admin;area=yaportalconfig;sa=deleteblock;block_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" onclick="return confirm(' . JavaScriptEscape('Are you sure you want to delete?') . ') && submitThisOnce(this);" accesskey="d">Delete</a>',
 							'params' => array(
 								'id' => true,
 							),
@@ -580,7 +580,7 @@ class YAPortalAdmin_Controller extends Action_Controller
 				),
 			),
 			'form' => array(
-				'href' => $scripturl . '?action=admin;area=articleconfig;sa=addblock',
+				'href' => $scripturl . '?action=admin;area=yaportalconfig;sa=addblock',
 				'include_sort' => true,
 				'include_start' => true,
 				'hidden_fields' => array(
@@ -679,14 +679,14 @@ class YAPortalAdmin_Controller extends Action_Controller
 			}
 			checkSession();
 			Settings_Form::save_db($config_vars);
-			redirectexit('action=admin;area=articleconfig;sa=listsettings');
+			redirectexit('action=admin;area=yaportalconfig;sa=listsettings');
 		}
 
 		$context['sub_template']	= 'show_settings';
 		// Continue on to the settings template
 		$context['settings_title'] 	= $txt['yaportal-options'];
 		$context['page_title'] 		= $context['yaportal_settings_title'] = $txt['yaportal-settings'];
-		$context['post_url'] 		= $scripturl . '?action=admin;area=articleconfig;sa=listsettings;save';
+		$context['post_url'] 		= $scripturl . '?action=admin;area=yaportalconfig;sa=listsettings;save';
 		Settings_Form::prepare_db($config_vars);
 
 	}

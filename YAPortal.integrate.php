@@ -118,7 +118,7 @@ class YAPortal
 			'title' => $txt['yaportal-admin'],
 			'permission' => array ('admin_forum'),
 			'areas' => array (
-				'articleconfig' => array (
+				'yaportalconfig' => array (
 					'label'       => $txt['yaportal-adminConfiguration'],
 					'file'        => 'YAPortalAdmin.controller.php',
 					'controller'  => 'YAPortalAdmin_Controller',

@@ -21,7 +21,7 @@ function template_yaportal_edit()
 	echo '<link rel="stylesheet" type="text/css" href="'.$settings['theme_url'].'/css/pell.css">
 		<h2 class="category_header">Post Article</h2>
 		<div class="forumposts">
-			<form id="article_form_edit" action="'.$scripturl.'?action=admin;area=articleconfig;sa=editarticle;" value="Submit" method="post" accept-charset="UTF-8">';
+			<form id="article_form_edit" action="'.$scripturl.'?action=admin;area=yaportalconfig;sa=editarticle;" value="Submit" method="post" accept-charset="UTF-8">';
 	
 			if(isset($context['article_id'])) {
 				echo '<input type="hidden" name="article_id" value="'.$context['article_id'].'" />';
@@ -120,7 +120,7 @@ function template_elkcategory_add()
 	echo '
 	<h2 class="category_header">Add Category</h2>
 	<div class="forumposts">
-		<form id="article_form_edit" action="'.$scripturl.'?action=admin;area=articleconfig;sa=addcategory;" value="Submit" method="post" accept-charset="UTF-8">
+		<form id="article_form_edit" action="'.$scripturl.'?action=admin;area=yaportalconfig;sa=addcategory;" value="Submit" method="post" accept-charset="UTF-8">
 			<dl id="post_header">
 				<dt class="clear"><label for="category_name">'.$txt['yaportal-category-name'].'</label></dt>
 			<input type="text" name="category_name" value=""> </input>
@@ -148,7 +148,7 @@ function template_elkcategory_edit()
 	echo '
 	<h2 class="category_header">Add Category</h2>
 	<div class="forumposts">
-		<form id="article_form_edit" action="'.$scripturl.'?action=admin;area=articleconfig;sa=editcategory;" value="Submit" method="post" accept-charset="UTF-8">
+		<form id="article_form_edit" action="'.$scripturl.'?action=admin;area=yaportalconfig;sa=editcategory;" value="Submit" method="post" accept-charset="UTF-8">
 			<input type="hidden" name="category_id" value="'.$context['category_id'].'"> </input>
 			<dl id="post_header">
 				<dt class="clear"><label for="category_name">'.$txt['yaportal-category-name'].'</label></dt>
