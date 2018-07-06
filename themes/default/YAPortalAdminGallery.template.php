@@ -19,29 +19,29 @@ function template_yaportal_edit()
 	global $settings, $context, $scripturl;
 
 	echo '<link rel="stylesheet" type="text/css" href="'.$settings['theme_url'].'/css/pell.css">
-		<h2 class="category_header">Post Article</h2>
+		<h2 class="category_header">Post Image</h2>
 		<div class="forumposts">
-			<form id="article_form_edit" action="'.$scripturl.'?action=admin;area=yaportalconfig;sa=editarticle;" value="Submit" method="post" accept-charset="UTF-8">';
+			<form id="gallery_form_edit" action="'.$scripturl.'?action=admin;area=yaportalgallery;sa=editimage;" value="Submit" method="post" accept-charset="UTF-8">';
 	
-			if(isset($context['article_id'])) {
-				echo '<input type="hidden" name="article_id" value="'.$context['article_id'].'" />';
+			if(isset($context['gallery_id'])) {
+				echo '<input type="hidden" name="gallery_id" value="'.$context['gallery_id'].'" />';
 			}
 			
 			echo '<dl id="post_header">
 				<dt class="clear"><label for="post_subject" id="caption_subject">Subject:</label></dt>';
 
-				if(!empty($context['article_subject'])) {
-					echo '<dd><input type="text" name="article_subject" value="'.$context['article_subject'].'" tabindex="1" size="80" maxlength="80" class="input_text" placeholder="Subject" required="required" /><br /></dd>';
+				if(!empty($context['gallery_subject'])) {
+					echo '<dd><input type="text" name="gallery_subject" value="'.$context['gallery_subject'].'" tabindex="1" size="80" maxlength="80" class="input_text" placeholder="Subject" required="required" /><br /></dd>';
 				}
 				else {
-					echo '<dd><input type="text" name="article_subject" value="" tabindex="1" size="80" maxlength="80" class="input_text" placeholder="Subject" required="required" /></dd>';
+					echo '<dd><input type="text" name="gallery_subject" value="" tabindex="1" size="80" maxlength="80" class="input_text" placeholder="Subject" required="required" /></dd>';
 				}
-				echo '<dt class="clear"><label for="article_category">Blog Category:</label></dt>';
+				echo '<dt class="clear"><label for="gallery_category">Gallery Category:</label></dt>';
 
-				echo '<dd><select name="article_category">';
-				if(!empty($context['article_categories']) && is_array($context['article_categories'])) {
-					foreach($context['article_categories'] as $k => $v) {
-						if($k == $context['article_category']) {
+				echo '<dd><select name="gallery_category">';
+				if(!empty($context['gallery_categories']) && is_array($context['gallery_categories'])) {
+					foreach($context['gallery_categories'] as $k => $v) {
+						if($k == $context['gallery_category']) {
 							echo '<option value="'.$k.'" selected>'.$v.'</option>';
 						}
 						else {
@@ -50,10 +50,10 @@ function template_yaportal_edit()
 					}
 				}
 				echo '</select></dd>
-				<dt class="clear"><label for="article_status">Status:</label></dt>
-				<dd><select name="article_status">';
-				foreach( array( 0 => 'Disabled' , 1 => 'Show on front page', 2 => 'Don\'t show on front page' ) as $k => $v) {
-					if($k == $context['article_status']) {
+				<dt class="clear"><label for="gallery_status">Status:</label></dt>
+				<dd><select name="gallery_status">';
+				foreach( array( 0 => 'Disabled' , 1 => 'Enabled', 2 => 'Reported' ) as $k => $v) {
+					if($k == $context['gallery_status']) {
 						echo '<option value="'.$k.'" selected>'.$v.'</option>';
 					}
 					else {
@@ -62,7 +62,7 @@ function template_yaportal_edit()
 				}
 				echo '</select></dd>
 				</dl>
-				<input type="hidden" id="article_body" name="article_body" />
+				<input type="hidden" id="gallery_body" name="gallery_body" />
 				<div id="editor_toolbar_container">
 					<div id="eb_editor" class="eb_editor"></div>
 				</div>
@@ -79,25 +79,25 @@ function template_yaportal_edit()
 			defaultParagraphSeparator: \'p\',
 			styleWithCSS: false,
 			onChange: function (html) {
-				document.getElementById(\'article_body\').value = html
+				document.getElementById(\'gallery_body\').value = html
 			}
 		})
 		';
-		if(!empty($context['article_body'])) {
-			echo 'editor.content.innerHTML = '.JavaScriptEscape($context['article_body']);
+		if(!empty($context['gallery_body'])) {
+			echo 'editor.content.innerHTML = '.JavaScriptEscape($context['gallery_body']);
 		}
 		echo '</script>';
 }
 
-function template_yaportal_list()
+function template_gallery_list()
 {
 	global $context;
 
-	template_show_list('article_list');
+	template_show_list('gallery_list');
 
 }
 
-function template_elkcategory_list()
+function template_gallery_category_list()
 {
 	global $context;
 
@@ -105,14 +105,14 @@ function template_elkcategory_list()
 
 }
 
-function template_elkcategory_add()
+function template_gallery_category_add()
 {
 	global $context, $scripturl, $txt;
 
 	echo '
 	<h2 class="category_header">Add Category</h2>
 	<div class="forumposts">
-		<form id="article_form_edit" action="'.$scripturl.'?action=admin;area=yaportalconfig;sa=addcategory;" value="Submit" method="post" accept-charset="UTF-8">
+		<form id="gallery_form_edit" action="'.$scripturl.'?action=admin;area=yaportalgallery;sa=addcategory;" value="Submit" method="post" accept-charset="UTF-8">
 			<dl id="post_header">
 				<dt class="clear"><label for="category_name">'.$txt['yaportal-category-name'].'</label></dt>
 			<input type="text" name="category_name" value=""> </input>
@@ -133,14 +133,14 @@ function template_elkcategory_add()
 	</div>';
 }
 
-function template_elkcategory_edit()
+function template_gallery_category_edit()
 {
 	global $context, $scripturl, $txt;
 
 	echo '
 	<h2 class="category_header">Add Category</h2>
 	<div class="forumposts">
-		<form id="article_form_edit" action="'.$scripturl.'?action=admin;area=yaportalconfig;sa=editcategory;" value="Submit" method="post" accept-charset="UTF-8">
+		<form id="gallery_form_edit" action="'.$scripturl.'?action=admin;area=yaportalgallery;sa=editcategory;" value="Submit" method="post" accept-charset="UTF-8">
 			<input type="hidden" name="category_id" value="'.$context['category_id'].'"> </input>
 			<dl id="post_header">
 				<dt class="clear"><label for="category_name">'.$txt['yaportal-category-name'].'</label></dt>

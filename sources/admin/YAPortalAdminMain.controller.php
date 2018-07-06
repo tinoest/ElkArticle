@@ -49,6 +49,8 @@ class YAPortalAdminMain_Controller extends Action_Controller
 		$elkArticleSettings = new Settings_Form();
 		// All the options, well at least some of them!
 		$config_vars = array (
+            // Front Page options
+		    array ('title', 'yaportal-frontpage-options'),
 			array ('check', 'yaportal-frontpage'),
 			array ('select', 'yaportal-item-limit', 
 				array (
@@ -59,11 +61,28 @@ class YAPortalAdminMain_Controller extends Action_Controller
 					$txt['yaportal-limit-100'], 
 				)
 			),
+            // Block Options
+		    array ('title', 'yaportal-block-options'),
 			array ('check', 'yaportal-rightPanel'),
 			array ('check', 'yaportal-leftPanel'),
 			array ('check', 'yaportal-topPanel'),
 			array ('check', 'yaportal-bottomPanel'),
+            // Article Options
+		    array ('title', 'yaportal-article-options'),
 			array ('check', 'yaportal-enablecomments'),
+            // Gallery Options
+		    array ('title', 'yaportal-gallery-options'),
+            array ('check', 'yaportal-gallery-menu-item'),
+			array ('select', 'yaportal-gallery-item-limit', 
+				array (
+					$txt['yaportal-limit-10'], 
+					$txt['yaportal-limit-25'], 
+					$txt['yaportal-limit-50'], 
+					$txt['yaportal-limit-75'], 
+					$txt['yaportal-limit-100'], 
+				)
+			),
+			array ('check', 'yaportal-gallery-enablecomments'),
 		);
 		// Load the settings to the form class
 		$elkArticleSettings->settings($config_vars);
