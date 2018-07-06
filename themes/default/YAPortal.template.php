@@ -14,32 +14,32 @@ if (!defined('ELK'))
 	die('No access...');
 }
 
-function template_elkarticle_index()
+function template_yaportal_index()
 {
 	global $context, $txt, $scripturl;
 
 	echo '<div class="elk_article_container">';
 	
-	if(!empty($context['elkarticle_topPanel'])) {
+	if(!empty($context['yaportal_topPanel'])) {
 		echo '
 		<div class="elk_article_topPanel">
-			<h3 class="category_header">'.$context['elkarticle_topPanel']['title'].'</h3>
-			'.$context['elkarticle_topPanel']['content'].'
+			<h3 class="category_header">'.$context['yaportal_topPanel']['title'].'</h3>
+			'.$context['yaportal_topPanel']['content'].'
 		</div>';
 	}
 
-	if(!empty($context['elkarticle_rightPanel'])) {
+	if(!empty($context['yaportal_rightPanel'])) {
     		echo '
 		<div class="elk_article_rightPanel">
-			<h3 class="category_header">'.$context['elkarticle_rightPanel']['title'].'</h3>
-			'.$context['elkarticle_rightPanel']['content'].'
+			<h3 class="category_header">'.$context['yaportal_rightPanel']['title'].'</h3>
+			'.$context['yaportal_rightPanel']['content'].'
 		</div>';
 	}
 
-	if(empty($context['elkarticle_rightPanel']) && empty($context['elkarticle_leftPanel'])) {	
+	if(empty($context['yaportal_rightPanel']) && empty($context['yaportal_leftPanel'])) {	
 		$style = 'style="grid-column: span 3"';
 	}
-	else if(empty($context['elkarticle_rightPanel']) || empty($context['elkarticle_leftPanel'])) {	
+	else if(empty($context['yaportal_rightPanel']) || empty($context['yaportal_leftPanel'])) {	
 		$style = 'style="grid-column: span 2"';
 	}
 	else {
@@ -53,7 +53,7 @@ function template_elkarticle_index()
 		echo '<h3 class="category_header"><a href="'.$scripturl.'?article/'.$article['id'].'/">'.$article['title'].'</a></h3>';
 		echo sprintf(
 			'<span class="views_text"> Views: %d%s</span>', $article['views'], 
-			( $context['comments-enabled'] == 1 ) ? ' | '.$txt['elkarticle-comments'] . $article['comments'] : ''
+			( $context['comments-enabled'] == 1 ) ? ' | '.$txt['yaportal-comments'] . $article['comments'] : ''
 		);
 		echo sprintf('<span class="views_text"> | Written By: %s in %s | %s </span>', $article['member'], $article['category'], htmlTime($article['dt_published']));
 		echo '<section><article class="post_wrapper forumposts"><div style="margin : 0.5em">'.$article['body'].'</div></article></section>';
@@ -67,19 +67,19 @@ function template_elkarticle_index()
 
 	echo '</div>';
 
-	if(!empty($context['elkarticle_leftPanel'])) {
+	if(!empty($context['yaportal_leftPanel'])) {
     		echo '
 		<div class="elk_article_leftPanel">
-			<h3 class="category_header">'.$context['elkarticle_leftPanel']['title'].'</h3>
-			'.$context['elkarticle_leftPanel']['content'].'
+			<h3 class="category_header">'.$context['yaportal_leftPanel']['title'].'</h3>
+			'.$context['yaportal_leftPanel']['content'].'
 		</div>';
 	}
 
-	if(!empty($context['elkarticle_bottomPanel'])) {
+	if(!empty($context['yaportal_bottomPanel'])) {
     		echo '
 		<div class="elk_article_bottomPanel">
-			<h3 class="category_header">'.$context['elkarticle_bottomPanel']['title'].'</h3>
-			'.$context['elkarticle_bottomPanel']['content'].'
+			<h3 class="category_header">'.$context['yaportal_bottomPanel']['title'].'</h3>
+			'.$context['yaportal_bottomPanel']['content'].'
 		</div>';
 	}
 
@@ -87,7 +87,7 @@ function template_elkarticle_index()
 	echo '</div>';
 }
 
-function template_elkarticle()
+function template_yaportal()
 {
 	global $context, $txt;
 
@@ -108,7 +108,7 @@ function template_elkarticle()
 				<h3 class="category_header">'.$article['title'].'</h3>';
 				echo sprintf(
 					'<span class="views_text"> Views: %d%s</span>', $article['views'], 
-					( $context['comments-enabled'] == 1 ) ? ' | '.$txt['elkarticle-comments'] . $article['comments'] : ''
+					( $context['comments-enabled'] == 1 ) ? ' | '.$txt['yaportal-comments'] . $article['comments'] : ''
 				);
 				echo sprintf('<span class="views_text"> | Written By: %s in %s | %s </span>', $article['member'], $article['category'], htmlTime($article['dt_published']));
 				echo '<section><article class="post_wrapper forumposts"><div style="margin : 0.5em">'.$article['body'].'</div></article></section>

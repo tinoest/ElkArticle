@@ -11,38 +11,38 @@
  * @version 1.0.0
  */
 	]]></license>
-	<id>tinoest:ElkArticle</id>
+	<id>tinoest:YAPortal</id>
 	<name>Elk Article</name>
 	<version>1.0.0</version>
 	<type>modification</type>
 	<install for="1.1 - 1.1.99">
 		<require-dir name="themes" destination="BOARDDIR" />
 		<require-dir name="sources" destination="BOARDDIR" />
-		<require-file name="ElkArticle.integrate.php" destination="SOURCEDIR" />
-		<hook hook="integrate_pre_load" function="ElkArticle::integrate_pre_load" file="SOURCEDIR/ElkArticle.integrate.php" />
-		<hook hook="integrate_action_frontpage" function="ElkArticle::integrate_action_frontpage" file="SOURCEDIR/ElkArticle.integrate.php" />
-		<hook hook="integrate_menu_buttons" function="ElkArticle::integrate_menu_buttons" file="SOURCEDIR/ElkArticle.integrate.php" />
-		<hook hook="integrate_current_action" function="ElkArticle::integrate_current_action" file="SOURCEDIR/ElkArticle.integrate.php" />
-		<hook hook="integrate_actions" function="ElkArticle::integrate_actions" file="SOURCEDIR/ElkArticle.integrate.php" />
-		<hook hook="integrate_admin_areas" function="ElkArticle::integrate_admin_areas" file="SOURCEDIR/ElkArticle.integrate.php" />
+		<require-file name="YAPortal.integrate.php" destination="SOURCEDIR" />
+		<hook hook="integrate_pre_load" function="YAPortal::integrate_pre_load" file="SOURCEDIR/YAPortal.integrate.php" />
+		<hook hook="integrate_action_frontpage" function="YAPortal::integrate_action_frontpage" file="SOURCEDIR/YAPortal.integrate.php" />
+		<hook hook="integrate_menu_buttons" function="YAPortal::integrate_menu_buttons" file="SOURCEDIR/YAPortal.integrate.php" />
+		<hook hook="integrate_current_action" function="YAPortal::integrate_current_action" file="SOURCEDIR/YAPortal.integrate.php" />
+		<hook hook="integrate_actions" function="YAPortal::integrate_actions" file="SOURCEDIR/YAPortal.integrate.php" />
+		<hook hook="integrate_admin_areas" function="YAPortal::integrate_admin_areas" file="SOURCEDIR/YAPortal.integrate.php" />
 		<database>install.php</database>
 	</install>
 	<uninstall for="1.1 - 1.1.99">
-		<hook reverse="true" hook="integrate_pre_load" function="ElkArticle::integrate_pre_load" file="SOURCEDIR/ElkArticle.integrate.php" />
-		<hook reverse="true" hook="integrate_action_frontpage" function="ElkArticle::integrate_action_frontpage" file="SOURCEDIR/ElkArticle.integrate.php" />
-		<hook reverse="true" hook="integrate_menu_buttons" function="ElkArticle::integrate_menu_buttons" file="SOURCEDIR/ElkArticle.integrate.php" />
-		<hook reverse="true" hook="integrate_current_action" function="ElkArticle::integrate_current_action" file="SOURCEDIR/ElkArticle.integrate.php" />
-		<hook reverse="true" hook="integrate_actions" function="ElkArticle::integrate_actions" file="SOURCEDIR/ElkArticle.integrate.php" />
-		<hook reverse="true" hook="integrate_admin_areas" function="ElkArticle::integrate_admin_areas" file="SOURCEDIR/ElkArticle.integrate.php" />
-		<remove-file name="SOURCEDIR/ElkArticle.integrate.php" />
-		<remove-file name="CONTROLLERDIR/ElkArticle.controller.php" />
-		<remove-file name="ADMINDIR/ElkArticleAdmin.controller.php" />
-		<remove-file name="SUBSDIR/ElkArticle.subs.php" />
-		<remove-file name="SUBSDIR/ElkArticleAdmin.subs.php" />
-		<remove-file name="LANGUAGEDIR/english/ElkArticle.english.php" />
-		<remove-file name="THEMEDIR/ElkArticle.template.php" />
-		<remove-file name="THEMEDIR/ElkArticleAdmin.template.php" />
-		<remove-file name="THEMEDIR/css/elkarticle.css" />
+		<hook reverse="true" hook="integrate_pre_load" function="YAPortal::integrate_pre_load" file="SOURCEDIR/YAPortal.integrate.php" />
+		<hook reverse="true" hook="integrate_action_frontpage" function="YAPortal::integrate_action_frontpage" file="SOURCEDIR/YAPortal.integrate.php" />
+		<hook reverse="true" hook="integrate_menu_buttons" function="YAPortal::integrate_menu_buttons" file="SOURCEDIR/YAPortal.integrate.php" />
+		<hook reverse="true" hook="integrate_current_action" function="YAPortal::integrate_current_action" file="SOURCEDIR/YAPortal.integrate.php" />
+		<hook reverse="true" hook="integrate_actions" function="YAPortal::integrate_actions" file="SOURCEDIR/YAPortal.integrate.php" />
+		<hook reverse="true" hook="integrate_admin_areas" function="YAPortal::integrate_admin_areas" file="SOURCEDIR/YAPortal.integrate.php" />
+		<remove-file name="SOURCEDIR/YAPortal.integrate.php" />
+		<remove-file name="CONTROLLERDIR/YAPortal.controller.php" />
+		<remove-file name="ADMINDIR/YAPortalAdmin.controller.php" />
+		<remove-file name="SUBSDIR/YAPortal.subs.php" />
+		<remove-file name="SUBSDIR/YAPortalAdmin.subs.php" />
+		<remove-file name="LANGUAGEDIR/english/YAPortal.english.php" />
+		<remove-file name="THEMEDIR/YAPortal.template.php" />
+		<remove-file name="THEMEDIR/YAPortalAdmin.template.php" />
+		<remove-file name="THEMEDIR/css/yaportal.css" />
 		<remove-file name="THEMEDIR/css/pell.css" />
 		<remove-file name="THEMEDIR/scripts/pell.js" />
 		<database>install.php</database>

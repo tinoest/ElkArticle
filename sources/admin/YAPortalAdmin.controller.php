@@ -14,7 +14,7 @@ if (!defined('ELK'))
 	die('No access...');
 }
 
-class ElkArticleAdmin_Controller extends Action_Controller
+class YAPortalAdmin_Controller extends Action_Controller
 {
 	public function action_index()
 	{
@@ -54,9 +54,9 @@ class ElkArticleAdmin_Controller extends Action_Controller
 		global $context, $txt;
 
 		$context[$context['admin_menu_name']]['tab_data'] = array(
-			'title' => $txt['elkarticle-title'],
+			'title' => $txt['yaportal-title'],
 			'help' => '',
-			'description' => $txt['elkarticle-desc'],
+			'description' => $txt['yaportal-desc'],
 			'tabs' => array(
 				'listarticle' 	=> array(),
 				'listcategory' 	=> array(),
@@ -74,9 +74,9 @@ class ElkArticleAdmin_Controller extends Action_Controller
 
 		$list = array (
 			'id' => 'article_list',
-			'title' => $txt['elkarticle-articles'],
+			'title' => $txt['yaportal-articles'],
 			'items_per_page' => 25,
-			'no_items_label' => $txt['elkarticle-notfound'],
+			'no_items_label' => $txt['yaportal-notfound'],
 			'base_href' => $scripturl . '?action=admin;area=articleconfig;sa=listarticle;',
 			'default_sort_col' => 'title',
 			'get_items' => array(
@@ -178,26 +178,26 @@ class ElkArticleAdmin_Controller extends Action_Controller
 			'additional_rows' => array(
 				array(
 					'position' => 'below_table_data',
-					'value' => '<input type="submit" name="action_edit" value="' . $txt['elkarticle-addarticle'] . '" class="right_submit" />',
+					'value' => '<input type="submit" name="action_edit" value="' . $txt['yaportal-addarticle'] . '" class="right_submit" />',
 				),
 			),
 		);
 	
 		$context['page_title']		= 'Article List';
-		$context['sub_template'] 	= 'elkarticle_list';	
+		$context['sub_template'] 	= 'yaportal_list';	
 		$context['default_list'] 	= 'article_list';
 		// Create the list.
 		require_once(SUBSDIR . '/GenericList.class.php');
 		createList($list);
-		loadTemplate('ElkArticleAdmin');
+		loadTemplate('YAPortalAdmin');
 	}
 
 	public function action_edit_article() 
 	{
 		global $context, $user_info;
 
-		require_once(SUBSDIR . '/ElkArticle.subs.php');
-		require_once(SUBSDIR . '/ElkArticleAdmin.subs.php');
+		require_once(SUBSDIR . '/YAPortal.subs.php');
+		require_once(SUBSDIR . '/YAPortalAdmin.subs.php');
 
 
 		// Set the defaults
@@ -266,14 +266,14 @@ class ElkArticleAdmin_Controller extends Action_Controller
 
 		$context['article_categories']	= get_article_categories();
 	
-		$context['sub_template'] 	= 'elkarticle_edit';
+		$context['sub_template'] 	= 'yaportal_edit';
 
-		loadTemplate('ElkArticleAdmin');
+		loadTemplate('YAPortalAdmin');
 	}
 
 	public function action_delete_article()
 	{
-		require_once(SUBSDIR . '/ElkArticleAdmin.subs.php');
+		require_once(SUBSDIR . '/YAPortalAdmin.subs.php');
 		if (!empty($_GET['article_id'])) {
 			if (checkSession('get', '', false) !== '') {
 				return;
@@ -295,9 +295,9 @@ class ElkArticleAdmin_Controller extends Action_Controller
 
 		$list = array (
 			'id' => 'category_list',
-			'title' => $txt['elkarticle-categories'],
+			'title' => $txt['yaportal-categories'],
 			'items_per_page' => 25,
-			'no_items_label' => $txt['elkarticle-notfound'],
+			'no_items_label' => $txt['yaportal-notfound'],
 			'base_href' => $scripturl . '?action=admin;area=articleconfig;sa=listcategory;',
 			'default_sort_col' => 'name',
 			'get_items' => array (
@@ -386,7 +386,7 @@ class ElkArticleAdmin_Controller extends Action_Controller
 			'additional_rows' => array(
 				array(
 					'position' => 'below_table_data',
-					'value' => '<input type="submit" name="action_add_category" value="' . $txt['elkarticle-addcategory'] . '" class="right_submit" />',
+					'value' => '<input type="submit" name="action_add_category" value="' . $txt['yaportal-addcategory'] . '" class="right_submit" />',
 				),
 			),
 		);
@@ -397,7 +397,7 @@ class ElkArticleAdmin_Controller extends Action_Controller
 		// Create the list.
 		require_once(SUBSDIR . '/GenericList.class.php');
 		createList($list);
-		loadTemplate('ElkArticleAdmin');
+		loadTemplate('YAPortalAdmin');
 	}
 
 	public function action_add_category()
@@ -408,7 +408,7 @@ class ElkArticleAdmin_Controller extends Action_Controller
 			if (checkSession('post', '', false) !== '') {
 				return;
 			}
-			require_once(SUBSDIR . '/ElkArticleAdmin.subs.php');
+			require_once(SUBSDIR . '/YAPortalAdmin.subs.php');
 			$name 	= $_POST['category_name'];
 			$desc 	= $_POST['category_desc'];
 			if(!empty($_POST['category_enabled'])) {
@@ -423,7 +423,7 @@ class ElkArticleAdmin_Controller extends Action_Controller
 		else {
 			$context['page_title']		= 'Add Category';
 			$context['sub_template'] 	= 'elkcategory_add';	
-			loadTemplate('ElkArticleAdmin');
+			loadTemplate('YAPortalAdmin');
 		}
 	}
 
@@ -436,7 +436,7 @@ class ElkArticleAdmin_Controller extends Action_Controller
 			if (checkSession('post', '', false) !== '') {
 				return;
 			}
-			require_once(SUBSDIR . '/ElkArticleAdmin.subs.php');
+			require_once(SUBSDIR . '/YAPortalAdmin.subs.php');
 
 			$category_id			= $_POST['category_id'];
 			$category_name			= $_POST['category_name'];
@@ -458,7 +458,7 @@ class ElkArticleAdmin_Controller extends Action_Controller
 			if (checkSession('get', '', false) !== '') {
 				return;
 			}			
-			require_once(SUBSDIR . '/ElkArticle.subs.php');
+			require_once(SUBSDIR . '/YAPortal.subs.php');
 			$category_id			= $_GET['category_id'];
 			$category_details		= get_category($category_id);
 			$context['category_id']		= $category_details['id'];
@@ -468,7 +468,7 @@ class ElkArticleAdmin_Controller extends Action_Controller
 
 			$context['page_title']		= 'Edit Category';
 			$context['sub_template'] 	= 'elkcategory_edit';
-			loadTemplate('ElkArticleAdmin');
+			loadTemplate('YAPortalAdmin');
 			return;
 		} 
 
@@ -477,7 +477,7 @@ class ElkArticleAdmin_Controller extends Action_Controller
 
 	public function action_delete_category()
 	{
-		require_once(SUBSDIR . '/ElkArticleAdmin.subs.php');
+		require_once(SUBSDIR . '/YAPortalAdmin.subs.php');
 		if (!empty($_GET['category_id'])) {
 			if (checkSession('get', '', false) !== '') {
 				return;
@@ -499,9 +499,9 @@ class ElkArticleAdmin_Controller extends Action_Controller
 
 		$list = array (
 			'id' => 'block_list',
-			'title' => $txt['elkarticle-blocks'],
+			'title' => $txt['yaportal-blocks'],
 			'items_per_page' => 25,
-			'no_items_label' => $txt['elkarticle-notfound'],
+			'no_items_label' => $txt['yaportal-notfound'],
 			'base_href' => $scripturl . '?action=admin;area=articleconfig;sa=listblock;',
 			'default_sort_col' => 'name',
 			'get_items' => array (
@@ -590,7 +590,7 @@ class ElkArticleAdmin_Controller extends Action_Controller
 			'additional_rows' => array(
 				array(
 					'position' => 'below_table_data',
-					'value' => '<input type="submit" name="action_add_category" value="' . $txt['elkarticle-addblock'] . '" class="right_submit" />',
+					'value' => '<input type="submit" name="action_add_category" value="' . $txt['yaportal-addblock'] . '" class="right_submit" />',
 				),
 			),
 		);
@@ -601,7 +601,7 @@ class ElkArticleAdmin_Controller extends Action_Controller
 		// Create the list.
 		require_once(SUBSDIR . '/GenericList.class.php');
 		createList($list);
-		loadTemplate('ElkArticleAdmin');
+		loadTemplate('YAPortalAdmin');
 	}
 
 	public function action_add_block()
@@ -624,7 +624,7 @@ class ElkArticleAdmin_Controller extends Action_Controller
 		$this->action_list_block();
 		return;
 
-		require_once(SUBSDIR . '/ElkArticleAdmin.subs.php');
+		require_once(SUBSDIR . '/YAPortalAdmin.subs.php');
 		if (!empty($_GET['block_id'])) {
 			if (checkSession('get', '', false) !== '') {
 				return;
@@ -644,35 +644,35 @@ class ElkArticleAdmin_Controller extends Action_Controller
 		
 		$this->action_admin_menu();
 		
-		loadLanguage('ElkArticle');
+		loadLanguage('YAPortal');
 		// Lets build a settings form
 		require_once(SUBSDIR . '/SettingsForm.class.php');
 		// Instantiate the form
 		$elkArticleSettings = new Settings_Form();
 		// All the options, well at least some of them!
 		$config_vars = array (
-			array ('check', 'elkarticle-frontpage'),
-			array ('select', 'elkarticle-item-limit', 
+			array ('check', 'yaportal-frontpage'),
+			array ('select', 'yaportal-item-limit', 
 				array (
-					$txt['elkarticle-limit-10'], 
-					$txt['elkarticle-limit-25'], 
-					$txt['elkarticle-limit-50'], 
-					$txt['elkarticle-limit-75'], 
-					$txt['elkarticle-limit-100'], 
+					$txt['yaportal-limit-10'], 
+					$txt['yaportal-limit-25'], 
+					$txt['yaportal-limit-50'], 
+					$txt['yaportal-limit-75'], 
+					$txt['yaportal-limit-100'], 
 				)
 			),
-			array ('check', 'elkarticle-rightPanel'),
-			array ('check', 'elkarticle-leftPanel'),
-			array ('check', 'elkarticle-topPanel'),
-			array ('check', 'elkarticle-bottomPanel'),
-			array ('check', 'elkarticle-enablecomments'),
+			array ('check', 'yaportal-rightPanel'),
+			array ('check', 'yaportal-leftPanel'),
+			array ('check', 'yaportal-topPanel'),
+			array ('check', 'yaportal-bottomPanel'),
+			array ('check', 'yaportal-enablecomments'),
 		);
 		// Load the settings to the form class
 		$elkArticleSettings->settings($config_vars);
 		// Saving?
 		if (isset($_GET['save'])) {
-			if(!empty($_POST['elkarticle-frontpage'])) {
-				updateSettings(array('front_page' => 'ElkArticle_Controller'));
+			if(!empty($_POST['yaportal-frontpage'])) {
+				updateSettings(array('front_page' => 'YAPortal_Controller'));
 			}
 			else {
 				removeSettings('front_page');
@@ -684,8 +684,8 @@ class ElkArticleAdmin_Controller extends Action_Controller
 
 		$context['sub_template']	= 'show_settings';
 		// Continue on to the settings template
-		$context['settings_title'] 	= $txt['elkarticle-options'];
-		$context['page_title'] 		= $context['elkarticle_settings_title'] = $txt['elkarticle-settings'];
+		$context['settings_title'] 	= $txt['yaportal-options'];
+		$context['page_title'] 		= $context['yaportal_settings_title'] = $txt['yaportal-settings'];
 		$context['post_url'] 		= $scripturl . '?action=admin;area=articleconfig;sa=listsettings;save';
 		Settings_Form::prepare_db($config_vars);
 
@@ -693,37 +693,37 @@ class ElkArticleAdmin_Controller extends Action_Controller
 
 	public function list_articles($start, $items_per_page, $sort)
 	{
-		require_once(SUBSDIR . '/ElkArticleAdmin.subs.php');
+		require_once(SUBSDIR . '/YAPortalAdmin.subs.php');
 		return get_articles_list($start, $items_per_page, $sort);
 	}
  
 	public function list_total_articles()
 	{
-		require_once(SUBSDIR . '/ElkArticle.subs.php');
+		require_once(SUBSDIR . '/YAPortal.subs.php');
 		return get_total_articles();
 	}
 
 	public function list_categories($start, $items_per_page, $sort)
 	{
-		require_once(SUBSDIR . '/ElkArticle.subs.php');
+		require_once(SUBSDIR . '/YAPortal.subs.php');
 		return get_category_list($start, $items_per_page, $sort);
 	}
  
 	public function list_total_categories()
 	{
-		require_once(SUBSDIR . '/ElkArticle.subs.php');
+		require_once(SUBSDIR . '/YAPortal.subs.php');
 		return get_total_categories();
 	} 
 
 	public function list_blocks($start, $items_per_page, $sort)
 	{
-		require_once(SUBSDIR . '/ElkArticle.subs.php');
+		require_once(SUBSDIR . '/YAPortal.subs.php');
 		return get_block_list($start, $items_per_page, $sort);
 	}
  
 	public function list_total_blocks()
 	{
-		require_once(SUBSDIR . '/ElkArticle.subs.php');
+		require_once(SUBSDIR . '/YAPortal.subs.php');
 		return get_total_blocks();
 	} 
 }

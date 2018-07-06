@@ -14,7 +14,7 @@ if (!defined('ELK'))
 	die('No access...');
 }
 
-function template_elkarticle_edit()
+function template_yaportal_edit()
 {
 	global $settings, $context, $scripturl;
 
@@ -89,7 +89,7 @@ function template_elkarticle_edit()
 		echo '</script>';
 }
 
-function template_elkarticle_list()
+function template_yaportal_list()
 {
 	global $context;
 
@@ -122,15 +122,15 @@ function template_elkcategory_add()
 	<div class="forumposts">
 		<form id="article_form_edit" action="'.$scripturl.'?action=admin;area=articleconfig;sa=addcategory;" value="Submit" method="post" accept-charset="UTF-8">
 			<dl id="post_header">
-				<dt class="clear"><label for="category_name">'.$txt['elkarticle-category-name'].'</label></dt>
+				<dt class="clear"><label for="category_name">'.$txt['yaportal-category-name'].'</label></dt>
 			<input type="text" name="category_name" value=""> </input>
 			</dl>
 			<dl id="post_header">
-				<dt class="clear"><label for="category_desc">'.$txt['elkarticle-category-desc'].'</label></dt>
+				<dt class="clear"><label for="category_desc">'.$txt['yaportal-category-desc'].'</label></dt>
 				<input type="text" name="category_desc" value=""> </input>
 			</dl>
 			<dl id="post_header">
-				<dt class="clear"><label for="category_desc">'.$txt['elkarticle-category-status'].'</label></dt>
+				<dt class="clear"><label for="category_desc">'.$txt['yaportal-category-status'].'</label></dt>
 				<input type="checkbox" name="category_enabled" '.(!empty($context['category_enabled']) ? 'checked' : '').'> </input>
 			</dl>
 			<input type="hidden" name="'.$context['session_var'].'" value="'.$context['session_id'].'" />
@@ -151,15 +151,15 @@ function template_elkcategory_edit()
 		<form id="article_form_edit" action="'.$scripturl.'?action=admin;area=articleconfig;sa=editcategory;" value="Submit" method="post" accept-charset="UTF-8">
 			<input type="hidden" name="category_id" value="'.$context['category_id'].'"> </input>
 			<dl id="post_header">
-				<dt class="clear"><label for="category_name">'.$txt['elkarticle-category-name'].'</label></dt>
+				<dt class="clear"><label for="category_name">'.$txt['yaportal-category-name'].'</label></dt>
 			<input type="text" name="category_name" value="'.$context['category_name'].'"> </input>
 			</dl>
 			<dl id="post_header">
-				<dt class="clear"><label for="category_desc">'.$txt['elkarticle-category-desc'].'</label></dt>
+				<dt class="clear"><label for="category_desc">'.$txt['yaportal-category-desc'].'</label></dt>
 				<input type="text" name="category_desc" value="'.$context['category_desc'].'"> </input>
 			</dl>
 			<dl id="post_header">
-				<dt class="clear"><label for="category_desc">'.$txt['elkarticle-category-status'].'</label></dt>
+				<dt class="clear"><label for="category_desc">'.$txt['yaportal-category-status'].'</label></dt>
 				<input type="checkbox" name="category_enabled" '.(!empty($context['category_enabled']) ? 'checked' : '').'> </input>
 			</dl>
 			<div id="post_confirm_buttons" class="submitbutton">

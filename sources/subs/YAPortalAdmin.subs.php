@@ -19,7 +19,7 @@ function get_articles_list($start, $items_per_page, $sort)
 
 	$db = database();
 
-	require_once( SUBSDIR . '/ElkArticle.subs.php');
+	require_once( SUBSDIR . '/YAPortal.subs.php');
 
 	$categories 	= get_article_categories();
 	$request 	= $db->query('', '

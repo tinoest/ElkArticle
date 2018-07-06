@@ -108,14 +108,14 @@ function update_modSettings()
 	global $modSettings;
 
 	$mod_settings = array(
-		'front_page' 			=> 'ElkArticle_Controller',
-		'elkarticle-frontpage' 		=> 1,
-		'elkarticle-topPanel' 		=> 0,
-		'elkarticle-rightPanel' 	=> 0,
-		'elkarticle-leftPanel' 		=> 0,
-		'elkarticle-bottomPanel' 	=> 0,
-		'elkarticle-item-limit' 	=> 0,
-		'elkarticle-enablecomments' 	=> 0,
+		'front_page' 			=> 'YAPortal_Controller',
+		'yaportal-frontpage' 		=> 1,
+		'yaportal-topPanel' 		=> 0,
+		'yaportal-rightPanel' 	=> 0,
+		'yaportal-leftPanel' 		=> 0,
+		'yaportal-bottomPanel' 	=> 0,
+		'yaportal-item-limit' 	=> 0,
+		'yaportal-enablecomments' 	=> 0,
 	);
 
 	foreach ($mod_settings as $new_setting => $new_value) {

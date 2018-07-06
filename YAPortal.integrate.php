@@ -14,7 +14,7 @@ if (!defined('ELK'))
 	die('No access...');
 }
 
-class ElkArticle
+class YAPortal
 {
 	public static function integrate_pre_load()
 	{
@@ -53,11 +53,11 @@ class ElkArticle
 	{
 		global $modSettings;
 
-		if(!empty($modSettings['elkarticle-frontpage'])) {
+		if(!empty($modSettings['yaportal-frontpage'])) {
 			$default_action = array (
-				'file' 		=> CONTROLLERDIR . '/ElkArticle.controller.php',
-				'controller' 	=> 'ElkArticle_Controller',
-				'function' 	=> 'action_elkarticle'
+				'file' 		=> CONTROLLERDIR . '/YAPortal.controller.php',
+				'controller' 	=> 'YAPortal_Controller',
+				'function' 	=> 'action_yaportal'
 			);
 		}
 	}
@@ -66,7 +66,7 @@ class ElkArticle
 	{
 		global $modSettings;
 		
-		if(!empty($modSettings['elkarticle-frontpage'])) {
+		if(!empty($modSettings['yaportal-frontpage'])) {
 			$actionArray['forum'] = array (
 				'BoardIndex.controller.php',
 				'BoardIndex_Controller',
@@ -79,7 +79,7 @@ class ElkArticle
 	{
 		global $modSettings;
 
-		if(!empty($modSettings['elkarticle-frontpage']) && ($current_action === 'home')) {
+		if(!empty($modSettings['yaportal-frontpage']) && ($current_action === 'home')) {
 			if (empty($_REQUEST['action'])) {
 				$current_action = 'base';
 			}
@@ -90,8 +90,8 @@ class ElkArticle
 	{
 		global $txt, $boardurl, $scripturl, $modSettings;
 
-		if(!empty($modSettings['elkarticle-frontpage'])) {
-			loadLanguage('ElkArticle');
+		if(!empty($modSettings['yaportal-frontpage'])) {
+			loadLanguage('YAPortal');
 			$buttons = elk_array_insert($buttons, 'home', array (
 				'base' => array(
 					'title' 	=> $txt['home_btn'],
@@ -112,25 +112,25 @@ class ElkArticle
 	{
 		global $txt;
 
-		loadLanguage('ElkArticle');
+		loadLanguage('YAPortal');
 
-		$admin_areas['elkarticle'] = array (
-			'title' => $txt['elkarticle-admin'],
+		$admin_areas['yaportal'] = array (
+			'title' => $txt['yaportal-admin'],
 			'permission' => array ('admin_forum'),
 			'areas' => array (
 				'articleconfig' => array (
-					'label' => $txt['elkarticle-adminConfiguration'],
-					'file' => 'ElkArticleAdmin.controller.php',
-					'controller' => 'ElkArticleAdmin_Controller',
+					'label' => $txt['yaportal-adminConfiguration'],
+					'file' => 'YAPortalAdmin.controller.php',
+					'controller' => 'YAPortalAdmin_Controller',
 					'function' => 'action_index',
 					'icon' => 'transparent.png',
 					'class' => 'admin_home_page',
 					'permission' => array ( 'admin_forum' ),
 					'subsections' => array (
-						'listarticle' 	=> array ( $txt['elkarticle-listarticle'] ),
-						'listcategory' 	=> array ( $txt['elkarticle-listcategory'] ),
-						'listblock'	=> array ( $txt['elkarticle-listblocks'] ),
-						'listsettings'	=> array ( $txt['elkarticle-settings'] ),
+						'listarticle' 	=> array ( $txt['yaportal-listarticle'] ),
+						'listcategory' 	=> array ( $txt['yaportal-listcategory'] ),
+						'listblock'	=> array ( $txt['yaportal-listblocks'] ),
+						'listsettings'	=> array ( $txt['yaportal-settings'] ),
 					),
 				),
 			),
