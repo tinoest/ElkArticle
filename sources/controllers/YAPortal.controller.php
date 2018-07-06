@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @package "Elk Article" Addon for Elkarte
+ * @package "YAPortal" Addon for Elkarte
  * @author tinoest
  * @license BSD http://opensource.org/licenses/BSD-3-Clause
  *

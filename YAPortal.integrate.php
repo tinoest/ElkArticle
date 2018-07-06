@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @package "Elk Article" Addon for Elkarte
+ * @package "YAPortal" Addon for Elkarte
  * @author tinoest
  * @license BSD http://opensource.org/licenses/BSD-3-Clause
  *
@@ -94,17 +94,17 @@ class YAPortal
 			loadLanguage('YAPortal');
 			$buttons = elk_array_insert($buttons, 'home', array (
 				'base' => array(
-					'title' 	=> $txt['home_btn'],
-					'href' 		=> $boardurl,
-					'data-icon' 	=> 'i-home',
-					'show' 		=> true,
+					'title' 	    => $txt['home_btn'],
+					'href' 		    => $boardurl,
+					'data-icon'     => 'i-home',
+					'show'          => true,
 					'action_hook' 	=> true,
 				),
 			));
 
 			// Change the home icon to something else and rewrite the standard action
 			$buttons['home']['data-icon'] = 'i-users';
-			$buttons['home']['href'] = $scripturl . '?action=forum';
+			$buttons['home']['href']      = $scripturl . '?action=forum';
 		}
 	}
 
@@ -119,17 +119,17 @@ class YAPortal
 			'permission' => array ('admin_forum'),
 			'areas' => array (
 				'articleconfig' => array (
-					'label' => $txt['yaportal-adminConfiguration'],
-					'file' => 'YAPortalAdmin.controller.php',
-					'controller' => 'YAPortalAdmin_Controller',
-					'function' => 'action_index',
-					'icon' => 'transparent.png',
-					'class' => 'admin_home_page',
-					'permission' => array ( 'admin_forum' ),
+					'label'       => $txt['yaportal-adminConfiguration'],
+					'file'        => 'YAPortalAdmin.controller.php',
+					'controller'  => 'YAPortalAdmin_Controller',
+					'function'    => 'action_index',
+					'icon'        => 'transparent.png',
+					'class'       => 'admin_home_page',
+					'permission'  => array ( 'admin_forum' ),
 					'subsections' => array (
 						'listarticle' 	=> array ( $txt['yaportal-listarticle'] ),
 						'listcategory' 	=> array ( $txt['yaportal-listcategory'] ),
-						'listblock'	=> array ( $txt['yaportal-listblocks'] ),
+						'listblock'	    => array ( $txt['yaportal-listblocks'] ),
 						'listsettings'	=> array ( $txt['yaportal-settings'] ),
 					),
 				),

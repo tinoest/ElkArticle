@@ -108,13 +108,13 @@ function update_modSettings()
 	global $modSettings;
 
 	$mod_settings = array(
-		'front_page' 			=> 'YAPortal_Controller',
-		'yaportal-frontpage' 		=> 1,
-		'yaportal-topPanel' 		=> 0,
-		'yaportal-rightPanel' 	=> 0,
-		'yaportal-leftPanel' 		=> 0,
-		'yaportal-bottomPanel' 	=> 0,
-		'yaportal-item-limit' 	=> 0,
+		'front_page' 			          => 'YAPortal_Controller',
+		'yaportal-frontpage' 		    => 1,
+		'yaportal-topPanel' 		    => 0,
+		'yaportal-rightPanel' 	    => 0,
+		'yaportal-leftPanel' 		    => 0,
+		'yaportal-bottomPanel' 	    => 0,
+		'yaportal-item-limit' 	    => 0,
 		'yaportal-enablecomments' 	=> 0,
 	);
 
