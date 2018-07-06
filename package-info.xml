@@ -41,6 +41,7 @@
 		<remove-file name="ADMINDIR/YAPortalAdminBlocks.controller.php" />
 		<remove-file name="ADMINDIR/YAPortalAdminGallery.controller.php" />
 		<remove-file name="SUBSDIR/YAPortal.subs.php" />
+		<remove-file name="SUBSDIR/YAPortalGallery.subs.php" />
 		<remove-file name="SUBSDIR/YAPortalAdminArticles.subs.php" />
 		<remove-file name="SUBSDIR/YAPortalAdminBlocks.subs.php" />
 		<remove-file name="SUBSDIR/YAPortalAdminGallery.subs.php" />

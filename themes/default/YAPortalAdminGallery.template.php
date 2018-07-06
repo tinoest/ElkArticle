@@ -19,9 +19,9 @@ function template_yaportal_edit()
 	global $settings, $context, $scripturl;
 
 	echo '<link rel="stylesheet" type="text/css" href="'.$settings['theme_url'].'/css/pell.css">
-		<h2 class="category_header">Post Image</h2>
+		<h2 class="category_header">Post Article</h2>
 		<div class="forumposts">
-			<form id="gallery_form_edit" action="'.$scripturl.'?action=admin;area=yaportalgallery;sa=editimage;" value="Submit" method="post" accept-charset="UTF-8">';
+			<form id="gallery_form_edit" action="'.$scripturl.'?action=admin;area=yaportalgallery;sa=editgallery;" value="Submit" method="post" accept-charset="UTF-8">';
 	
 			if(isset($context['gallery_id'])) {
 				echo '<input type="hidden" name="gallery_id" value="'.$context['gallery_id'].'" />';
@@ -36,7 +36,7 @@ function template_yaportal_edit()
 				else {
 					echo '<dd><input type="text" name="gallery_subject" value="" tabindex="1" size="80" maxlength="80" class="input_text" placeholder="Subject" required="required" /></dd>';
 				}
-				echo '<dt class="clear"><label for="gallery_category">Gallery Category:</label></dt>';
+				echo '<dt class="clear"><label for="gallery_category">Blog Category:</label></dt>';
 
 				echo '<dd><select name="gallery_category">';
 				if(!empty($context['gallery_categories']) && is_array($context['gallery_categories'])) {
@@ -52,7 +52,7 @@ function template_yaportal_edit()
 				echo '</select></dd>
 				<dt class="clear"><label for="gallery_status">Status:</label></dt>
 				<dd><select name="gallery_status">';
-				foreach( array( 0 => 'Disabled' , 1 => 'Enabled', 2 => 'Reported' ) as $k => $v) {
+				foreach( array( 0 => 'Disabled' , 1 => 'Show on front page', 2 => 'Don\'t show on front page' ) as $k => $v) {
 					if($k == $context['gallery_status']) {
 						echo '<option value="'.$k.'" selected>'.$v.'</option>';
 					}
@@ -89,7 +89,7 @@ function template_yaportal_edit()
 		echo '</script>';
 }
 
-function template_gallery_list()
+function template_yaportal_list()
 {
 	global $context;
 
@@ -97,7 +97,7 @@ function template_gallery_list()
 
 }
 
-function template_gallery_category_list()
+function template_elkcategory_list()
 {
 	global $context;
 
@@ -105,7 +105,7 @@ function template_gallery_category_list()
 
 }
 
-function template_gallery_category_add()
+function template_elkcategory_add()
 {
 	global $context, $scripturl, $txt;
 
@@ -133,7 +133,7 @@ function template_gallery_category_add()
 	</div>';
 }
 
-function template_gallery_category_edit()
+function template_elkcategory_edit()
 {
 	global $context, $scripturl, $txt;
 

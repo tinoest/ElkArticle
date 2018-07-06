@@ -23,7 +23,7 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 		$subActions = array(
 			'index' 		    => array($this, 'action_default'),
 			'listgallery' 		=> array($this, 'action_list_gallery'),
-			'addgallery' 		=> array($this, 'action_add_gallery'),
+			'addgallery' 		=> array($this, 'action_edit_gallery'),
 			'editgallery' 		=> array($this, 'action_edit_gallery'),
 			'deletegallery'		=> array($this, 'action_delete_gallery'),
 			'listcategory' 		=> array($this, 'action_list_category'),

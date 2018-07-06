@@ -181,6 +181,7 @@ class YAPortal
 					'permission'  => array ( 'admin_forum' ),
 					'subsections' => array (
 						'listgallery'	    => array ( $txt['yaportal-listgallery'] ),
+						'listcategory' 	    => array ( $txt['yaportal-listcategory'] ),
 					),
 				),
 			),

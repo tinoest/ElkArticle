@@ -96,13 +96,13 @@ $tables = array(
 			array('type' => 'primary', 'columns' => array('id')),
 		),
 	),
-	'galleries_categories' => array(
+	'gallery_categories' => array(
 		'columns' => array(
 			array('name' => 'id', 'type' => 'mediumint', 'size' => 8, 'auto' => true, 'unsigned' => true),
 			array('name' => 'name', 'type' => 'varchar', 'size' => 255, 'default' => ''),
 			array('name' => 'description', 'type' => 'text'),
 			array('name' => 'permissions', 'type' => 'mediumint', 'size' => 8, 'default' => 0, 'unsigned' => true),
-			array('name' => 'articles', 'type' => 'int', 'size' => 10, 'default' => 0, 'unsigned' => true),
+			array('name' => 'gallerles', 'type' => 'int', 'size' => 10, 'default' => 0, 'unsigned' => true),
 			array('name' => 'status', 'type' => 'tinyint', 'size' => 4, 'default' => 1),
 		),
 		'indexes' => array(
