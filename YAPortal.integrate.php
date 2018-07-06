@@ -119,9 +119,21 @@ class YAPortal
 			'permission' => array ('admin_forum'),
 			'areas' => array (
 				'yaportalconfig' => array (
-					'label'       => $txt['yaportal-adminConfiguration'],
-					'file'        => 'YAPortalAdmin.controller.php',
-					'controller'  => 'YAPortalAdmin_Controller',
+					'label'       => $txt['yaportal-adminConfigurationMain'],
+					'file'        => 'YAPortalAdminMain.controller.php',
+					'controller'  => 'YAPortalAdminMain_Controller',
+					'function'    => 'action_index',
+					'icon'        => 'transparent.png',
+					'class'       => 'admin_home_page',
+					'permission'  => array ( 'admin_forum' ),
+					'subsections' => array (
+						'listsettings'	=> array ( $txt['yaportal-settings'] ),
+					),
+				),
+				'yaportalarticles' => array (
+					'label'       => $txt['yaportal-adminConfigurationArticles'],
+					'file'        => 'YAPortalAdminArticles.controller.php',
+					'controller'  => 'YAPortalAdminArticles_Controller',
 					'function'    => 'action_index',
 					'icon'        => 'transparent.png',
 					'class'       => 'admin_home_page',
@@ -129,8 +141,30 @@ class YAPortal
 					'subsections' => array (
 						'listarticle' 	=> array ( $txt['yaportal-listarticle'] ),
 						'listcategory' 	=> array ( $txt['yaportal-listcategory'] ),
+					),
+				),
+				'yaportalblocks' => array (
+					'label'       => $txt['yaportal-adminConfigurationBlocks'],
+					'file'        => 'YAPortalAdminBlocks.controller.php',
+					'controller'  => 'YAPortalAdminBlocks_Controller',
+					'function'    => 'action_index',
+					'icon'        => 'transparent.png',
+					'class'       => 'admin_home_page',
+					'permission'  => array ( 'admin_forum' ),
+					'subsections' => array (
 						'listblock'	    => array ( $txt['yaportal-listblocks'] ),
-						'listsettings'	=> array ( $txt['yaportal-settings'] ),
+					),
+				),
+				'yaportalgallery' => array (
+					'label'       => $txt['yaportal-adminConfigurationGallery'],
+					'file'        => 'YAPortalAdminGallery.controller.php',
+					'controller'  => 'YAPortalAdminGallery_Controller',
+					'function'    => 'action_index',
+					'icon'        => 'transparent.png',
+					'class'       => 'admin_home_page',
+					'permission'  => array ( 'admin_forum' ),
+					'subsections' => array (
+						'listgallery'	    => array ( $txt['yaportal-listgallery'] ),
 					),
 				),
 			),

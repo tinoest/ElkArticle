@@ -14,14 +14,14 @@ if (!defined('ELK'))
 	die('No access...');
 }
 
-class YAPortalAdmin_Controller extends Action_Controller
+class YAPortalAdminArticles_Controller extends Action_Controller
 {
 	public function action_index()
 	{
 		require_once(SUBSDIR . '/Action.class.php');
 		// Where do you want to go today?
 		$subActions = array(
-			'index' 		=> array($this, 'action_default'),
+			'index' 		    => array($this, 'action_default'),
 			'listarticle' 		=> array($this, 'action_list_article'),
 			'editarticle' 		=> array($this, 'action_edit_article'),
 			'deletearticle'		=> array($this, 'action_delete_article'),
@@ -29,11 +29,6 @@ class YAPortalAdmin_Controller extends Action_Controller
 			'addcategory' 		=> array($this, 'action_add_category'),
 			'editcategory' 		=> array($this, 'action_edit_category'),
 			'deletecategory' 	=> array($this, 'action_delete_category'),
-			'listblock' 		=> array($this, 'action_list_block'),
-			'addblock' 		=> array($this, 'action_add_block'),
-			'editblock' 		=> array($this, 'action_edit_block'),
-			'deleteblock' 		=> array($this, 'action_delete_block'),
-			'listsettings' 		=> array($this, 'action_list_settings'),
 		);
 		// We like action, so lets get ready for some
 		$action = new Action('');
@@ -46,7 +41,7 @@ class YAPortalAdmin_Controller extends Action_Controller
 
 	public function action_default()
 	{
-		$this->action_list_settings();
+		$this->action_list_article();
 	}
 
 	public function action_admin_menu()
@@ -60,8 +55,6 @@ class YAPortalAdmin_Controller extends Action_Controller
 			'tabs' => array(
 				'listarticle' 	=> array(),
 				'listcategory' 	=> array(),
-				'listblock' 	=> array(),
-				'listsettings' 	=> array(),
 			),
 		);
 	}	
@@ -77,7 +70,7 @@ class YAPortalAdmin_Controller extends Action_Controller
 			'title' => $txt['yaportal-articles'],
 			'items_per_page' => 25,
 			'no_items_label' => $txt['yaportal-notfound'],
-			'base_href' => $scripturl . '?action=admin;area=yaportalconfig;sa=listarticle;',
+			'base_href' => $scripturl . '?action=admin;area=yaportalarticles;sa=listarticle;',
 			'default_sort_col' => 'title',
 			'get_items' => array(
 				'function' => array($this, 'list_articles'),
@@ -157,8 +150,8 @@ class YAPortalAdmin_Controller extends Action_Controller
 					'data' => array(
 						'sprintf' => array (
 							'format' => '
-								<a href="?action=admin;area=yaportalconfig;sa=editarticle;article_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" accesskey="p">Modify</a>&nbsp;
-								<a href="?action=admin;area=yaportalconfig;sa=deletearticle;article_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" onclick="return confirm(' . JavaScriptEscape('Are you sure you want to delete?') . ') && submitThisOnce(this);" accesskey="d">Delete</a>',
+								<a href="?action=admin;area=yaportalarticles;sa=editarticle;article_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" accesskey="p">Modify</a>&nbsp;
+								<a href="?action=admin;area=yaportalarticles;sa=deletearticle;article_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" onclick="return confirm(' . JavaScriptEscape('Are you sure you want to delete?') . ') && submitThisOnce(this);" accesskey="d">Delete</a>',
 							'params' => array(
 								'id' => true,
 							),
@@ -168,7 +161,7 @@ class YAPortalAdmin_Controller extends Action_Controller
 				),
 			),
 			'form' => array(
-				'href' => $scripturl . '?action=admin;area=yaportalconfig;sa=editarticle',
+				'href' => $scripturl . '?action=admin;area=yaportalarticles;sa=editarticle',
 				'include_sort' => true,
 				'include_start' => true,
 				'hidden_fields' => array(
@@ -298,7 +291,7 @@ class YAPortalAdmin_Controller extends Action_Controller
 			'title' => $txt['yaportal-categories'],
 			'items_per_page' => 25,
 			'no_items_label' => $txt['yaportal-notfound'],
-			'base_href' => $scripturl . '?action=admin;area=yaportalconfig;sa=listcategory;',
+			'base_href' => $scripturl . '?action=admin;area=yaportalarticles;sa=listcategory;',
 			'default_sort_col' => 'name',
 			'get_items' => array (
 				'function' => array($this, 'list_categories'),
@@ -365,8 +358,8 @@ class YAPortalAdmin_Controller extends Action_Controller
 					'data' => array(
 						'sprintf' => array (
 							'format' => '
-								<a href="?action=admin;area=yaportalconfig;sa=editcategory;category_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" accesskey="p">Modify</a>&nbsp;
-								<a href="?action=admin;area=yaportalconfig;sa=deletecategory;category_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" onclick="return confirm(' . JavaScriptEscape('Are you sure you want to delete?') . ') && submitThisOnce(this);" accesskey="d">Delete</a>',
+								<a href="?action=admin;area=yaportalarticles;sa=editcategory;category_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" accesskey="p">Modify</a>&nbsp;
+								<a href="?action=admin;area=yaportalarticles;sa=deletecategory;category_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" onclick="return confirm(' . JavaScriptEscape('Are you sure you want to delete?') . ') && submitThisOnce(this);" accesskey="d">Delete</a>',
 							'params' => array(
 								'id' => true,
 							),
@@ -376,7 +369,7 @@ class YAPortalAdmin_Controller extends Action_Controller
 				),
 			),
 			'form' => array(
-				'href' => $scripturl . '?action=admin;area=yaportalconfig;sa=addcategory',
+				'href' => $scripturl . '?action=admin;area=yaportalarticles;sa=addcategory',
 				'include_sort' => true,
 				'include_start' => true,
 				'hidden_fields' => array(
@@ -491,206 +484,6 @@ class YAPortalAdmin_Controller extends Action_Controller
 		$this->action_list_category();
 	}
 
-	public function action_list_block()
-	{
-		global $context, $scripturl, $txt;
-
-		$this->action_admin_menu();
-
-		$list = array (
-			'id' => 'block_list',
-			'title' => $txt['yaportal-blocks'],
-			'items_per_page' => 25,
-			'no_items_label' => $txt['yaportal-notfound'],
-			'base_href' => $scripturl . '?action=admin;area=yaportalconfig;sa=listblock;',
-			'default_sort_col' => 'name',
-			'get_items' => array (
-				'function' => array($this, 'list_blocks'),
-			),
-			'get_count' => array (
-				'function' => array($this, 'list_total_blocks'),
-			),
-			'columns' => array (
-				'name' => array (
-					'header' => array (
-						'value' => 'Name',
-					),
-					'data' => array (
-						'db' => 'name',
-					),
-					'sort' => array (
-						'default' => 'name ASC',
-						'reverse' => 'name DESC',
-					),
-				),
-				'description' => array(
-					'header' => array(
-						'value' => 'Description',
-					),
-					'data' => array(
-						'db' => 'description',
-					),
-					'sort' => array(
-						'default' => 'description ASC',
-						'reverse' => 'description DESC',
-					),
-				),
-				'blocks' => array(
-					'header' => array(
-						'value' => 'Blocks',
-					),
-					'data' => array(
-						'db' => 'blocks',
-					),
-					'sort' => array(
-						'default' => 'blocks ASC',
-						'reverse' => 'blocks DESC',
-					),
-				),
-				'status' => array(
-					'header' => array(
-						'value' => 'Status',
-						'class' => 'centertext',
-					),
-					'data' => array(
-						'db' => 'status',
-						'class' => 'centertext',
-					),
-					'sort' => array(
-						'default' => 'status ASC',
-						'reverse' => 'status DESC',
-					),
-				),
-				'action' => array(
-					'header' => array(
-						'value' => 'Actions',
-						'class' => 'centertext',
-					),
-					'data' => array(
-						'sprintf' => array (
-							'format' => '
-								<a href="?action=admin;area=yaportalconfig;sa=editblock;block_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" accesskey="p">Modify</a>&nbsp;
-								<a href="?action=admin;area=yaportalconfig;sa=deleteblock;block_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" onclick="return confirm(' . JavaScriptEscape('Are you sure you want to delete?') . ') && submitThisOnce(this);" accesskey="d">Delete</a>',
-							'params' => array(
-								'id' => true,
-							),
-						),
-						'class' => 'centertext nowrap',
-					),
-				),
-			),
-			'form' => array(
-				'href' => $scripturl . '?action=admin;area=yaportalconfig;sa=addblock',
-				'include_sort' => true,
-				'include_start' => true,
-				'hidden_fields' => array(
-					$context['session_var'] => $context['session_id'],
-				),
-			),
-			'additional_rows' => array(
-				array(
-					'position' => 'below_table_data',
-					'value' => '<input type="submit" name="action_add_category" value="' . $txt['yaportal-addblock'] . '" class="right_submit" />',
-				),
-			),
-		);
-	
-		$context['page_title']		= 'Block List';
-		$context['sub_template'] 	= 'elkblock_list';	
-		$context['default_list'] 	= 'block_list';
-		// Create the list.
-		require_once(SUBSDIR . '/GenericList.class.php');
-		createList($list);
-		loadTemplate('YAPortalAdmin');
-	}
-
-	public function action_add_block()
-	{
-		global $context;
-
-		$this->action_list_block();
-	}
-
-	public function action_edit_block()
-	{
-		global $context;
-
-		$this->action_list_block();
-	}
-
-	public function action_delete_block()
-	{
-
-		$this->action_list_block();
-		return;
-
-		require_once(SUBSDIR . '/YAPortalAdmin.subs.php');
-		if (!empty($_GET['block_id'])) {
-			if (checkSession('get', '', false) !== '') {
-				return;
-			}
-			
-			$id	=  $_GET['block_id'];
-			delete_block($id);
-		}
-
-		// Just Load the list again
-		$this->action_list_block();
-	}
-
-	public function action_list_settings()
-	{
-		global $txt, $context, $scripturl, $modSettings;
-		
-		$this->action_admin_menu();
-		
-		loadLanguage('YAPortal');
-		// Lets build a settings form
-		require_once(SUBSDIR . '/SettingsForm.class.php');
-		// Instantiate the form
-		$elkArticleSettings = new Settings_Form();
-		// All the options, well at least some of them!
-		$config_vars = array (
-			array ('check', 'yaportal-frontpage'),
-			array ('select', 'yaportal-item-limit', 
-				array (
-					$txt['yaportal-limit-10'], 
-					$txt['yaportal-limit-25'], 
-					$txt['yaportal-limit-50'], 
-					$txt['yaportal-limit-75'], 
-					$txt['yaportal-limit-100'], 
-				)
-			),
-			array ('check', 'yaportal-rightPanel'),
-			array ('check', 'yaportal-leftPanel'),
-			array ('check', 'yaportal-topPanel'),
-			array ('check', 'yaportal-bottomPanel'),
-			array ('check', 'yaportal-enablecomments'),
-		);
-		// Load the settings to the form class
-		$elkArticleSettings->settings($config_vars);
-		// Saving?
-		if (isset($_GET['save'])) {
-			if(!empty($_POST['yaportal-frontpage'])) {
-				updateSettings(array('front_page' => 'YAPortal_Controller'));
-			}
-			else {
-				removeSettings('front_page');
-			}
-			checkSession();
-			Settings_Form::save_db($config_vars);
-			redirectexit('action=admin;area=yaportalconfig;sa=listsettings');
-		}
-
-		$context['sub_template']	= 'show_settings';
-		// Continue on to the settings template
-		$context['settings_title'] 	= $txt['yaportal-options'];
-		$context['page_title'] 		= $context['yaportal_settings_title'] = $txt['yaportal-settings'];
-		$context['post_url'] 		= $scripturl . '?action=admin;area=yaportalconfig;sa=listsettings;save';
-		Settings_Form::prepare_db($config_vars);
-
-	}
-
 	public function list_articles($start, $items_per_page, $sort)
 	{
 		require_once(SUBSDIR . '/YAPortalAdmin.subs.php');
@@ -713,17 +506,5 @@ class YAPortalAdmin_Controller extends Action_Controller
 	{
 		require_once(SUBSDIR . '/YAPortal.subs.php');
 		return get_total_categories();
-	} 
-
-	public function list_blocks($start, $items_per_page, $sort)
-	{
-		require_once(SUBSDIR . '/YAPortal.subs.php');
-		return get_block_list($start, $items_per_page, $sort);
-	}
- 
-	public function list_total_blocks()
-	{
-		require_once(SUBSDIR . '/YAPortal.subs.php');
-		return get_total_blocks();
 	} 
 }
