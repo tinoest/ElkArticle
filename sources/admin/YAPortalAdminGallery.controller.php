@@ -190,7 +190,7 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 	{
 		global $context, $user_info;
 
-		require_once(SUBSDIR . '/YAPortal.subs.php');
+		require_once(SUBSDIR . '/YAPortalGallery.subs.php');
 		require_once(SUBSDIR . '/YAPortalAdminGallery.subs.php');
 
 
@@ -452,7 +452,7 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 			if (checkSession('get', '', false) !== '') {
 				return;
 			}			
-			require_once(SUBSDIR . '/YAPortal.subs.php');
+			require_once(SUBSDIR . '/YAPortalGallery.subs.php');
 			$category_id			= $_GET['category_id'];
 			$category_details		= get_category($category_id);
 			$context['category_id']		= $category_details['id'];
@@ -493,19 +493,19 @@ class YAPortalAdminGallery_Controller extends Action_Controller
  
 	public function list_total_galleries()
 	{
-		require_once(SUBSDIR . '/YAPortal.subs.php');
+		require_once(SUBSDIR . '/YAPortalGallery.subs.php');
 		return get_total_galleries();
 	}
 
 	public function list_categories($start, $items_per_page, $sort)
 	{
-		require_once(SUBSDIR . '/YAPortal.subs.php');
+		require_once(SUBSDIR . '/YAPortalGallery.subs.php');
 		return get_category_list($start, $items_per_page, $sort);
 	}
  
 	public function list_total_categories()
 	{
-		require_once(SUBSDIR . '/YAPortal.subs.php');
+		require_once(SUBSDIR . '/YAPortalGallery.subs.php');
 		return get_total_categories();
 	} 
 }
