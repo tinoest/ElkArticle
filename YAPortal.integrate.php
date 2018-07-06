@@ -21,9 +21,10 @@ class YAPortal
 		global $boardurl;
 		$original = $_SERVER['QUERY_STRING'];
 
-                $paths = array (        
+        $paths = array (        
 			'~^article/([0-9]+)/$~' => 'sa=article&article=%1$s',
 		);
+
 		foreach ($paths as $route => $destination) {
 			if (preg_match($route, $_SERVER['QUERY_STRING'], $matches)) {
 				// Trailing / ?
@@ -41,6 +42,7 @@ class YAPortal
 				}
 			}
 		}
+
 		// If we've matched, we need to rewrite the original requested URI too.
 		if ($original != $_SERVER['QUERY_STRING']) {
 			$_SERVER['REQUEST_URI'] = $boardurl . '/index.php?' . $_SERVER['QUERY_STRING'];
@@ -106,6 +108,20 @@ class YAPortal
 			$buttons['home']['data-icon'] = 'i-users';
 			$buttons['home']['href']      = $scripturl . '?action=forum';
 		}
+
+        if(!empty($modSettings['yaportal-gallery-menu-item'])) {
+			loadLanguage('YAPortal');
+			$buttons = elk_array_insert($buttons, 'home', array (
+				'gallery' => array(
+					'title' 	    => $txt['gallery_btn'],
+					'href' 		    => $scripturl . '?action=gallery',
+					'data-icon'     => 'i-home',
+					'show'          => true,
+					'action_hook' 	=> true,
+				),
+			));
+        }
+
 	}
 
 	public static function integrate_admin_areas(&$admin_areas)

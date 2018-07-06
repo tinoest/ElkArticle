@@ -149,7 +149,7 @@ class YAPortalAdminBlocks_Controller extends Action_Controller
 		// Create the list.
 		require_once(SUBSDIR . '/GenericList.class.php');
 		createList($list);
-		loadTemplate('YAPortalAdmin');
+		loadTemplate('YAPortalAdminBlocks');
 	}
 
 	public function action_add_block()
@@ -172,7 +172,7 @@ class YAPortalAdminBlocks_Controller extends Action_Controller
 		$this->action_list_block();
 		return;
 
-		require_once(SUBSDIR . '/YAPortalAdmin.subs.php');
+		require_once(SUBSDIR . '/YAPortalAdminBlocks.subs.php');
 		if (!empty($_GET['block_id'])) {
 			if (checkSession('get', '', false) !== '') {
 				return;

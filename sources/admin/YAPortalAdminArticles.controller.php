@@ -182,7 +182,7 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 		// Create the list.
 		require_once(SUBSDIR . '/GenericList.class.php');
 		createList($list);
-		loadTemplate('YAPortalAdmin');
+		loadTemplate('YAPortalAdminArticles');
 	}
 
 	public function action_edit_article() 
@@ -190,7 +190,7 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 		global $context, $user_info;
 
 		require_once(SUBSDIR . '/YAPortal.subs.php');
-		require_once(SUBSDIR . '/YAPortalAdmin.subs.php');
+		require_once(SUBSDIR . '/YAPortalAdminArticles.subs.php');
 
 
 		// Set the defaults
@@ -261,12 +261,12 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 	
 		$context['sub_template'] 	= 'yaportal_edit';
 
-		loadTemplate('YAPortalAdmin');
+		loadTemplate('YAPortalAdminArticles');
 	}
 
 	public function action_delete_article()
 	{
-		require_once(SUBSDIR . '/YAPortalAdmin.subs.php');
+		require_once(SUBSDIR . '/YAPortalAdminArticles.subs.php');
 		if (!empty($_GET['article_id'])) {
 			if (checkSession('get', '', false) !== '') {
 				return;
@@ -277,7 +277,7 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 		}
 
 		// Just Load the list again
-		$this->action_list();
+		$this->action_list_article();
 	}
 
 	public function action_list_category()
@@ -390,7 +390,7 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 		// Create the list.
 		require_once(SUBSDIR . '/GenericList.class.php');
 		createList($list);
-		loadTemplate('YAPortalAdmin');
+		loadTemplate('YAPortalAdminArticles');
 	}
 
 	public function action_add_category()
@@ -401,7 +401,7 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 			if (checkSession('post', '', false) !== '') {
 				return;
 			}
-			require_once(SUBSDIR . '/YAPortalAdmin.subs.php');
+			require_once(SUBSDIR . '/YAPortalAdminArticles.subs.php');
 			$name 	= $_POST['category_name'];
 			$desc 	= $_POST['category_desc'];
 			if(!empty($_POST['category_enabled'])) {
@@ -416,7 +416,7 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 		else {
 			$context['page_title']		= 'Add Category';
 			$context['sub_template'] 	= 'elkcategory_add';	
-			loadTemplate('YAPortalAdmin');
+			loadTemplate('YAPortalAdminArticles');
 		}
 	}
 
@@ -429,7 +429,7 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 			if (checkSession('post', '', false) !== '') {
 				return;
 			}
-			require_once(SUBSDIR . '/YAPortalAdmin.subs.php');
+			require_once(SUBSDIR . '/YAPortalAdminArticles.subs.php');
 
 			$category_id			= $_POST['category_id'];
 			$category_name			= $_POST['category_name'];
@@ -461,7 +461,7 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 
 			$context['page_title']		= 'Edit Category';
 			$context['sub_template'] 	= 'elkcategory_edit';
-			loadTemplate('YAPortalAdmin');
+			loadTemplate('YAPortalAdminArticles');
 			return;
 		} 
 
@@ -470,7 +470,7 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 
 	public function action_delete_category()
 	{
-		require_once(SUBSDIR . '/YAPortalAdmin.subs.php');
+		require_once(SUBSDIR . '/YAPortalAdminArticles.subs.php');
 		if (!empty($_GET['category_id'])) {
 			if (checkSession('get', '', false) !== '') {
 				return;
@@ -486,7 +486,7 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 
 	public function list_articles($start, $items_per_page, $sort)
 	{
-		require_once(SUBSDIR . '/YAPortalAdmin.subs.php');
+		require_once(SUBSDIR . '/YAPortalAdminArticles.subs.php');
 		return get_articles_list($start, $items_per_page, $sort);
 	}
  
