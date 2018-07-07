@@ -95,11 +95,11 @@ function insert_gallery($subject, $body, $category_id, $member_id, $image_name, 
 }
 
 
-function update_gallery( $subject, $body, $category_id, $gallery_id, $status) 
+function update_gallery( $subject, $body, $category_id, $gallery_id, $image_name, $status) 
 {
 	$db = database();
 
-	if(is_null($body)) {
+	if(is_null($body) && is_null($image_name)) {
 		$db->query('', '
 		UPDATE {db_prefix}galleries
 		SET title = {string:title}, category_id = {int:category_id}, status = {int:status}
@@ -112,14 +112,43 @@ function update_gallery( $subject, $body, $category_id, $gallery_id, $status)
 			)
 		);
 	}
+	else if(is_null($body)) {
+		$db->query('', '
+		UPDATE {db_prefix}galleries
+		SET title = {string:title}, category_id = {int:category_id}, status = {int:status}, image_name = {string:image_name}
+			WHERE id = {int:id}',
+			array (
+				'title' 	    => $subject,
+				'category_id'	=> $category_id,
+				'status'	    => $status,
+                'image_name'    => $image_name,
+				'id'		    => $gallery_id,
+			)
+		);
+	}
+	else if(is_null($image_name)) {
+		$db->query('', '
+		UPDATE {db_prefix}galleries
+		SET title = {string:title}, category_id = {int:category_id}, status = {int:status}, body = {string:body}
+			WHERE id = {int:id}',
+			array (
+				'title' 	    => $subject,
+				'category_id'	=> $category_id,
+				'status'	    => $status,
+                'body'          => $body,
+				'id'		    => $gallery_id,
+			)
+		);
+	}
 	else {
 		$db->query('', '
 		UPDATE {db_prefix}galleries
-		SET title = {string:title}, body = {string:body}, category_id = {int:category_id}, status = {int:status}
+		SET title = {string:title}, body = {string:body}, category_id = {int:category_id}, status = {int:status}, image_name = {string:image_name}
 			WHERE id = {int:id}',
 			array (
 				'title' 	    => $subject,
 				'body'		    => $body,
+				'image_name'	=> $image_name,
 				'category_id'	=> $category_id,
 				'status'	    => $status,
 				'id'		    => $gallery_id,

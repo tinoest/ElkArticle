@@ -198,7 +198,7 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 		$context['gallery_subject'] 	= '';
 		$context['gallery_body'] 	    = '';
         $context['gallery_image']       = '';
-        $image_name                     = '';
+        $image_name                     = null;
 
         if(!empty($_FILES['gallery_image'])) {
             if(in_array(exif_imagetype($_FILES['gallery_image']['tmp_name']), array( IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG ) ) ) {
@@ -243,7 +243,18 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 			$category_id		= $_POST['gallery_category'];
 			$gallery_id	 		= $_POST['gallery_id'];
 
-			update_gallery($subject, $body, $category_id, $gallery_id, $status);
+            if(!empty($image_name)) {
+                // Are we changing the image? remove the old one if we are
+			    $gallery_data	    = get_gallery($gallery_id);
+                if($gallery_data['image_name'] != $image_name) {
+                    $fileName   = BOARDDIR . '/yaportal/img/' . $gallery_data['image_name'];
+                    if(file_exists( $fileName )) {
+                        unlink( $fileName );
+                    }                   
+                }
+            }
+
+			update_gallery($subject, $body, $category_id, $gallery_id, $image_name, $status);
 
 			$gallery_data			    = get_gallery($gallery_id);
 			$context['gallery_id'] 		= $gallery_data['id'];
