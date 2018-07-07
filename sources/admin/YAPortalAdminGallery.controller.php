@@ -188,7 +188,7 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 
 	public function action_edit_gallery() 
 	{
-		global $context, $user_info;
+		global $context, $user_info, $boardurl;
 
 		require_once(SUBSDIR . '/YAPortalGallery.subs.php');
 		require_once(SUBSDIR . '/YAPortalAdminGallery.subs.php');
@@ -267,6 +267,8 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 			$context['gallery_status']	= $gallery_data['status'];
 			$context['gallery_image']   = $gallery_data['image_name'];
 		}
+			
+        $context['gallery_image_src']   = $boardurl . '/yaportal/img/' . $context['gallery_image'];
 
 		$context['gallery_categories']	= get_gallery_categories();
 	
@@ -278,13 +280,23 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 	public function action_delete_gallery()
 	{
 		require_once(SUBSDIR . '/YAPortalAdminGallery.subs.php');
+		require_once(SUBSDIR . '/YAPortalGallery.subs.php');
+
+
 		if (!empty($_GET['gallery_id'])) {
 			if (checkSession('get', '', false) !== '') {
 				return;
 			}
+        
+			$id	        =  $_GET['gallery_id'];
+            $gallery    = get_gallery($id);
+            $fileName   = BOARDDIR . '/yaportal/img/' . $gallery['image_name'];
 			
-			$id	=  $_GET['gallery_id'];
 			delete_gallery($id);
+
+            if(file_exists( $fileName )) {
+                unlink( $fileName );
+            }
 		}
 
 		// Just Load the list again

@@ -74,7 +74,7 @@ function template_yaportal_edit()
 					    <input type="submit" value="Submit">
                     </div>
 				</div>
-				<input type="hidden" name="'.$context['session_var'].'" value="'.$context['session_id'].'" />
+            <input type="hidden" name="'.$context['session_var'].'" value="'.$context['session_id'].'" />
 			</form>
 		</div>
 		<script src="'.$settings['theme_url'].'/scripts/pell.js"></script>
@@ -92,6 +92,10 @@ function template_yaportal_edit()
 			echo 'editor.content.innerHTML = '.JavaScriptEscape($context['gallery_body']);
 		}
 		echo '</script>';
+
+        if(!empty($context['gallery_image_src'])) {
+            echo '<h2> Current Image: </h2><img src="'. $context['gallery_image_src'] .'" alt="" height="50%" width="50%">';
+        }
 }
 
 function template_yaportal_list()
