@@ -69,6 +69,7 @@ class YAPortalAdminMain_Controller extends Action_Controller
 			array ('check', 'yaportal-bottomPanel'),
             // Article Options
 		    array ('title', 'yaportal-article-options'),
+            array ('check', 'yaportal-article-menu-item'),
 			array ('check', 'yaportal-enablecomments'),
             // Gallery Options
 		    array ('title', 'yaportal-gallery-options'),

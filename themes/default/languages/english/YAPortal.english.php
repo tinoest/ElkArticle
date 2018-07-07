@@ -1,6 +1,7 @@
 <?php
 $txt['home_btn'] 				    = 'Home';
 $txt['gallery_btn']                 = 'Gallery';
+$txt['article_btn']                 = 'Article';
 $txt['yaportal-desc']				= 'The YAPortal Modification allows you add Articles to your forum, you can also edit available Categories, and it\'s Settings';
 $txt['yaportal-admin'] 			    = 'YAPortal';
 $txt['yaportal-gallery-options'] 			    = 'Gallery Settings';
@@ -21,6 +22,7 @@ $txt['yaportal-listgallery'] 			        = 'Gallery';
 $txt['yaportal-gallery-enablecomments']		    = 'Enable Gallery Comments?';
 $txt['yaportal-gallery-item-limit']			    = 'Number of images to display on Gallery Page';
 $txt['yaportal-gallery-menu-item']			    = 'Add a Gallery Menu Dropdown?';
+$txt['yaportal-article-menu-item']			    = 'Add a Article Menu Dropdown?';
 $txt['yaportal-settings'] 			            = 'Settings';
 $txt['yaportal-title']			    = 'YAPortal';
 $txt['yaportal-frontpage']			= 'Show Article\'s on Front Page?';

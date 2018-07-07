@@ -78,6 +78,14 @@ class YAPortal
 			);
 		}
 
+        if(!empty($modSettings['yaportal-article-menu-item'])) {
+            $actionArray['article'] = array (
+				'YAPortal.controller.php',
+				'YAPortal_Controller',
+				'action_index'
+			);
+        }
+
         if(!empty($modSettings['yaportal-gallery-menu-item'])) {
             $actionArray['gallery'] = array (
 				'YAPortalGallery.controller.php',
@@ -119,6 +127,7 @@ class YAPortal
 			$buttons['home']['href']      = $scripturl . '?action=forum';
 		}
 
+        // Show the Gallery Option Tab
         if(!empty($modSettings['yaportal-gallery-menu-item'])) {
 			loadLanguage('YAPortal');
 			$buttons = elk_array_insert($buttons, 'home', array (
@@ -128,10 +137,23 @@ class YAPortal
 					'data-icon'     => 'i-home',
 					'show'          => true,
 					'action_hook' 	=> true,
-				),
-			));
+	            ), 
+	        ), 'after');
         }
 
+        // Show the article option tab
+        if(!empty($modSettings['yaportal-article-menu-item'])) {
+			loadLanguage('YAPortal');
+			$buttons = elk_array_insert($buttons, 'home', array (
+				'article' => array(
+					'title' 	    => $txt['article_btn'],
+					'href' 		    => $scripturl . '?action=article',
+					'data-icon'     => 'i-home',
+					'show'          => true,
+					'action_hook' 	=> true,
+	            ), 
+	        ), 'after');
+        }
 	}
 
 	public static function integrate_admin_areas(&$admin_areas)
