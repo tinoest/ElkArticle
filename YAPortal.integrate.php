@@ -23,6 +23,8 @@ class YAPortal
 
         $paths = array (        
 			'~^article/([0-9]+)/$~' => 'sa=article&article=%1$s',
+			'~^gallery/([0-9]+)/$~' => 'action=gallery&sa=gallery&gallery=%1$s',
+			'~^gallery/image/([0-9]+)/$~' => 'action=gallery&sa=gallery&image=%1$s',
 		);
 
 		foreach ($paths as $route => $destination) {
@@ -58,7 +60,7 @@ class YAPortal
 		if(!empty($modSettings['yaportal-frontpage'])) {
 			$default_action = array (
 				'file' 		=> CONTROLLERDIR . '/YAPortal.controller.php',
-				'controller' 	=> 'YAPortal_Controller',
+				'controller'=> 'YAPortal_Controller',
 				'function' 	=> 'action_yaportal'
 			);
 		}
@@ -75,6 +77,14 @@ class YAPortal
 				'action_boardindex'
 			);
 		}
+
+        if(!empty($modSettings['yaportal-gallery-menu-item'])) {
+            $actionArray['gallery'] = array (
+				'YAPortalGallery.controller.php',
+				'YAPortalGallery_Controller',
+				'action_index'
+			);
+        }
 	}
 
 	public static function integrate_current_action(&$current_action)

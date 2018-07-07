@@ -14,9 +14,7 @@ if (!defined('ELK'))
 	die('No access...');
 }
 
-use ElkArte\sources\Frontpage_Interface;
-
-class YAPortal_Controller extends Action_Controller implements Frontpage_Interface
+class YAPortalGallery_Controller extends Action_Controller
 {
 	public function action_index()
 	{
@@ -24,7 +22,8 @@ class YAPortal_Controller extends Action_Controller implements Frontpage_Interfa
 		// Where do you want to go today?
 		$subActions = array(
 			'index'		=> array($this, 'action_yaportal_index'),
-			'article' 	=> array($this, 'action_yaportal'),
+			'gallery' 	=> array($this, 'action_yaportal_gallery'),
+			'image' 	=> array($this, 'action_yaportal_image'),
 		);
 
 		// We like action, so lets get ready for some
@@ -36,35 +35,36 @@ class YAPortal_Controller extends Action_Controller implements Frontpage_Interfa
 		$action->dispatch($subAction);
 	}
 
-	public function action_yaportal()
+	public function action_yaportal_gallery()
 	{
+
 		global $context, $scripturl, $txt, $modSettings;
 		loadLanguage('YAPortal');
 		loadCSSFile('yaportal.css');
 		
-		require_once(SUBSDIR . '/YAPortal.subs.php');	
+		require_once(SUBSDIR . '/YAPortalGallery.subs.php');	
 
 		$context['page_title']		= $context['forum_name'];
 		$context['sub_template'] 	= 'yaportal';
-		$article_id 			= !empty($_REQUEST['article']) ? (int) $_REQUEST['article'] : 0;
-		$article			= get_article($article_id);
-		if(is_array($article) && !empty($article)) {
-			update_article_views($article_id);	
-			$context['article'] 	= $article;
+		$gallery_id 			    = !empty($_REQUEST['gallery']) ? (int) $_REQUEST['gallery'] : 0;
+		$gallery			        = get_gallery($gallery_id);
+		if(is_array($gallery) && !empty($gallery)) {
+			update_gallery_views($gallery_id);	
+			$context['gallery'] 	= $gallery;
 		}
 		else {
-			$context['article_error'] = $txt['yaportal-not-found'];
+			$context['gallery_error']   = $txt['yaportal-not-found'];
 		}
-		$context['comments-enabled'] 	= $modSettings['yaportal-enablecomments'];
+		$context['comments-enabled']    = $modSettings['yaportal-enablecomments'];
 
-		loadTemplate('YAPortal');
+		loadTemplate('YAPortalGallery');
 	}
 
 	public function action_yaportal_index()
 	{
 		global $context, $scripturl, $modSettings;
 		
-		require_once(SUBSDIR . '/YAPortal.subs.php');	
+		require_once(SUBSDIR . '/YAPortalGallery.subs.php');	
 
 		loadCSSFile('yaportal.css');
 
@@ -101,40 +101,13 @@ class YAPortal_Controller extends Action_Controller implements Frontpage_Interfa
 			}
 		}
 
-		$articles	= get_articles($start, $per_page);	
-		$total_articles = get_total_articles(); 
+		$galleries	                    = get_galleries($start, $per_page);	
+		$total_galleries                = get_total_galleries(); 
 
 		$context['comments-enabled'] 	= $modSettings['yaportal-enablecomments'];
-		$context['articles'] 		= $articles;
-		$context['page_index'] 		= constructPageIndex($scripturl . '?action=home;start=%1$d', $start, $total_articles, $per_page, true);
+		$context['galleries'] 		    = $galleries;
+		$context['page_index'] 		    = constructPageIndex($scripturl . '?action=home;start=%1$d', $start, $total_galleries, $per_page, true);
 
-		loadTemplate('YAPortal');
+		loadTemplate('YAPortalGallery');
 	}
-
-	public static function canFrontPage()
-	{
-		return true;
-	}
-
-	public static function frontPageHook(&$default_action)
-	{
-		// View the portal front page
-		$file = CONTROLLERDIR . '/YAPortal.controller.php';
-		$controller = 'YAPortal_Controller';
-		$function = 'action_index';
-		// Something article-ish, then set the new action
-		if (isset($file, $function)) {
-			$default_action = array(
-				'file' => $file,
-				'controller' => isset($controller) ? $controller : null,
-				'function' => $function
-			);
-		}
-	}
-
-	public static function frontPageOptions()
-	{
-
-	}
-
 }
