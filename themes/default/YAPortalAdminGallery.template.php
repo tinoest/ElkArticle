@@ -19,9 +19,9 @@ function template_yaportal_edit()
 	global $settings, $context, $scripturl;
 
 	echo '<link rel="stylesheet" type="text/css" href="'.$settings['theme_url'].'/css/pell.css">
-		<h2 class="category_header">Post Article</h2>
+		<h2 class="category_header">Post Image</h2>
 		<div class="forumposts">
-			<form id="gallery_form_edit" action="'.$scripturl.'?action=admin;area=yaportalgallery;sa=editgallery;" value="Submit" method="post" accept-charset="UTF-8">';
+			<form id="gallery_form_edit" action="'.$scripturl.'?action=admin;area=yaportalgallery;sa=editgallery;" value="Submit" method="post" accept-charset="UTF-8" enctype="multipart/form-data">';
 	
 			if(isset($context['gallery_id'])) {
 				echo '<input type="hidden" name="gallery_id" value="'.$context['gallery_id'].'" />';
@@ -36,7 +36,7 @@ function template_yaportal_edit()
 				else {
 					echo '<dd><input type="text" name="gallery_subject" value="" tabindex="1" size="80" maxlength="80" class="input_text" placeholder="Subject" required="required" /></dd>';
 				}
-				echo '<dt class="clear"><label for="gallery_category">Blog Category:</label></dt>';
+				echo '<dt class="clear"><label for="gallery_category">Gallery Category:</label></dt>';
 
 				echo '<dd><select name="gallery_category">';
 				if(!empty($context['gallery_categories']) && is_array($context['gallery_categories'])) {
@@ -52,7 +52,7 @@ function template_yaportal_edit()
 				echo '</select></dd>
 				<dt class="clear"><label for="gallery_status">Status:</label></dt>
 				<dd><select name="gallery_status">';
-				foreach( array( 0 => 'Disabled' , 1 => 'Show on front page', 2 => 'Don\'t show on front page' ) as $k => $v) {
+				foreach( array( 0 => 'Disabled' , 1 => 'Enabled', 2 => 'Requires Approval' ) as $k => $v) {
 					if($k == $context['gallery_status']) {
 						echo '<option value="'.$k.'" selected>'.$v.'</option>';
 					}
@@ -67,7 +67,12 @@ function template_yaportal_edit()
 					<div id="eb_editor" class="eb_editor"></div>
 				</div>
 				<div id="post_confirm_buttons" class="submitbutton">
-					<input type="submit" value="Submit">
+                    <div style="float: left;"> 
+                        <input type="file" id="gallery_image" name="gallery_image" />
+                    </div>
+                    <div style="float: right;"> 
+					    <input type="submit" value="Submit">
+                    </div>
 				</div>
 				<input type="hidden" name="'.$context['session_var'].'" value="'.$context['session_id'].'" />
 			</form>

@@ -84,6 +84,7 @@ $tables = array(
 			array('name' => 'dt_published', 'type' => 'int', 'size' => 10, 'default' => 0),
 			array('name' => 'title', 'type' => 'varchar', 'size' => 255, 'default' => ''),
 			array('name' => 'body', 'type' => 'text'),
+			array('name' => 'image_name', 'type' => 'varchar', 'size' => 255, 'default' => ''),
 			array('name' => 'type', 'type' => 'varchar', 'size' => 40, 'default' => ''),
 			array('name' => 'date', 'type' => 'int', 'size' => 10, 'default' => 0, 'unsigned' => true),
 			array('name' => 'permissions', 'type' => 'mediumint', 'size' => 8, 'default' => 0, 'unsigned' => true),

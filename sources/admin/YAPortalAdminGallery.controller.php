@@ -193,32 +193,40 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 		require_once(SUBSDIR . '/YAPortalGallery.subs.php');
 		require_once(SUBSDIR . '/YAPortalAdminGallery.subs.php');
 
-
 		// Set the defaults
 		$context['gallery_category']	= 1;
 		$context['gallery_subject'] 	= '';
-		$context['gallery_body'] 	= '';
+		$context['gallery_body'] 	    = '';
+        $context['gallery_image']       = '';
+        $image_name                     = '';
 
-		$status				= 1;
+        if(!empty($_FILES['gallery_image'])) {
+            if(in_array(exif_imagetype($_FILES['gallery_image']['tmp_name']), array( IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG ) ) ) {
+                move_uploaded_file($_FILES['gallery_image']['tmp_name'], BOARDDIR . '/yaportal/img/' . $_FILES['gallery_image']['name']);
+            }
+            $image_name                 = $_FILES['gallery_image']['name'];
+        }
+
+		$status				            = 1;
 		if(array_key_exists('gallery_status', $_POST)) {
-			$status			= $_POST['gallery_status'];
+			$status			            = $_POST['gallery_status'];
 		}
-		$context['gallery_status']	= $status;
+		$context['gallery_status']	    = $status;
 
 		if (!empty($_POST['gallery_subject']) && !empty($_POST['gallery_body']) && empty($_POST['gallery_id'])) {
 			if (checkSession('post', '', false) !== '') {
 				return;
 			}
 
-			$subject			= $_POST['gallery_subject'];
-			$body				= $_POST['gallery_body'];
-			$category_id			= $_POST['gallery_category'];
+			$subject			        = $_POST['gallery_subject'];
+			$body				        = $_POST['gallery_body'];
+			$category_id			    = $_POST['gallery_category'];
 
-
-			$context['gallery_id']		= insert_gallery($subject, $body, $category_id, $user_info['id'], $status);
-			$context['gallery_subject'] 	= $subject;
+			$context['gallery_id']		= insert_gallery($subject, $body, $category_id, $user_info['id'], $image_name, $status);
+			$context['gallery_subject'] = $subject;
 			$context['gallery_body'] 	= $body;
-			$context['gallery_category']	= $category_id;
+			$context['gallery_category']= $category_id;
+			$context['gallery_image']   = $image_name;
 		}
 		else if ( (!empty($_POST['gallery_subject']) || !empty($_POST['gallery_body'])) && !empty($_POST['gallery_category']) && !empty($_POST['gallery_id'])) {
 			if (checkSession('post', '', false) !== '') {
@@ -232,35 +240,37 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 			else {
 				$body			= null;
 			}
-			$category_id			= $_POST['gallery_category'];
+			$category_id		= $_POST['gallery_category'];
 			$gallery_id	 		= $_POST['gallery_id'];
 
 			update_gallery($subject, $body, $category_id, $gallery_id, $status);
 
-			$gallery_data			= get_gallery($gallery_id);
+			$gallery_data			    = get_gallery($gallery_id);
 			$context['gallery_id'] 		= $gallery_data['id'];
-			$context['gallery_subject'] 	= $gallery_data['title'];
+			$context['gallery_subject'] = $gallery_data['title'];
 			$context['gallery_body'] 	= $gallery_data['body'];
-			$context['gallery_category']	= $gallery_data['category_id'];
+			$context['gallery_category']= $gallery_data['category_id'];
 			$context['gallery_status']	= $gallery_data['status'];
+			$context['gallery_image']   = $gallery_data['image_name'];
 		}
 		else if (!empty($_GET['gallery_id'])) {
 			if (checkSession('get', '', false) !== '') {
 				return;
 			}
 			
-			$gallery_id	 		= $_GET['gallery_id'];
-			$gallery_data			= get_gallery($gallery_id);
+			$gallery_id	 		        = $_GET['gallery_id'];
+			$gallery_data			    = get_gallery($gallery_id);
 			$context['gallery_id'] 		= $gallery_data['id'];
-			$context['gallery_subject'] 	= $gallery_data['title'];
+			$context['gallery_subject'] = $gallery_data['title'];
 			$context['gallery_body'] 	= $gallery_data['body'];
-			$context['gallery_category']	= $gallery_data['category_id'];
+			$context['gallery_category']= $gallery_data['category_id'];
 			$context['gallery_status']	= $gallery_data['status'];
+			$context['gallery_image']   = $gallery_data['image_name'];
 		}
 
 		$context['gallery_categories']	= get_gallery_categories();
 	
-		$context['sub_template'] 	= 'yaportal_edit';
+		$context['sub_template'] 	    = 'yaportal_edit';
 
 		loadTemplate('YAPortalAdminGallery');
 	}

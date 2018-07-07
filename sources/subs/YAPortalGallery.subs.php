@@ -20,7 +20,7 @@ function get_galleries( $start, $per_page)
 	
 	$categories	= get_gallery_categories();
 	$request  	= $db->query('', '
-		SELECT id, category_id, member_id, dt_published, title, body, views, comments
+		SELECT id, category_id, member_id, dt_published, title, body, image_name, views, comments
 		FROM {db_prefix}galleries
 		WHERE status = 1
 		ORDER BY id DESC
@@ -58,7 +58,7 @@ function get_gallery( $id )
 	
 	$categories	= get_gallery_categories();
 	$request  	= $db->query('', '
-		SELECT id, category_id, member_id, dt_published, title, body, views, comments, status
+		SELECT id, category_id, member_id, dt_published, title, body, image_name, views, comments, status
 		FROM {db_prefix}galleries
 		WHERE id = {int:id}',
 		array (

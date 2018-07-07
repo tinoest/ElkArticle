@@ -61,7 +61,7 @@ function get_galleries_list($start, $items_per_page, $sort)
 }
 
 
-function insert_gallery($subject, $body, $category_id, $member_id, $status) 
+function insert_gallery($subject, $body, $category_id, $member_id, $image_name, $status) 
 {
 
 	$db = database();
@@ -73,6 +73,7 @@ function insert_gallery($subject, $body, $category_id, $member_id, $status)
 			'category_id'	=> 'int',
 			'title'		    => 'string',
 			'body'		    => 'string',
+			'image_name'	=> 'string',
 			'dt_published'	=> 'int',
 			'status'	    => 'int',
 		),
@@ -81,6 +82,7 @@ function insert_gallery($subject, $body, $category_id, $member_id, $status)
 			$category_id,
 			$subject,
 			$body,
+			$image_name,
 			time(),
 			$status,
 		),
