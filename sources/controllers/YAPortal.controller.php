@@ -110,4 +110,40 @@ class YAPortalGallery_Controller extends Action_Controller
 
 		loadTemplate('YAPortalGallery');
 	}
+
+    // Used to just show the image and no template
+    public function action_yaportal_image()
+    {
+        global $context; 
+
+		require_once(SUBSDIR . '/YAPortalGallery.subs.php');	
+
+        $gallery_id 			    = !empty($_REQUEST['image']) ? (int) $_REQUEST['image'] : 0;
+		$gallery			        = get_gallery($gallery_id);
+
+        $fileName = BOARDDIR . '/yaportal/img/'. $gallery['image_name'];
+
+        if(file_exists( $fileName ) ) {
+            $mime_type = array( 
+                "1" => "image/gif",
+                "2" => "image/jpeg", 
+                "3" => "image/png",
+                "6" => "image/bmp",
+            );
+
+            $context['image_mime_type'] = $mime_type[exif_imagetype($fileName)];
+            $context['image_content']   = file_get_contents ( $fileName );
+        }
+ 
+		$context['page_title']		= $context['forum_name'];
+      
+        // Clean out the template layers
+        $template_layers = Template_Layers::instance();
+        $template_layers->removeAll();
+		
+        $context['sub_template'] 	= 'yaportal_image';
+		loadTemplate('YAPortalGallery');
+    
+    }
+
 }
