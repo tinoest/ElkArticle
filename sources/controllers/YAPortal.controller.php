@@ -44,7 +44,15 @@ class YAPortal_Controller extends Action_Controller implements Frontpage_Interfa
 		$context['page_title']		= $context['forum_name'];
 		$context['sub_template'] 	= 'yaportal';
 		$article_id 			    = !empty($_REQUEST['id']) ? (int) $_REQUEST['id'] : 0;
-		$article			        = get_article($article_id);
+		$article_name 			    = !empty($_REQUEST['name']) ? (string) $_REQUEST['name'] : null;
+        $article                    = array();
+        if( !empty ( $article_id ) ) {
+		    $article			    = get_article($article_id);
+        }
+        else if ( ! is_null ( $article_name ) ) {
+            $article                = get_article($article_name);
+        }
+
 		if(is_array($article) && !empty($article)) {
 			update_article_views($article_id);	
 			$context['article'] 	    = $article;

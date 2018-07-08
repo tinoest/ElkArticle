@@ -24,6 +24,7 @@ class YAPortal
         $paths = array (        
 			'~^article/$~'                  => 'action=article',
 			'~^article/([0-9]+)/$~'         => 'action=article&sa=article&id=%1$s',
+			'~^article/([A-Za-z0-9]+)/$~'   => 'action=article&sa=article&name=%1$s',
 			'~^gallery/$~'                  => 'action=gallery',
 			'~^gallery/([0-9]+)/$~'         => 'action=gallery&sa=gallery&id=%1$s',
 			'~^gallery/([A-Za-z0-9]+)/$~'   => 'action=gallery&sa=gallery&name=%1$s',

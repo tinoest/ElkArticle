@@ -52,19 +52,31 @@ function get_articles( $start, $per_page)
 	return $articles;	
 }
 
-function get_article( $id )
+function get_article( $search )
 {
 	$db 		= database();
 	
 	$categories	= get_article_categories();
-	$request  	= $db->query('', '
-		SELECT id, category_id, member_id, dt_published, title, body, views, comments, status
-		FROM {db_prefix}articles
-		WHERE id = {int:id}',
-		array (
-			'id' => $id,
-		)
-	);
+    if( is_int( $search ) ) {
+        $request  	= $db->query('', '
+            SELECT id, category_id, member_id, dt_published, title, body, views, comments, status
+            FROM {db_prefix}articles
+            WHERE id = {int:id}',
+            array (
+                'id' => $search,
+            )
+        );
+    }
+    else {
+        $request  	= $db->query('', '
+            SELECT id, category_id, member_id, dt_published, title, body, views, comments, status
+            FROM {db_prefix}articles
+            WHERE title = {string:title}',
+            array (
+                'title' => $search,
+            )
+        );
+    }
 
 	$article 	= array();
 	while ($row = $db->fetch_assoc($request)) {
