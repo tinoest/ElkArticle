@@ -46,8 +46,16 @@ class YAPortalGallery_Controller extends Action_Controller
 
 		$context['page_title']		= $context['forum_name'];
 		$context['sub_template'] 	= 'yaportal';
-		$gallery_id 			    = !empty($_REQUEST['gallery']) ? (int) $_REQUEST['gallery'] : 0;
-		$gallery			        = get_gallery($gallery_id);
+
+        $gallery_id 			    = !empty($_REQUEST['id']) ? (int) $_REQUEST['id'] : 0;
+        $gallery_name 			    = !empty($_REQUEST['name']) ? (string) $_REQUEST['name'] : null;
+        if(!empty($gallery_id)) {
+		    $gallery			        = get_gallery($gallery_id);
+        }
+        else if ( !is_null($gallery_name) ) {
+		    $gallery			        = get_gallery($gallery_name);
+        }		
+
 		if(is_array($gallery) && !empty($gallery)) {
 			update_gallery_views($gallery_id);	
 			$context['gallery'] 	= $gallery;
@@ -118,8 +126,14 @@ class YAPortalGallery_Controller extends Action_Controller
 
 		require_once(SUBSDIR . '/YAPortalGallery.subs.php');	
 
-        $gallery_id 			    = !empty($_REQUEST['image']) ? (int) $_REQUEST['image'] : 0;
-		$gallery			        = get_gallery($gallery_id);
+        $gallery_id 			    = !empty($_REQUEST['id']) ? (int) $_REQUEST['id'] : 0;
+        $gallery_name 			    = !empty($_REQUEST['name']) ? (string) $_REQUEST['name'] : null;
+        if(!empty($gallery_id)) {
+		    $gallery			        = get_gallery($gallery_id);
+        }
+        else if ( !is_null($gallery_name) ) {
+		    $gallery			        = get_gallery($gallery_name);
+        }
 
         $fileName = BOARDDIR . '/yaportal/img/'. $gallery['image_name'];
 

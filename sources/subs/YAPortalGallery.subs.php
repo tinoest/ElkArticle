@@ -52,19 +52,32 @@ function get_galleries( $start, $per_page)
 	return $galleries;	
 }
 
-function get_gallery( $id )
+function get_gallery( $search )
 {
 	$db 		= database();
 	
 	$categories	= get_gallery_categories();
-	$request  	= $db->query('', '
-		SELECT id, category_id, member_id, dt_published, title, body, image_name, views, comments, status
-		FROM {db_prefix}galleries
-		WHERE id = {int:id}',
-		array (
-			'id' => $id,
-		)
-	);
+
+    if( is_int($search) ) {
+        $request  	= $db->query('', '
+            SELECT id, category_id, member_id, dt_published, title, body, image_name, views, comments, status
+            FROM {db_prefix}galleries
+            WHERE id = {int:id}',
+            array (
+                'id' => $search,
+            )
+        );
+    }
+    else {
+        $request  	= $db->query('', '
+            SELECT id, category_id, member_id, dt_published, title, body, image_name, views, comments, status
+            FROM {db_prefix}galleries
+            WHERE title = {string:title}',
+            array (
+                'title' => $search,
+            )
+        );
+    }
 
 	$gallery 	= array();
 	while ($row = $db->fetch_assoc($request)) {

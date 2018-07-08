@@ -21,18 +21,15 @@ class YAPortal_Controller extends Action_Controller implements Frontpage_Interfa
 	public function action_index()
 	{
 		require_once(SUBSDIR . '/Action.class.php');
-		// Where do you want to go today?
-		$subActions = array(
+		
+        $subActions = array(
 			'index'		=> array($this, 'action_yaportal_index'),
 			'article' 	=> array($this, 'action_yaportal'),
 		);
 
-		// We like action, so lets get ready for some
-		$action = new Action('');
-		// Get the subAction, or just go to action_sportal_index
-		$subAction = $action->initialize($subActions, 'index');
+		$action     = new Action('');
+		$subAction  = $action->initialize($subActions, 'index');
 
-		// Finally go to where we want to go
 		$action->dispatch($subAction);
 	}
 
@@ -50,10 +47,10 @@ class YAPortal_Controller extends Action_Controller implements Frontpage_Interfa
 		$article			        = get_article($article_id);
 		if(is_array($article) && !empty($article)) {
 			update_article_views($article_id);	
-			$context['article'] 	= $article;
+			$context['article'] 	    = $article;
 		}
 		else {
-			$context['article_error'] = $txt['yaportal-not-found'];
+			$context['article_error']   = $txt['yaportal-not-found'];
 		}
 		$context['comments-enabled'] 	= $modSettings['yaportal-enablecomments'];
 
