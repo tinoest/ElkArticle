@@ -124,14 +124,7 @@ class YAPortalGallery_Controller extends Action_Controller
         $fileName = BOARDDIR . '/yaportal/img/'. $gallery['image_name'];
 
         if(file_exists( $fileName ) ) {
-            $mime_type = array( 
-                "1" => "image/gif",
-                "2" => "image/jpeg", 
-                "3" => "image/png",
-                "6" => "image/bmp",
-            );
-
-            $context['image_mime_type'] = $mime_type[exif_imagetype($fileName)];
+            $context['image_mime_type'] = image_type_to_mime_type(exif_imagetype($fileName));
             $context['image_content']   = file_get_contents ( $fileName );
         }
  
