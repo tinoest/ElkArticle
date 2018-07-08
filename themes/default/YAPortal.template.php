@@ -19,7 +19,7 @@ function template_yaportal_index()
 	global $context, $txt, $scripturl;
 
 	echo '<div class="elk_article_container">';
-	
+
 	if(!empty($context['yaportal_topPanel'])) {
 		echo '
 		<div class="elk_article_topPanel">
@@ -36,10 +36,10 @@ function template_yaportal_index()
 		</div>';
 	}
 
-	if(empty($context['yaportal_rightPanel']) && empty($context['yaportal_leftPanel'])) {	
+	if(empty($context['yaportal_rightPanel']) && empty($context['yaportal_leftPanel'])) {
 		$style = 'style="grid-column: span 3"';
 	}
-	else if(empty($context['yaportal_rightPanel']) || empty($context['yaportal_leftPanel'])) {	
+	else if(empty($context['yaportal_rightPanel']) || empty($context['yaportal_leftPanel'])) {
 		$style = 'style="grid-column: span 2"';
 	}
 	else {
@@ -52,15 +52,15 @@ function template_yaportal_index()
 	foreach($context['articles'] as $article) {
 		echo '<h3 class="category_header"><a href="'.$scripturl.'?article/'.$article['id'].'/">'.$article['title'].'</a></h3>';
 		echo sprintf(
-			'<span class="views_text"> Views: %d%s</span>', $article['views'], 
+			'<span class="views_text"> Views: %d%s</span>', $article['views'],
 			( $context['comments-enabled'] == 1 ) ? ' | '.$txt['yaportal-comments'] . $article['comments'] : ''
 		);
 		echo sprintf('<span class="views_text"> | Written By: %s in %s | %s </span>', $article['member'], $article['category'], htmlTime($article['dt_published']));
 		echo '<section><article class="post_wrapper forumposts"><div style="margin : 0.5em">'.$article['body'].'</div></article></section>';
 
-		
+
 	}
-	
+
 	if (!empty($context['page_index'])) {
 		template_pagesection();
 	}
@@ -101,13 +101,13 @@ function template_yaportal()
 	}
 	else {
 		$article = $context['article'];
-		
+
 		echo '
 		<div id="eb_view_articles">
 			<div class="ea_article">
 				<h3 class="category_header">'.$article['title'].'</h3>';
 				echo sprintf(
-					'<span class="views_text"> Views: %d%s</span>', $article['views'], 
+					'<span class="views_text"> Views: %d%s</span>', $article['views'],
 					( $context['comments-enabled'] == 1 ) ? ' | '.$txt['yaportal-comments'] . $article['comments'] : ''
 				);
 				echo sprintf('<span class="views_text"> | Written By: %s in %s | %s </span>', $article['member'], $article['category'], htmlTime($article['dt_published']));

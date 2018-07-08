@@ -21,7 +21,7 @@ class YAPortal_Controller extends Action_Controller implements Frontpage_Interfa
 	public function action_index()
 	{
 		require_once(SUBSDIR . '/Action.class.php');
-		
+
         $subActions = array(
 			'index'		=> array($this, 'action_yaportal_index'),
 			'article' 	=> array($this, 'action_yaportal'),
@@ -38,8 +38,8 @@ class YAPortal_Controller extends Action_Controller implements Frontpage_Interfa
 		global $context, $scripturl, $txt, $modSettings;
 		loadLanguage('YAPortal');
 		loadCSSFile('yaportal.css');
-		
-		require_once(SUBSDIR . '/YAPortal.subs.php');	
+
+		require_once(SUBSDIR . '/YAPortal.subs.php');
 
 		$context['page_title']		= $context['forum_name'];
 		$context['sub_template'] 	= 'yaportal';
@@ -54,7 +54,7 @@ class YAPortal_Controller extends Action_Controller implements Frontpage_Interfa
         }
 
 		if(is_array($article) && !empty($article)) {
-			update_article_views($article_id);	
+			update_article_views($article_id);
 			$context['article'] 	    = $article;
 		}
 		else {
@@ -68,8 +68,8 @@ class YAPortal_Controller extends Action_Controller implements Frontpage_Interfa
 	public function action_yaportal_index()
 	{
 		global $context, $scripturl, $modSettings;
-		
-		require_once(SUBSDIR . '/YAPortal.subs.php');	
+
+		require_once(SUBSDIR . '/YAPortal.subs.php');
 
 		loadCSSFile('yaportal.css');
 
@@ -94,11 +94,11 @@ class YAPortal_Controller extends Action_Controller implements Frontpage_Interfa
 			case 4:
 				$per_page = 100;
 				break;
-			default: 
+			default:
 				$per_page = 10;
 				break;
 		}
-	
+
 		foreach(array('topPanel', 'rightPanel', 'leftPanel', 'bottomPanel') as $panel) {
 			if(!empty($modSettings['yaportal-'.$panel])) {
 				$context['yaportal_'.$panel]['title'] 	= $panel;
@@ -106,8 +106,8 @@ class YAPortal_Controller extends Action_Controller implements Frontpage_Interfa
 			}
 		}
 
-		$articles	= get_articles($start, $per_page);	
-		$total_articles = get_total_articles(); 
+		$articles	= get_articles($start, $per_page);
+		$total_articles = get_total_articles();
 
 		$context['comments-enabled'] 	= $modSettings['yaportal-enablecomments'];
 		$context['articles'] 		= $articles;

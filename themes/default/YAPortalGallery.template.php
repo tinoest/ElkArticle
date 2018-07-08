@@ -19,7 +19,7 @@ function template_yaportal_index()
 	global $context, $txt, $scripturl;
 
 	echo '<div class="elk_gallery_container">';
-	
+
 	if(!empty($context['yaportal_topPanel'])) {
 		echo '
 		<div class="elk_gallery_topPanel">
@@ -36,10 +36,10 @@ function template_yaportal_index()
 		</div>';
 	}
 
-	if(empty($context['yaportal_rightPanel']) && empty($context['yaportal_leftPanel'])) {	
+	if(empty($context['yaportal_rightPanel']) && empty($context['yaportal_leftPanel'])) {
 		$style = 'style="grid-column: span 3"';
 	}
-	else if(empty($context['yaportal_rightPanel']) || empty($context['yaportal_leftPanel'])) {	
+	else if(empty($context['yaportal_rightPanel']) || empty($context['yaportal_leftPanel'])) {
 		$style = 'style="grid-column: span 2"';
 	}
 	else {
@@ -52,15 +52,15 @@ function template_yaportal_index()
 	foreach($context['galleries'] as $gallery) {
 		echo '<h3 class="category_header"><a href="'.$scripturl.'?gallery/'.$gallery['id'].'/">'.$gallery['title'].'</a></h3>';
 		echo sprintf(
-			'<span class="views_text"> Views: %d%s</span>', $gallery['views'], 
+			'<span class="views_text"> Views: %d%s</span>', $gallery['views'],
 			( $context['comments-enabled'] == 1 ) ? ' | '.$txt['yaportal-comments'] . $gallery['comments'] : ''
 		);
 		echo sprintf('<span class="views_text"> | Written By: %s in %s | %s </span>', $gallery['member'], $gallery['category'], htmlTime($gallery['dt_published']));
 		echo '<section><article class="post_wrapper forumposts"><div style="margin : 0.5em">'.$gallery['body'].'</div></article></section>';
 
-		
+
 	}
-	
+
 	if (!empty($context['page_index'])) {
 		template_pagesection();
 	}
@@ -107,7 +107,7 @@ function template_yaportal()
 			<div class="ea_gallery">
 				<h3 class="category_header">'.$gallery['title'].'</h3>';
 				echo sprintf(
-					'<span class="views_text"> Views: %d%s</span>', $gallery['views'], 
+					'<span class="views_text"> Views: %d%s</span>', $gallery['views'],
 					( $context['comments-enabled'] == 1 ) ? ' | '.$txt['yaportal-comments'] . $gallery['comments'] : ''
 				);
 				echo sprintf('<span class="views_text"> | Written By: %s in %s | %s </span>', $gallery['member'], $gallery['category'], htmlTime($gallery['dt_published']));
@@ -117,7 +117,7 @@ function template_yaportal()
                 if(file_exists(BOARDDIR . '/yaportal/img/' . $gallery['image_name'])) {
                     echo '<img src="' . $boardurl . '/yaportal/img/' . $gallery['image_name'] . '" height="90%" width="90%">';
                 }
-                            
+
                 echo '      </div>
                             <div style="margin : 0.5em">'.$gallery['body'].'</div>
                         </article>

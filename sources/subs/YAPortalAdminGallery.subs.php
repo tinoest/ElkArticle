@@ -14,7 +14,7 @@ if (!defined('ELK'))
 	die('No access...');
 }
 
-function get_galleries_list($start, $items_per_page, $sort) 
+function get_galleries_list($start, $items_per_page, $sort)
 {
 
 	$db = database();
@@ -24,7 +24,7 @@ function get_galleries_list($start, $items_per_page, $sort)
 	$categories 	= get_gallery_categories();
 	$request 	    = $db->query('', '
 		SELECT id, category_id, member_id, dt_created, dt_published, title,
-			CASE WHEN status = 1 
+			CASE WHEN status = 1
 				THEN \'Enabled\'
 				ELSE \'Disabled\'
 			END
@@ -40,7 +40,7 @@ function get_galleries_list($start, $items_per_page, $sort)
 			SELECT member_name
 			FROM {db_prefix}members
 			WHERE id_member = {int:member_id}',
-			array ( 
+			array (
 				'member_id' => $row['member_id'],
 			)
 		);
@@ -53,7 +53,7 @@ function get_galleries_list($start, $items_per_page, $sort)
 		}
 		$row['dt_created']	    = htmlTime($row['dt_created']);
 		$row['dt_published']	= htmlTime($row['dt_published']);
-		$galleries[] 		    = $row; 
+		$galleries[] 		    = $row;
 	}
 
 	return $galleries;
@@ -61,14 +61,14 @@ function get_galleries_list($start, $items_per_page, $sort)
 }
 
 
-function insert_gallery($subject, $body, $category_id, $member_id, $image_name, $status) 
+function insert_gallery($subject, $body, $category_id, $member_id, $image_name, $status)
 {
 
 	$db = database();
 
-	$db->insert('', 
+	$db->insert('',
 	'{db_prefix}galleries',
-		array( 
+		array(
 			'member_id' 	=> 'int',
 			'category_id'	=> 'int',
 			'title'		    => 'string',
@@ -88,14 +88,14 @@ function insert_gallery($subject, $body, $category_id, $member_id, $image_name, 
 		),
 		array('id')
 	);
-			
+
 	$gallery_id 	= $db->insert_id('{db_prefix}galleries', 'id');
 
 	return $gallery_id;
 }
 
 
-function update_gallery( $subject, $body, $category_id, $gallery_id, $image_name, $status) 
+function update_gallery( $subject, $body, $category_id, $gallery_id, $image_name, $status)
 {
 	$db = database();
 
@@ -161,7 +161,7 @@ function delete_gallery($id)
 {
 
 	$db = database();
-	
+
 	$db->query('', '
 		DELETE FROM {db_prefix}galleries
 		WHERE id = {int:id}',
@@ -175,10 +175,10 @@ function insert_category($name, $desc, $status)
 {
 
 	$db = database();
-	
-	$db->insert('', 
+
+	$db->insert('',
 		'{db_prefix}gallery_categories',
-		array( 
+		array(
 			'name' 		=> 'string',
 			'description' 	=> 'string',
 			'status'	=> 'int',
@@ -192,10 +192,10 @@ function insert_category($name, $desc, $status)
 	);
 }
 
-function update_category( $category_id, $category_name, $category_desc, $category_enabled) 
+function update_category( $category_id, $category_name, $category_desc, $category_enabled)
 {
 	$db = database();
-	
+
 	$db->query('', '
 	UPDATE {db_prefix}gallery_categories
 	SET name = {string:category_name} ,
@@ -215,7 +215,7 @@ function delete_category($id)
 {
 
 	$db = database();
-	
+
 	$db->query('', '
 		DELETE FROM {db_prefix}gallery_categories
 		WHERE id = {int:id}',

@@ -35,12 +35,12 @@ class YAPortalGallery_Controller extends Action_Controller
 		$action->dispatch($subAction);
 	}
 
-	
+
 	public function action_yaportal_index()
 	{
 		global $context, $scripturl, $modSettings;
-		
-		require_once(SUBSDIR . '/YAPortalGallery.subs.php');	
+
+		require_once(SUBSDIR . '/YAPortalGallery.subs.php');
 
 		loadCSSFile('yaportal.css');
 
@@ -65,11 +65,11 @@ class YAPortalGallery_Controller extends Action_Controller
 			case 4:
 				$per_page = 100;
 				break;
-			default: 
+			default:
 				$per_page = 10;
 				break;
 		}
-	
+
 		foreach(array('topPanel', 'rightPanel', 'leftPanel', 'bottomPanel') as $panel) {
 			if(!empty($modSettings['yaportal-'.$panel])) {
 				$context['yaportal_'.$panel]['title'] 	= $panel;
@@ -77,8 +77,8 @@ class YAPortalGallery_Controller extends Action_Controller
 			}
 		}
 
-		$galleries	                    = get_galleries($start, $per_page);	
-		$total_galleries                = get_total_galleries(); 
+		$galleries	                    = get_galleries($start, $per_page);
+		$total_galleries                = get_total_galleries();
 
 		$context['comments-enabled'] 	= $modSettings['yaportal-enablecomments'];
 		$context['galleries'] 		    = $galleries;
@@ -93,8 +93,8 @@ class YAPortalGallery_Controller extends Action_Controller
 		global $context, $scripturl, $txt, $modSettings;
 		loadLanguage('YAPortal');
 		loadCSSFile('yaportal.css');
-		
-		require_once(SUBSDIR . '/YAPortalGallery.subs.php');	
+
+		require_once(SUBSDIR . '/YAPortalGallery.subs.php');
 
 		$context['page_title']		= $context['forum_name'];
 		$context['sub_template'] 	= 'yaportal';
@@ -110,7 +110,7 @@ class YAPortalGallery_Controller extends Action_Controller
         }
 
 		if(is_array($gallery) && !empty($gallery)) {
-			update_gallery_views($gallery_id);	
+			update_gallery_views($gallery_id);
 			$context['gallery'] 	= $gallery;
 		}
 		else {
@@ -124,9 +124,9 @@ class YAPortalGallery_Controller extends Action_Controller
     // Used to just show the image and no template
     public function action_yaportal_image()
     {
-        global $context; 
+        global $context;
 
-		require_once(SUBSDIR . '/YAPortalGallery.subs.php');	
+		require_once(SUBSDIR . '/YAPortalGallery.subs.php');
 
         $gallery_id 			    = !empty($_REQUEST['id']) ? (int) $_REQUEST['id'] : 0;
         $gallery_name 			    = !empty($_REQUEST['name']) ? (string) $_REQUEST['name'] : null;
@@ -151,14 +151,14 @@ class YAPortalGallery_Controller extends Action_Controller
             // Clean out the template layers
             $template_layers = Template_Layers::instance();
             $template_layers->removeAll();
-        } 
+        }
         else {
 			$context['gallery_error']   = $txt['yaportal-not-found'];
         }
 
         $context['sub_template'] 	= 'yaportal_image';
 		loadTemplate('YAPortalGallery');
-    
+
     }
 
 }

@@ -22,11 +22,11 @@ function template_yaportal_edit()
 		<h2 class="category_header">Post Article</h2>
 		<div class="forumposts">
 			<form id="article_form_edit" action="'.$scripturl.'?action=admin;area=yaportalarticles;sa=editarticle;" value="Submit" method="post" accept-charset="UTF-8">';
-	
+
 			if(isset($context['article_id'])) {
 				echo '<input type="hidden" name="article_id" value="'.$context['article_id'].'" />';
 			}
-			
+
 			echo '<dl id="post_header">
 				<dt class="clear"><label for="post_subject" id="caption_subject">Subject:</label></dt>';
 

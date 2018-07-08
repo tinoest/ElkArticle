@@ -21,7 +21,7 @@ class YAPortal
 		global $boardurl;
 		$original = $_SERVER['QUERY_STRING'];
 
-        $paths = array (        
+        $paths = array (
 			'~^article/$~'                  => 'action=article',
 			'~^article/([0-9]+)/$~'         => 'action=article&sa=article&id=%1$s',
 			'~^article/([A-Za-z0-9]+)/$~'   => 'action=article&sa=article&name=%1$s',
@@ -73,7 +73,7 @@ class YAPortal
 	public static function integrate_actions(&$actionArray, &$adminActions)
 	{
 		global $modSettings;
-		
+
 		if(!empty($modSettings['yaportal-frontpage'])) {
 			$actionArray['forum'] = array (
 				'BoardIndex.controller.php',
@@ -141,7 +141,7 @@ class YAPortal
 					'data-icon'     => 'i-home',
 					'show'          => true,
 					'action_hook' 	=> true,
-	            ), 
+	            ),
 	        ), 'after');
         }
 
@@ -155,7 +155,7 @@ class YAPortal
 					'data-icon'     => 'i-home',
 					'show'          => true,
 					'action_hook' 	=> true,
-	            ), 
+	            ),
 	        ), 'after');
         }
 	}

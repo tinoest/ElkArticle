@@ -22,11 +22,11 @@ function template_yaportal_edit()
 		<h2 class="category_header">Post Image</h2>
 		<div class="forumposts">
 			<form id="gallery_form_edit" action="'.$scripturl.'?action=admin;area=yaportalgallery;sa=editgallery;" value="Submit" method="post" accept-charset="UTF-8" enctype="multipart/form-data">';
-	
+
 			if(isset($context['gallery_id'])) {
 				echo '<input type="hidden" name="gallery_id" value="'.$context['gallery_id'].'" />';
 			}
-			
+
 			echo '<dl id="post_header">
 				<dt class="clear"><label for="post_subject" id="caption_subject">Subject:</label></dt>';
 
@@ -67,10 +67,10 @@ function template_yaportal_edit()
 					<div id="eb_editor" class="eb_editor"></div>
 				</div>
 				<div id="post_confirm_buttons" class="submitbutton">
-                    <div style="float: left;"> 
+                    <div style="float: left;">
                         <input type="file" id="gallery_image" name="gallery_image" />
                     </div>
-                    <div style="float: right;"> 
+                    <div style="float: right;">
 					    <input type="submit" value="Submit">
                     </div>
 				</div>

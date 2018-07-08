@@ -18,7 +18,7 @@ function delete_block($id)
 {
 
 	$db = database();
-	
+
 	$db->query('', '
 		DELETE FROM {db_prefix}blocks
 		WHERE id = {int:id}',

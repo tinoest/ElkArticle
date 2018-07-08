@@ -14,7 +14,7 @@ if (!defined('ELK'))
 	die('No access...');
 }
 
-function get_articles_list($start, $items_per_page, $sort) 
+function get_articles_list($start, $items_per_page, $sort)
 {
 
 	$db = database();
@@ -24,7 +24,7 @@ function get_articles_list($start, $items_per_page, $sort)
 	$categories 	= get_article_categories();
 	$request 	= $db->query('', '
 		SELECT id, category_id, member_id, dt_created, dt_published, title,
-			CASE WHEN status = 1 
+			CASE WHEN status = 1
 				THEN \'Enabled\'
 				ELSE \'Disabled\'
 			END
@@ -40,7 +40,7 @@ function get_articles_list($start, $items_per_page, $sort)
 			SELECT member_name
 			FROM {db_prefix}members
 			WHERE id_member = {int:member_id}',
-			array ( 
+			array (
 				'member_id' => $row['member_id'],
 			)
 		);
@@ -53,7 +53,7 @@ function get_articles_list($start, $items_per_page, $sort)
 		}
 		$row['dt_created']	= htmlTime($row['dt_created']);
 		$row['dt_published']	= htmlTime($row['dt_published']);
-		$articles[] 		= $row; 
+		$articles[] 		= $row;
 	}
 
 	return $articles;
@@ -61,14 +61,14 @@ function get_articles_list($start, $items_per_page, $sort)
 }
 
 
-function insert_article($subject, $body, $category_id, $member_id, $status) 
+function insert_article($subject, $body, $category_id, $member_id, $status)
 {
 
 	$db = database();
 
-	$db->insert('', 
+	$db->insert('',
 	'{db_prefix}articles',
-		array( 
+		array(
 			'member_id' 	=> 'int',
 			'category_id'	=> 'int',
 			'title'		=> 'string',
@@ -86,14 +86,14 @@ function insert_article($subject, $body, $category_id, $member_id, $status)
 		),
 		array('id')
 	);
-			
+
 	$article_id 	= $db->insert_id('{db_prefix}articles', 'id');
 
 	return $article_id;
 }
 
 
-function update_article( $subject, $body, $category_id, $article_id, $status) 
+function update_article( $subject, $body, $category_id, $article_id, $status)
 {
 	$db = database();
 
@@ -130,7 +130,7 @@ function delete_article($id)
 {
 
 	$db = database();
-	
+
 	$db->query('', '
 		DELETE FROM {db_prefix}articles
 		WHERE id = {int:id}',
@@ -144,10 +144,10 @@ function insert_category($name, $desc, $status)
 {
 
 	$db = database();
-	
-	$db->insert('', 
+
+	$db->insert('',
 		'{db_prefix}article_categories',
-		array( 
+		array(
 			'name' 		=> 'string',
 			'description' 	=> 'string',
 			'status'	=> 'int',
@@ -161,10 +161,10 @@ function insert_category($name, $desc, $status)
 	);
 }
 
-function update_category( $category_id, $category_name, $category_desc, $category_enabled) 
+function update_category( $category_id, $category_name, $category_desc, $category_enabled)
 {
 	$db = database();
-	
+
 	$db->query('', '
 	UPDATE {db_prefix}article_categories
 	SET name = {string:category_name} ,
@@ -184,7 +184,7 @@ function delete_category($id)
 {
 
 	$db = database();
-	
+
 	$db->query('', '
 		DELETE FROM {db_prefix}article_categories
 		WHERE id = {int:id}',

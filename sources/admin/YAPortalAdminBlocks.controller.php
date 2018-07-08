@@ -142,9 +142,9 @@ class YAPortalAdminBlocks_Controller extends Action_Controller
 				),
 			),
 		);
-	
+
 		$context['page_title']		= 'Block List';
-		$context['sub_template'] 	= 'elkblock_list';	
+		$context['sub_template'] 	= 'elkblock_list';
 		$context['default_list'] 	= 'block_list';
 		// Create the list.
 		require_once(SUBSDIR . '/GenericList.class.php');
@@ -177,7 +177,7 @@ class YAPortalAdminBlocks_Controller extends Action_Controller
 			if (checkSession('get', '', false) !== '') {
 				return;
 			}
-			
+
 			$id	=  $_GET['block_id'];
 			delete_block($id);
 		}
@@ -191,10 +191,10 @@ class YAPortalAdminBlocks_Controller extends Action_Controller
 		require_once(SUBSDIR . '/YAPortal.subs.php');
 		return get_block_list($start, $items_per_page, $sort);
 	}
- 
+
 	public function list_total_blocks()
 	{
 		require_once(SUBSDIR . '/YAPortal.subs.php');
 		return get_total_blocks();
-	} 
+	}
 }

@@ -58,7 +58,7 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 				'listcategory' 	=> array(),
 			),
 		);
-	}	
+	}
 
 	public function action_list_gallery()
 	{
@@ -92,7 +92,7 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 						'reverse' => 'title DESC',
 					),
 				),
-				
+
 				'category' => array(
 					'header' => array(
 						'value' => 'Category',
@@ -176,9 +176,9 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 				),
 			),
 		);
-	
+
 		$context['page_title']		= 'Article List';
-		$context['sub_template'] 	= 'yaportal_list';	
+		$context['sub_template'] 	= 'yaportal_list';
 		$context['default_list'] 	= 'gallery_list';
 		// Create the list.
 		require_once(SUBSDIR . '/GenericList.class.php');
@@ -186,7 +186,7 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 		loadTemplate('YAPortalAdminGallery');
 	}
 
-	public function action_edit_gallery() 
+	public function action_edit_gallery()
 	{
 		global $context, $user_info, $boardurl;
 
@@ -232,7 +232,7 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 			if (checkSession('post', '', false) !== '') {
 				return;
 			}
-	
+
 			$subject			= $_POST['gallery_subject'];
 			if(array_key_exists('gallery_body', $_POST) && !empty($_POST['gallery_body'])) {
 				$body			= $_POST['gallery_body'];
@@ -250,7 +250,7 @@ class YAPortalAdminGallery_Controller extends Action_Controller
                     $fileName   = BOARDDIR . '/yaportal/img/' . $gallery_data['image_name'];
                     if(file_exists( $fileName )) {
                         unlink( $fileName );
-                    }                   
+                    }
                 }
             }
 
@@ -268,7 +268,7 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 			if (checkSession('get', '', false) !== '') {
 				return;
 			}
-			
+
 			$gallery_id	 		        = $_GET['gallery_id'];
 			$gallery_data			    = get_gallery($gallery_id);
 			$context['gallery_id'] 		= $gallery_data['id'];
@@ -278,11 +278,11 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 			$context['gallery_status']	= $gallery_data['status'];
 			$context['gallery_image']   = $gallery_data['image_name'];
 		}
-			
+
         $context['gallery_image_src']   = $boardurl . '/yaportal/img/' . $context['gallery_image'];
 
 		$context['gallery_categories']	= get_gallery_categories();
-	
+
 		$context['sub_template'] 	    = 'yaportal_edit';
 
 		loadTemplate('YAPortalAdminGallery');
@@ -298,11 +298,11 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 			if (checkSession('get', '', false) !== '') {
 				return;
 			}
-        
+
 			$id	        =  $_GET['gallery_id'];
             $gallery    = get_gallery($id);
             $fileName   = BOARDDIR . '/yaportal/img/' . $gallery['image_name'];
-			
+
 			delete_gallery($id);
 
             if(file_exists( $fileName )) {
@@ -417,9 +417,9 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 				),
 			),
 		);
-	
+
 		$context['page_title']		= 'Category List';
-		$context['sub_template'] 	= 'elkcategory_list';	
+		$context['sub_template'] 	= 'elkcategory_list';
 		$context['default_list'] 	= 'category_list';
 		// Create the list.
 		require_once(SUBSDIR . '/GenericList.class.php');
@@ -444,12 +444,12 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 			else {
 				$status	= 0;
 			}
-			insert_category($name, $desc, $status);	
+			insert_category($name, $desc, $status);
 			$this->action_list_category();
 		}
 		else {
 			$context['page_title']		= 'Add Category';
-			$context['sub_template'] 	= 'elkcategory_add';	
+			$context['sub_template'] 	= 'elkcategory_add';
 			loadTemplate('YAPortalAdminGallery');
 		}
 	}
@@ -484,7 +484,7 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 		else if(!empty($_GET['category_id'])) {
 			if (checkSession('get', '', false) !== '') {
 				return;
-			}			
+			}
 			require_once(SUBSDIR . '/YAPortalGallery.subs.php');
 			$category_id			= $_GET['category_id'];
 			$category_details		= get_category($category_id);
@@ -497,7 +497,7 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 			$context['sub_template'] 	= 'elkcategory_edit';
 			loadTemplate('YAPortalAdminGallery');
 			return;
-		} 
+		}
 
 		$this->action_list_category();
 	}
@@ -509,7 +509,7 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 			if (checkSession('get', '', false) !== '') {
 				return;
 			}
-			
+
 			$id	=  $_GET['category_id'];
 			delete_category($id);
 		}
@@ -523,7 +523,7 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 		require_once(SUBSDIR . '/YAPortalAdminGallery.subs.php');
 		return get_galleries_list($start, $items_per_page, $sort);
 	}
- 
+
 	public function list_total_galleries()
 	{
 		require_once(SUBSDIR . '/YAPortalGallery.subs.php');
@@ -535,10 +535,10 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 		require_once(SUBSDIR . '/YAPortalGallery.subs.php');
 		return get_category_list($start, $items_per_page, $sort);
 	}
- 
+
 	public function list_total_categories()
 	{
 		require_once(SUBSDIR . '/YAPortalGallery.subs.php');
 		return get_total_categories();
-	} 
+	}
 }

@@ -151,7 +151,7 @@ $db->free_result($request);
 // Update the mod settings
 update_modSettings();
 
-function update_modSettings() 
+function update_modSettings()
 {
 	global $modSettings;
 

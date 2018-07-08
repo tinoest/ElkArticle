@@ -17,7 +17,7 @@ if (!defined('ELK'))
 function get_galleries( $start, $per_page)
 {
 	$db 		= database();
-	
+
 	$categories	= get_gallery_categories();
 	$request  	= $db->query('', '
 		SELECT id, category_id, member_id, dt_published, title, body, image_name, views, comments
@@ -33,14 +33,14 @@ function get_galleries( $start, $per_page)
 			SELECT member_name
 			FROM {db_prefix}members
 			WHERE id_member = {int:member_id}',
-			array ( 
+			array (
 				'member_id' => $row['member_id'],
 			)
 		);
 		$row['member'] 		= $db->fetch_assoc($member)['member_name'];
 		if(array_key_exists($row['category_id'], $categories)) {
-			$row['category']	= $categories[$row['category_id']];	
-			$galleries[] 		= $row; 
+			$row['category']	= $categories[$row['category_id']];
+			$galleries[] 		= $row;
 		}
 		else {
 			unset($row);
@@ -49,13 +49,13 @@ function get_galleries( $start, $per_page)
 
 	$db->free_result($request);
 
-	return $galleries;	
+	return $galleries;
 }
 
 function get_gallery( $search )
 {
 	$db 		= database();
-	
+
 	$categories	= get_gallery_categories();
 
     if( is_int($search) ) {
@@ -85,18 +85,18 @@ function get_gallery( $search )
 			SELECT member_name
 			FROM {db_prefix}members
 			WHERE id_member = {int:member_id}',
-			array ( 
+			array (
 				'member_id' => $row['member_id'],
 			)
 		);
 		$row['member'] 		= $db->fetch_assoc($member)['member_name'];
-		$row['category']	= $categories[$row['category_id']];	
-		$gallery 		= $row; 
+		$row['category']	= $categories[$row['category_id']];
+		$gallery 		= $row;
 	}
 
 	$db->free_result($request);
 
-	return $gallery;	
+	return $gallery;
 }
 
 
@@ -111,8 +111,8 @@ function get_total_galleries()
 		FROM {db_prefix}galleries
 		WHERE status = 1'
 	);
-	
-	$total_galleries = $db->fetch_assoc($request)['num_galleries']; 
+
+	$total_galleries = $db->fetch_assoc($request)['num_galleries'];
 
 	$db->free_result($request);
 
@@ -128,7 +128,7 @@ function get_gallery_categories()
 		FROM {db_prefix}gallery_categories
 		WHERE status = 1'
 	);
-	
+
 	while ($row = $db->fetch_assoc($request)) {
 		$categories[$row['id']] = $row['name'];
 	}
@@ -144,7 +144,7 @@ function get_category($id)
 	$db 		= database();
 	$request	= $db->query('', '
 		SELECT id, name, description, galleries, status AS enabled,
-			CASE WHEN status = 1 
+			CASE WHEN status = 1
 				THEN \'Enabled\'
 				ELSE \'Disabled\'
 			END
@@ -155,7 +155,7 @@ function get_category($id)
 			'id' => $id,
 		)
 	);
-	
+
 	while ($row = $db->fetch_assoc($request)) {
 		$category = $row;
 	}
@@ -171,7 +171,7 @@ function get_category_list($start, $items_per_page, $sort)
 	$db 		= database();
 	$request	= $db->query('', '
 		SELECT id, name, description, galleries, status AS enabled,
-			CASE WHEN status = 1 
+			CASE WHEN status = 1
 				THEN \'Enabled\'
 				ELSE \'Disabled\'
 			END
@@ -180,7 +180,7 @@ function get_category_list($start, $items_per_page, $sort)
 		ORDER BY '.$sort.'
 		LIMIT '.$items_per_page.' OFFSET '.$start
 	);
-	
+
 	while ($row = $db->fetch_assoc($request)) {
 		$categories[] = $row;
 	}
@@ -198,7 +198,7 @@ function get_total_categories()
 		FROM {db_prefix}gallery_categories
 		WHERE status = 1'
 	);
-	
+
 	$count 		= $db->fetch_assoc($request)['count'];
 
 	$db->free_result($request);
@@ -206,13 +206,13 @@ function get_total_categories()
 	return $count;
 }
 
-function update_gallery_views($gallery_id) 
+function update_gallery_views($gallery_id)
 {
 	$db = database();
-	
+
 	$db->query('', '
 	UPDATE {db_prefix}galleries
-	SET views = views + 1 
+	SET views = views + 1
 		WHERE id = {int:id}',
 		array (
 			'id'		=> $gallery_id,

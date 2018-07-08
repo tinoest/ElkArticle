@@ -57,7 +57,7 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 				'listcategory' 	=> array(),
 			),
 		);
-	}	
+	}
 
 	public function action_list_article()
 	{
@@ -91,7 +91,7 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 						'reverse' => 'title DESC',
 					),
 				),
-				
+
 				'category' => array(
 					'header' => array(
 						'value' => 'Category',
@@ -175,9 +175,9 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 				),
 			),
 		);
-	
+
 		$context['page_title']		= 'Article List';
-		$context['sub_template'] 	= 'yaportal_list';	
+		$context['sub_template'] 	= 'yaportal_list';
 		$context['default_list'] 	= 'article_list';
 		// Create the list.
 		require_once(SUBSDIR . '/GenericList.class.php');
@@ -185,7 +185,7 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 		loadTemplate('YAPortalAdminArticles');
 	}
 
-	public function action_edit_article() 
+	public function action_edit_article()
 	{
 		global $context, $user_info;
 
@@ -223,7 +223,7 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 			if (checkSession('post', '', false) !== '') {
 				return;
 			}
-	
+
 			$subject			= $_POST['article_subject'];
 			if(array_key_exists('article_body', $_POST) && !empty($_POST['article_body'])) {
 				$body			= $_POST['article_body'];
@@ -247,7 +247,7 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 			if (checkSession('get', '', false) !== '') {
 				return;
 			}
-			
+
 			$article_id	 		= $_GET['article_id'];
 			$article_data			= get_article($article_id);
 			$context['article_id'] 		= $article_data['id'];
@@ -258,7 +258,7 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 		}
 
 		$context['article_categories']	= get_article_categories();
-	
+
 		$context['sub_template'] 	= 'yaportal_edit';
 
 		loadTemplate('YAPortalAdminArticles');
@@ -271,7 +271,7 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 			if (checkSession('get', '', false) !== '') {
 				return;
 			}
-			
+
 			$id	=  $_GET['article_id'];
 			delete_article($id);
 		}
@@ -383,9 +383,9 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 				),
 			),
 		);
-	
+
 		$context['page_title']		= 'Category List';
-		$context['sub_template'] 	= 'elkcategory_list';	
+		$context['sub_template'] 	= 'elkcategory_list';
 		$context['default_list'] 	= 'category_list';
 		// Create the list.
 		require_once(SUBSDIR . '/GenericList.class.php');
@@ -410,12 +410,12 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 			else {
 				$status	= 0;
 			}
-			insert_category($name, $desc, $status);	
+			insert_category($name, $desc, $status);
 			$this->action_list_category();
 		}
 		else {
 			$context['page_title']		= 'Add Category';
-			$context['sub_template'] 	= 'elkcategory_add';	
+			$context['sub_template'] 	= 'elkcategory_add';
 			loadTemplate('YAPortalAdminArticles');
 		}
 	}
@@ -450,7 +450,7 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 		else if(!empty($_GET['category_id'])) {
 			if (checkSession('get', '', false) !== '') {
 				return;
-			}			
+			}
 			require_once(SUBSDIR . '/YAPortal.subs.php');
 			$category_id			= $_GET['category_id'];
 			$category_details		= get_category($category_id);
@@ -463,7 +463,7 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 			$context['sub_template'] 	= 'elkcategory_edit';
 			loadTemplate('YAPortalAdminArticles');
 			return;
-		} 
+		}
 
 		$this->action_list_category();
 	}
@@ -475,7 +475,7 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 			if (checkSession('get', '', false) !== '') {
 				return;
 			}
-			
+
 			$id	=  $_GET['category_id'];
 			delete_category($id);
 		}
@@ -489,7 +489,7 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 		require_once(SUBSDIR . '/YAPortalAdminArticles.subs.php');
 		return get_articles_list($start, $items_per_page, $sort);
 	}
- 
+
 	public function list_total_articles()
 	{
 		require_once(SUBSDIR . '/YAPortal.subs.php');
@@ -501,10 +501,10 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 		require_once(SUBSDIR . '/YAPortal.subs.php');
 		return get_category_list($start, $items_per_page, $sort);
 	}
- 
+
 	public function list_total_categories()
 	{
 		require_once(SUBSDIR . '/YAPortal.subs.php');
 		return get_total_categories();
-	} 
+	}
 }

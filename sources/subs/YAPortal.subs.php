@@ -17,7 +17,7 @@ if (!defined('ELK'))
 function get_articles( $start, $per_page)
 {
 	$db 		= database();
-	
+
 	$categories	= get_article_categories();
 	$request  	= $db->query('', '
 		SELECT id, category_id, member_id, dt_published, title, body, views, comments
@@ -33,14 +33,14 @@ function get_articles( $start, $per_page)
 			SELECT member_name
 			FROM {db_prefix}members
 			WHERE id_member = {int:member_id}',
-			array ( 
+			array (
 				'member_id' => $row['member_id'],
 			)
 		);
 		$row['member'] 		= $db->fetch_assoc($member)['member_name'];
 		if(array_key_exists($row['category_id'], $categories)) {
-			$row['category']	= $categories[$row['category_id']];	
-			$articles[] 		= $row; 
+			$row['category']	= $categories[$row['category_id']];
+			$articles[] 		= $row;
 		}
 		else {
 			unset($row);
@@ -49,13 +49,13 @@ function get_articles( $start, $per_page)
 
 	$db->free_result($request);
 
-	return $articles;	
+	return $articles;
 }
 
 function get_article( $search )
 {
 	$db 		= database();
-	
+
 	$categories	= get_article_categories();
     if( is_int( $search ) ) {
         $request  	= $db->query('', '
@@ -84,18 +84,18 @@ function get_article( $search )
 			SELECT member_name
 			FROM {db_prefix}members
 			WHERE id_member = {int:member_id}',
-			array ( 
+			array (
 				'member_id' => $row['member_id'],
 			)
 		);
 		$row['member'] 		= $db->fetch_assoc($member)['member_name'];
-		$row['category']	= $categories[$row['category_id']];	
-		$article 		= $row; 
+		$row['category']	= $categories[$row['category_id']];
+		$article 		= $row;
 	}
 
 	$db->free_result($request);
 
-	return $article;	
+	return $article;
 }
 
 
@@ -110,8 +110,8 @@ function get_total_articles()
 		FROM {db_prefix}articles
 		WHERE status = 1'
 	);
-	
-	$total_articles = $db->fetch_assoc($request)['num_articles']; 
+
+	$total_articles = $db->fetch_assoc($request)['num_articles'];
 
 	$db->free_result($request);
 
@@ -127,7 +127,7 @@ function get_article_categories()
 		FROM {db_prefix}article_categories
 		WHERE status = 1'
 	);
-	
+
 	while ($row = $db->fetch_assoc($request)) {
 		$categories[$row['id']] = $row['name'];
 	}
@@ -143,7 +143,7 @@ function get_category($id)
 	$db 		= database();
 	$request	= $db->query('', '
 		SELECT id, name, description, articles, status AS enabled,
-			CASE WHEN status = 1 
+			CASE WHEN status = 1
 				THEN \'Enabled\'
 				ELSE \'Disabled\'
 			END
@@ -154,7 +154,7 @@ function get_category($id)
 			'id' => $id,
 		)
 	);
-	
+
 	while ($row = $db->fetch_assoc($request)) {
 		$category = $row;
 	}
@@ -170,7 +170,7 @@ function get_category_list($start, $items_per_page, $sort)
 	$db 		= database();
 	$request	= $db->query('', '
 		SELECT id, name, description, articles, status AS enabled,
-			CASE WHEN status = 1 
+			CASE WHEN status = 1
 				THEN \'Enabled\'
 				ELSE \'Disabled\'
 			END
@@ -179,7 +179,7 @@ function get_category_list($start, $items_per_page, $sort)
 		ORDER BY '.$sort.'
 		LIMIT '.$items_per_page.' OFFSET '.$start
 	);
-	
+
 	while ($row = $db->fetch_assoc($request)) {
 		$categories[] = $row;
 	}
@@ -197,7 +197,7 @@ function get_total_categories()
 		FROM {db_prefix}article_categories
 		WHERE status = 1'
 	);
-	
+
 	$count 		= $db->fetch_assoc($request)['count'];
 
 	$db->free_result($request);
@@ -211,7 +211,7 @@ function get_block_list($start, $items_per_page, $sort)
 	$db 		= database();
 	$request	= $db->query('', '
 		SELECT id, panel, name, status AS enabled,
-			CASE WHEN status = 1 
+			CASE WHEN status = 1
 				THEN \'Enabled\'
 				ELSE \'Disabled\'
 			END
@@ -220,7 +220,7 @@ function get_block_list($start, $items_per_page, $sort)
 		ORDER BY '.$sort.'
 		LIMIT '.$items_per_page.' OFFSET '.$start
 	);
-	
+
 	while ($row = $db->fetch_assoc($request)) {
 		$blocks[] = $row;
 	}
@@ -237,20 +237,20 @@ function get_total_blocks()
 		SELECT COUNT(id) AS count
 		FROM {db_prefix}blocks'
 	);
-	
+
 	$count 		= $db->fetch_assoc($request)['count'];
 
 	$db->free_result($request);
 
 	return $count;
 }
-function update_article_views($article_id) 
+function update_article_views($article_id)
 {
 	$db = database();
-	
+
 	$db->query('', '
 	UPDATE {db_prefix}articles
-	SET views = views + 1 
+	SET views = views + 1
 		WHERE id = {int:id}',
 		array (
 			'id'		=> $article_id,

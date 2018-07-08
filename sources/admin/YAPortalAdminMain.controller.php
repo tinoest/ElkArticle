@@ -41,7 +41,7 @@ class YAPortalAdminMain_Controller extends Action_Controller
 	public function action_list_settings()
 	{
 		global $txt, $context, $scripturl, $modSettings;
-		
+
 		loadLanguage('YAPortal');
 		// Lets build a settings form
 		require_once(SUBSDIR . '/SettingsForm.class.php');
@@ -52,13 +52,13 @@ class YAPortalAdminMain_Controller extends Action_Controller
             // Front Page options
 		    array ('title', 'yaportal-frontpage-options'),
 			array ('check', 'yaportal-frontpage'),
-			array ('select', 'yaportal-item-limit', 
+			array ('select', 'yaportal-item-limit',
 				array (
-					$txt['yaportal-limit-10'], 
-					$txt['yaportal-limit-25'], 
-					$txt['yaportal-limit-50'], 
-					$txt['yaportal-limit-75'], 
-					$txt['yaportal-limit-100'], 
+					$txt['yaportal-limit-10'],
+					$txt['yaportal-limit-25'],
+					$txt['yaportal-limit-50'],
+					$txt['yaportal-limit-75'],
+					$txt['yaportal-limit-100'],
 				)
 			),
             // Block Options
@@ -74,13 +74,13 @@ class YAPortalAdminMain_Controller extends Action_Controller
             // Gallery Options
 		    array ('title', 'yaportal-gallery-options'),
             array ('check', 'yaportal-gallery-menu-item'),
-			array ('select', 'yaportal-gallery-item-limit', 
+			array ('select', 'yaportal-gallery-item-limit',
 				array (
-					$txt['yaportal-limit-10'], 
-					$txt['yaportal-limit-25'], 
-					$txt['yaportal-limit-50'], 
-					$txt['yaportal-limit-75'], 
-					$txt['yaportal-limit-100'], 
+					$txt['yaportal-limit-10'],
+					$txt['yaportal-limit-25'],
+					$txt['yaportal-limit-50'],
+					$txt['yaportal-limit-75'],
+					$txt['yaportal-limit-100'],
 				)
 			),
 			array ('check', 'yaportal-gallery-enablecomments'),
