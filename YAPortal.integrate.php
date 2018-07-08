@@ -22,7 +22,7 @@ class YAPortal
 		$original = $_SERVER['QUERY_STRING'];
 
         $paths = array (        
-			'~^article/([0-9]+)/$~' => 'sa=article&article=%1$s',
+			'~^article/([0-9]+)/$~' => 'action=article&sa=article&id=%1$s',
 			'~^gallery/([0-9]+)/$~' => 'action=gallery&sa=gallery&gallery=%1$s',
 			'~^gallery/image/([0-9]+)/$~' => 'action=gallery&sa=image&image=%1$s',
 		);

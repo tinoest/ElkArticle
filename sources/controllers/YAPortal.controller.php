@@ -14,7 +14,9 @@ if (!defined('ELK'))
 	die('No access...');
 }
 
-class YAPortalGallery_Controller extends Action_Controller
+use ElkArte\sources\Frontpage_Interface;
+
+class YAPortal_Controller extends Action_Controller implements Frontpage_Interface
 {
 	public function action_index()
 	{
@@ -22,8 +24,7 @@ class YAPortalGallery_Controller extends Action_Controller
 		// Where do you want to go today?
 		$subActions = array(
 			'index'		=> array($this, 'action_yaportal_index'),
-			'gallery' 	=> array($this, 'action_yaportal_gallery'),
-			'image' 	=> array($this, 'action_yaportal_image'),
+			'article' 	=> array($this, 'action_yaportal'),
 		);
 
 		// We like action, so lets get ready for some
@@ -35,36 +36,35 @@ class YAPortalGallery_Controller extends Action_Controller
 		$action->dispatch($subAction);
 	}
 
-	public function action_yaportal_gallery()
+	public function action_yaportal()
 	{
-
 		global $context, $scripturl, $txt, $modSettings;
 		loadLanguage('YAPortal');
 		loadCSSFile('yaportal.css');
 		
-		require_once(SUBSDIR . '/YAPortalGallery.subs.php');	
+		require_once(SUBSDIR . '/YAPortal.subs.php');	
 
 		$context['page_title']		= $context['forum_name'];
 		$context['sub_template'] 	= 'yaportal';
-		$gallery_id 			    = !empty($_REQUEST['gallery']) ? (int) $_REQUEST['gallery'] : 0;
-		$gallery			        = get_gallery($gallery_id);
-		if(is_array($gallery) && !empty($gallery)) {
-			update_gallery_views($gallery_id);	
-			$context['gallery'] 	= $gallery;
+		$article_id 			    = !empty($_REQUEST['id']) ? (int) $_REQUEST['id'] : 0;
+		$article			        = get_article($article_id);
+		if(is_array($article) && !empty($article)) {
+			update_article_views($article_id);	
+			$context['article'] 	= $article;
 		}
 		else {
-			$context['gallery_error']   = $txt['yaportal-not-found'];
+			$context['article_error'] = $txt['yaportal-not-found'];
 		}
-		$context['comments-enabled']    = $modSettings['yaportal-enablecomments'];
+		$context['comments-enabled'] 	= $modSettings['yaportal-enablecomments'];
 
-		loadTemplate('YAPortalGallery');
+		loadTemplate('YAPortal');
 	}
 
 	public function action_yaportal_index()
 	{
 		global $context, $scripturl, $modSettings;
 		
-		require_once(SUBSDIR . '/YAPortalGallery.subs.php');	
+		require_once(SUBSDIR . '/YAPortal.subs.php');	
 
 		loadCSSFile('yaportal.css');
 
@@ -101,49 +101,40 @@ class YAPortalGallery_Controller extends Action_Controller
 			}
 		}
 
-		$galleries	                    = get_galleries($start, $per_page);	
-		$total_galleries                = get_total_galleries(); 
+		$articles	= get_articles($start, $per_page);	
+		$total_articles = get_total_articles(); 
 
 		$context['comments-enabled'] 	= $modSettings['yaportal-enablecomments'];
-		$context['galleries'] 		    = $galleries;
-		$context['page_index'] 		    = constructPageIndex($scripturl . '?action=home;start=%1$d', $start, $total_galleries, $per_page, true);
+		$context['articles'] 		= $articles;
+		$context['page_index'] 		= constructPageIndex($scripturl . '?action=home;start=%1$d', $start, $total_articles, $per_page, true);
 
-		loadTemplate('YAPortalGallery');
+		loadTemplate('YAPortal');
 	}
 
-    // Used to just show the image and no template
-    public function action_yaportal_image()
-    {
-        global $context; 
+	public static function canFrontPage()
+	{
+		return true;
+	}
 
-		require_once(SUBSDIR . '/YAPortalGallery.subs.php');	
+	public static function frontPageHook(&$default_action)
+	{
+		// View the portal front page
+		$file = CONTROLLERDIR . '/YAPortal.controller.php';
+		$controller = 'YAPortal_Controller';
+		$function = 'action_index';
+		// Something article-ish, then set the new action
+		if (isset($file, $function)) {
+			$default_action = array(
+				'file' => $file,
+				'controller' => isset($controller) ? $controller : null,
+				'function' => $function
+			);
+		}
+	}
 
-        $gallery_id 			    = !empty($_REQUEST['image']) ? (int) $_REQUEST['image'] : 0;
-		$gallery			        = get_gallery($gallery_id);
+	public static function frontPageOptions()
+	{
 
-        $fileName = BOARDDIR . '/yaportal/img/'. $gallery['image_name'];
-
-        if(file_exists( $fileName ) ) {
-            $mime_type = array( 
-                "1" => "image/gif",
-                "2" => "image/jpeg", 
-                "3" => "image/png",
-                "6" => "image/bmp",
-            );
-
-            $context['image_mime_type'] = $mime_type[exif_imagetype($fileName)];
-            $context['image_content']   = file_get_contents ( $fileName );
-        }
- 
-		$context['page_title']		= $context['forum_name'];
-      
-        // Clean out the template layers
-        $template_layers = Template_Layers::instance();
-        $template_layers->removeAll();
-		
-        $context['sub_template'] 	= 'yaportal_image';
-		loadTemplate('YAPortalGallery');
-    
-    }
+	}
 
 }
