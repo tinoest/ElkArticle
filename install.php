@@ -148,6 +148,25 @@ if($db->num_rows($request) == 0) {
 }
 $db->free_result($request);
 
+// Add a default gallery category if none exist
+$request = $db->query('', 'SELECT COUNT(id) FROM {db_prefix}gallery_categories LIMIT 1');
+if($db->num_rows($request) == 0) {
+	$db->insert('ignore',
+		'{db_prefix}gallery_categories',
+		array (
+			'name' 		    => 'string',
+			'description' 	=> 'string',
+			'status'	    => 'int'
+		),
+		array (
+			array ( 'Default Gallery', 'Default Gallery', '1')
+		),
+		array ()
+	);
+}
+$db->free_result($request);
+
+
 // Update the mod settings
 update_modSettings();
 
@@ -155,16 +174,16 @@ function update_modSettings()
 {
 	global $modSettings;
 
-	$mod_settings = array(
-		'front_page' 			          => 'YAPortal_Controller',
-		'yaportal-frontpage' 		    => 1,
-		'yaportal-topPanel' 		    => 0,
-		'yaportal-rightPanel' 	    => 0,
-		'yaportal-leftPanel' 		    => 0,
-		'yaportal-bottomPanel' 	    => 0,
-		'yaportal-item-limit' 	    => 0,
-		'yaportal-enablecomments' 	=> 0,
-	);
+    $mod_settings = array (
+            'front_page' 		        => 'YAPortal_Controller',
+            'yaportal-frontpage' 	    => 1,
+            'yaportal-topPanel' 	    => 0,
+            'yaportal-rightPanel' 	    => 0,
+            'yaportal-leftPanel' 	    => 0,
+            'yaportal-bottomPanel' 	    => 0,
+            'yaportal-item-limit' 	    => 0,
+            'yaportal-enablecomments' 	=> 0,
+    );
 
 	foreach ($mod_settings as $new_setting => $new_value) {
 		if (!array_key_exists($new_setting, $modSettings)) {
