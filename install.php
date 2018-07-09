@@ -103,7 +103,7 @@ $tables = array(
 			array('name' => 'name', 'type' => 'varchar', 'size' => 255, 'default' => ''),
 			array('name' => 'description', 'type' => 'text'),
 			array('name' => 'permissions', 'type' => 'mediumint', 'size' => 8, 'default' => 0, 'unsigned' => true),
-			array('name' => 'gallerles', 'type' => 'int', 'size' => 10, 'default' => 0, 'unsigned' => true),
+			array('name' => 'galleries', 'type' => 'int', 'size' => 10, 'default' => 0, 'unsigned' => true),
 			array('name' => 'status', 'type' => 'tinyint', 'size' => 4, 'default' => 1),
 		),
 		'indexes' => array(
