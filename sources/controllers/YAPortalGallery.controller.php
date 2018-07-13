@@ -134,7 +134,12 @@ class YAPortalGallery_Controller extends Action_Controller
 
 		$context['comments-enabled'] 	= $modSettings['yaportal-enablecomments'];
 		$context['galleries'] 		    = $galleries;
-		$context['page_index'] 		    = constructPageIndex($scripturl . '?action=gallery;start=%1$d', $start, $total_galleries, $per_page, true);
+		if(!empty($gallery_id)) {
+		  $context['page_index'] 		    = constructPageIndex($scripturl . '?action=gallery;sa=gallery;id='.$gallery_id.';start=%1$d', $start, $total_galleries, $per_page, true);
+		}
+		else {
+		  $context['page_index'] 		    = constructPageIndex($scripturl . '?action=gallery;sa=gallery;name='.$gallery_name.';start=%1$d', $start, $total_galleries, $per_page, true);
+		}
 
 		loadTemplate('YAPortalGallery');
 	}
