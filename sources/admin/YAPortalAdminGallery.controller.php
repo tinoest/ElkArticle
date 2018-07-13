@@ -151,8 +151,8 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 					'data' => array(
 						'sprintf' => array (
 							'format' => '
-								<a href="?action=admin;area=yaportalgallery;sa=editgallery;id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" accesskey="p">Modify</a>&nbsp;
-								<a href="?action=admin;area=yaportalgallery;sa=deletegallery;id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" onclick="return confirm(' . JavaScriptEscape('Are you sure you want to delete?') . ') && submitThisOnce(this);" accesskey="d">Delete</a>',
+								<a href="?action=admin;area=yaportalgallery;sa=editgallery;id=%1$d;' . $context['session_var'] . '=' . $context['session_id'] . '" accesskey="p">Modify</a>&nbsp;
+								<a href="?action=admin;area=yaportalgallery;sa=deletegallery;id=%1$d;' . $context['session_var'] . '=' . $context['session_id'] . '" onclick="return confirm(' . JavaScriptEscape('Are you sure you want to delete?') . ') && submitThisOnce(this);" accesskey="d">Delete</a>',
 							'params' => array(
 								'id' => true,
 							),
@@ -199,6 +199,8 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 		$context['gallery_body'] 	    = '';
         $context['gallery_image']       = '';
         $image_name                     = null;
+
+        var_dump($_FILES);
 
         if(!empty($_FILES['gallery_image'])) {
             if(in_array(exif_imagetype($_FILES['gallery_image']['tmp_name']), array( IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG ) ) ) {

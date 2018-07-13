@@ -48,27 +48,27 @@ class YAPortalGallery_Controller extends Action_Controller
 		$context['sub_template'] 	= 'yaportal_index';
 
 		// Set up for pagination
-		$start 		= !empty($_REQUEST['start']) ? (int) $_REQUEST['start'] : 0;
-		switch($modSettings['yaportal-item-limit']) {
-			case 0:
-				$per_page = 10;
-				break;
-			case 1:
-				$per_page = 25;
-				break;
-			case 2:
-				$per_page = 50;
-				break;
-			case 3:
-				$per_page = 75;
-				break;
-			case 4:
-				$per_page = 100;
-				break;
-			default:
-				$per_page = 10;
-				break;
-		}
+        $start 		= !empty($_REQUEST['start']) ? (int) $_REQUEST['start'] : 0;
+        switch($modSettings['yaportal-item-limit']) {
+            case 0:
+                $per_page = 9;
+                break;
+            case 1:
+                $per_page = 25;
+                break;
+            case 2:
+                $per_page = 48;
+                break;
+            case 3:
+                $per_page = 75;
+                break;
+            case 4:
+                $per_page = 99;
+                break;
+            default:
+                $per_page = 9;
+                break;
+        }
 
 		foreach(array('topPanel', 'rightPanel', 'leftPanel', 'bottomPanel') as $panel) {
 			if(!empty($modSettings['yaportal-'.$panel])) {
@@ -82,7 +82,7 @@ class YAPortalGallery_Controller extends Action_Controller
 
 		$context['comments-enabled'] 	= $modSettings['yaportal-enablecomments'];
 		$context['galleries'] 		    = $galleries;
-		$context['page_index'] 		    = constructPageIndex($scripturl . '?action=home;start=%1$d', $start, $total_galleries, $per_page, true);
+		$context['page_index'] 		    = constructPageIndex($scripturl . '?action=gallery;start=%1$d', $start, $total_galleries, $per_page, true);
 
 		loadTemplate('YAPortalGallery');
 	}
