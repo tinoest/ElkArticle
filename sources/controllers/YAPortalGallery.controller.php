@@ -24,6 +24,7 @@ class YAPortalGallery_Controller extends Action_Controller
 			'index'		=> array($this, 'action_yaportal_index'),
 			'gallery' 	=> array($this, 'action_yaportal_gallery'),
 			'image' 	=> array($this, 'action_yaportal_image'),
+			'rawimage' 	=> array($this, 'action_yaportal_raw_image'),
 		);
 
 		// We like action, so lets get ready for some
@@ -34,7 +35,6 @@ class YAPortalGallery_Controller extends Action_Controller
 		// Finally go to where we want to go
 		$action->dispatch($subAction);
 	}
-
 
 	public function action_yaportal_index()
 	{
@@ -48,37 +48,89 @@ class YAPortalGallery_Controller extends Action_Controller
 		$context['sub_template'] 	= 'yaportal_index';
 
 		// Set up for pagination
-        $start 		= !empty($_REQUEST['start']) ? (int) $_REQUEST['start'] : 0;
-        switch($modSettings['yaportal-item-limit']) {
-            case 0:
-                $per_page = 9;
-                break;
-            case 1:
-                $per_page = 25;
-                break;
-            case 2:
-                $per_page = 48;
-                break;
-            case 3:
-                $per_page = 75;
-                break;
-            case 4:
-                $per_page = 99;
-                break;
-            default:
-                $per_page = 9;
-                break;
-        }
-
-		foreach(array('topPanel', 'rightPanel', 'leftPanel', 'bottomPanel') as $panel) {
-			if(!empty($modSettings['yaportal-'.$panel])) {
-				$context['yaportal_'.$panel]['title'] 	= $panel;
-				$context['yaportal_'.$panel]['content'] 	= '';
-			}
+		$start 		= !empty($_REQUEST['start']) ? (int) $_REQUEST['start'] : 0;
+		switch($modSettings['yaportal-item-limit']) {
+			case 0:
+				$per_page = 9;
+				break;
+			case 1:
+				$per_page = 25;
+				break;
+			case 2:
+				$per_page = 48;
+				break;
+			case 3:
+				$per_page = 75;
+				break;
+			case 4:
+				$per_page = 99;
+				break;
+			default:
+				$per_page = 9;
+				break;
 		}
 
-		$galleries	                    = get_galleries($start, $per_page);
-		$total_galleries                = get_total_galleries();
+		$categories             = get_gallery_categories($start, $per_page);
+		$total_categories       = get_total_categories();
+
+        foreach($categories as $id => $name) {
+            $gallery_categories[] = get_category_image( $id );
+        }
+
+		$context['galleries'] 		    = $gallery_categories;
+		$context['page_index'] 		    = constructPageIndex($scripturl . '?action=gallery;start=%1$d', $start, $total_categories, $per_page, true);
+
+		loadTemplate('YAPortalGallery');
+	}
+
+	public function action_yaportal_gallery()
+	{
+		global $context, $scripturl, $modSettings;
+
+		require_once(SUBSDIR . '/YAPortalGallery.subs.php');
+
+		loadCSSFile('yaportal.css');
+
+		$context['page_title']		= $context['forum_name'];
+		$context['sub_template'] 	= 'yaportal_gallery';
+
+        $gallery_id 			    = !empty($_REQUEST['id']) ? (int) $_REQUEST['id'] : 0;
+        $gallery_name 			    = !empty($_REQUEST['name']) ? (string) $_REQUEST['name'] : null;
+
+		// Set up for pagination
+		$start 		= !empty($_REQUEST['start']) ? (int) $_REQUEST['start'] : 0;
+		switch($modSettings['yaportal-item-limit']) {
+			case 0:
+				$per_page = 9;
+				break;
+			case 1:
+				$per_page = 25;
+				break;
+			case 2:
+				$per_page = 48;
+				break;
+			case 3:
+				$per_page = 75;
+				break;
+			case 4:
+				$per_page = 99;
+				break;
+			default:
+				$per_page = 9;
+				break;
+		}
+
+        $galleries          = array();
+        $total_galleries    = array();
+
+        if( !empty($gallery_id) ) {
+		    $galleries	                    = get_galleries($start, $per_page, $gallery_id);
+		    $total_galleries                = get_total_galleries($gallery_id);
+        }
+        else if ( is_null($gallery_name) ) {
+		    $galleries	                    = get_galleries($start, $per_page, $gallery_name);
+		    $total_galleries                = get_total_galleries($gallery_id);
+        }
 
 		$context['comments-enabled'] 	= $modSettings['yaportal-enablecomments'];
 		$context['galleries'] 		    = $galleries;
@@ -87,7 +139,7 @@ class YAPortalGallery_Controller extends Action_Controller
 		loadTemplate('YAPortalGallery');
 	}
 
-    public function action_yaportal_gallery()
+    public function action_yaportal_image()
 	{
 
 		global $context, $scripturl, $txt, $modSettings;
@@ -97,7 +149,7 @@ class YAPortalGallery_Controller extends Action_Controller
 		require_once(SUBSDIR . '/YAPortalGallery.subs.php');
 
 		$context['page_title']		= $context['forum_name'];
-		$context['sub_template'] 	= 'yaportal';
+		$context['sub_template'] 	= 'yaportal_image';
 
         $gallery_id 			    = !empty($_REQUEST['id']) ? (int) $_REQUEST['id'] : 0;
         $gallery_name 			    = !empty($_REQUEST['name']) ? (string) $_REQUEST['name'] : null;
@@ -122,7 +174,7 @@ class YAPortalGallery_Controller extends Action_Controller
 	}
 
     // Used to just show the image and no template
-    public function action_yaportal_image()
+    public function action_yaportal_raw_image()
     {
         global $context;
 
@@ -156,7 +208,7 @@ class YAPortalGallery_Controller extends Action_Controller
 			$context['gallery_error']   = $txt['yaportal-not-found'];
         }
 
-        $context['sub_template'] 	= 'yaportal_image';
+        $context['sub_template'] 	= 'yaportal_raw_image';
 		loadTemplate('YAPortalGallery');
 
     }

@@ -38,11 +38,35 @@ function template_yaportal_index()
 	if (!empty($context['page_index'])) {
 		template_pagesection();
 	}
-
-
 }
 
-function template_yaportal()
+function template_yaportal_gallery()
+{
+	global $context, $txt, $scripturl, $boardurl;
+
+    echo '<div class="elk_gallery_gridLayout">';
+
+	foreach($context['galleries'] as $gallery) {
+        echo '<div class="grid-item">';
+		echo '<h3 class="category_header"><a href="'.$scripturl.'?gallery/image/'.$gallery['id'].'/">'.$gallery['title'].'</a></h3>';
+		echo sprintf(
+			'<span class="views_text"> Views: %d%s</span>', $gallery['views'],
+			( $context['comments-enabled'] == 1 ) ? ' | '.$txt['yaportal-comments'] . $gallery['comments'] : ''
+		);
+		echo sprintf('<span class="views_text"> | Written By: %s in %s | %s </span>', $gallery['member'], $gallery['category'], htmlTime($gallery['dt_published']));
+        if(file_exists(BOARDDIR . '/yaportal/img/' . $gallery['image_name'])) {
+            echo '<img src="' . $boardurl . '/yaportal/img/' . $gallery['image_name'] . '" height="auto" width="90%">';
+        }
+        echo '</div>';
+	}
+	echo '</div>';
+
+	if (!empty($context['page_index'])) {
+		template_pagesection();
+	}
+}
+
+function template_yaportal_image()
 {
 	global $context, $txt, $boardurl;
 
@@ -82,7 +106,7 @@ function template_yaportal()
 	}
 }
 
-function template_yaportal_image()
+function template_yaportal_raw_image()
 {
     global $context;
 
