@@ -24,7 +24,7 @@ function template_yaportal_edit()
 			<form id="gallery_form_edit" action="'.$scripturl.'?action=admin;area=yaportalgallery;sa=editgallery;" value="Submit" method="post" accept-charset="UTF-8" enctype="multipart/form-data">';
 
 			if(isset($context['gallery_id'])) {
-				echo '<input type="hidden" name="gallery_id" value="'.$context['gallery_id'].'" />';
+				echo '<input type="hidden" name="id" value="'.$context['gallery_id'].'" />';
 			}
 
 			echo '<dl id="post_header">

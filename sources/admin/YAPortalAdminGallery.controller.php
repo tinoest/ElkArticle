@@ -151,8 +151,8 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 					'data' => array(
 						'sprintf' => array (
 							'format' => '
-								<a href="?action=admin;area=yaportalgallery;sa=editgallery;gallery_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" accesskey="p">Modify</a>&nbsp;
-								<a href="?action=admin;area=yaportalgallery;sa=deletegallery;gallery_id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" onclick="return confirm(' . JavaScriptEscape('Are you sure you want to delete?') . ') && submitThisOnce(this);" accesskey="d">Delete</a>',
+								<a href="?action=admin;area=yaportalgallery;sa=editgallery;id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" accesskey="p">Modify</a>&nbsp;
+								<a href="?action=admin;area=yaportalgallery;sa=deletegallery;id=%1$s;' . $context['session_var'] . '=' . $context['session_id'] . '" onclick="return confirm(' . JavaScriptEscape('Are you sure you want to delete?') . ') && submitThisOnce(this);" accesskey="d">Delete</a>',
 							'params' => array(
 								'id' => true,
 							),
@@ -213,7 +213,7 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 		}
 		$context['gallery_status']	    = $status;
 
-		if (!empty($_POST['gallery_subject']) && !empty($_POST['gallery_body']) && empty($_POST['gallery_id'])) {
+		if (!empty($_POST['gallery_subject']) && !empty($_POST['gallery_body']) && empty($_POST['id'])) {
 			if (checkSession('post', '', false) !== '') {
 				return;
 			}
@@ -228,7 +228,7 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 			$context['gallery_category']= $category_id;
 			$context['gallery_image']   = $image_name;
 		}
-		else if ( (!empty($_POST['gallery_subject']) || !empty($_POST['gallery_body'])) && !empty($_POST['gallery_category']) && !empty($_POST['gallery_id'])) {
+		else if ( (!empty($_POST['gallery_subject']) || !empty($_POST['gallery_body'])) && !empty($_POST['gallery_category']) && !empty($_POST['id'])) {
 			if (checkSession('post', '', false) !== '') {
 				return;
 			}
@@ -241,7 +241,7 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 				$body			= null;
 			}
 			$category_id		= $_POST['gallery_category'];
-			$gallery_id	 		= $_POST['gallery_id'];
+			$gallery_id	 		= $_POST['id'];
 
             if(!empty($image_name)) {
                 // Are we changing the image? remove the old one if we are
@@ -264,12 +264,12 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 			$context['gallery_status']	= $gallery_data['status'];
 			$context['gallery_image']   = $gallery_data['image_name'];
 		}
-		else if (!empty($_GET['gallery_id'])) {
+		else if (!empty($_GET['id'])) {
 			if (checkSession('get', '', false) !== '') {
 				return;
 			}
 
-			$gallery_id	 		        = $_GET['gallery_id'];
+			$gallery_id	 		        = $_GET['id'];
 			$gallery_data			    = get_gallery($gallery_id);
 			$context['gallery_id'] 		= $gallery_data['id'];
 			$context['gallery_subject'] = $gallery_data['title'];
@@ -294,12 +294,12 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 		require_once(SUBSDIR . '/YAPortalGallery.subs.php');
 
 
-		if (!empty($_GET['gallery_id'])) {
+		if (!empty($_GET['id'])) {
 			if (checkSession('get', '', false) !== '') {
 				return;
 			}
 
-			$id	        =  $_GET['gallery_id'];
+			$id	        =  $_GET['id'];
             $gallery    = get_gallery($id);
             $fileName   = BOARDDIR . '/yaportal/img/' . $gallery['image_name'];
 
