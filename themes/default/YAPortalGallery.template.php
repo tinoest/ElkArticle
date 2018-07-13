@@ -22,12 +22,8 @@ function template_yaportal_index()
 
 	foreach($context['galleries'] as $gallery) {
         echo '<div class="grid-item">';
-		echo '<h3 class="category_header"><a href="'.$scripturl.'?gallery/'.$gallery['id'].'/">'.$gallery['title'].'</a></h3>';
-		echo sprintf(
-			'<span class="views_text"> Views: %d%s</span>', $gallery['views'],
-			( $context['comments-enabled'] == 1 ) ? ' | '.$txt['yaportal-comments'] . $gallery['comments'] : ''
-		);
-		echo sprintf('<span class="views_text"> | Written By: %s in %s | %s </span>', $gallery['member'], $gallery['category'], htmlTime($gallery['dt_published']));
+		echo '<h3 class="category_header"><a href="'.$scripturl.'?gallery/'.$gallery['category_id'].'/">'.$gallery['category_name'].'</a></h3>';
+		echo sprintf('<span class="views_text">Written By: %s in %s | %s </span>', $gallery['member'], $gallery['category_name'], htmlTime($gallery['dt_published']));
         if(file_exists(BOARDDIR . '/yaportal/img/' . $gallery['image_name'])) {
             echo '<img src="' . $boardurl . '/yaportal/img/' . $gallery['image_name'] . '" height="auto" width="90%">';
         }
