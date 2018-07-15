@@ -25,7 +25,7 @@ function template_yaportal_index()
 		echo '<h3 class="category_header"><a href="'.$scripturl.'?gallery/'.$gallery['category_id'].'/">'.$gallery['category_name'].'</a></h3>';
 		echo sprintf('<span class="views_text">Written By: %s in %s | %s </span>', $gallery['member'], $gallery['category_name'], htmlTime($gallery['dt_published']));
         if(file_exists(BOARDDIR . '/yaportal/img/' . $gallery['image_name'])) {
-            echo '<img src="' . $boardurl . '/yaportal/img/' . $gallery['image_name'] . '" height="auto" width="90%">';
+            echo '<div align="center"><img src="' . $boardurl . '/yaportal/img/' . $gallery['image_name'] . '" height="auto" width="90%"></div>';
         }
         echo '</div>';
 	}
@@ -51,7 +51,7 @@ function template_yaportal_gallery()
 		);
 		echo sprintf('<span class="views_text"> | Written By: %s in %s | %s </span>', $gallery['member'], $gallery['category'], htmlTime($gallery['dt_published']));
         if(file_exists(BOARDDIR . '/yaportal/img/' . $gallery['image_name'])) {
-            echo '<img src="' . $boardurl . '/yaportal/img/' . $gallery['image_name'] . '" height="auto" width="90%">';
+            echo '<div align="center"><img src="' . $boardurl . '/yaportal/img/' . $gallery['image_name'] . '" height="auto" width="90%"></div>';
         }
         echo '</div>';
 	}
