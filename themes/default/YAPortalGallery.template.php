@@ -24,7 +24,11 @@ function template_yaportal_index()
         echo '<div class="grid-item">';
 		echo '<h3 class="category_header"><a href="'.$scripturl.'?gallery/'.$gallery['category_id'].'/">'.$gallery['category_name'].'</a></h3>';
 		echo sprintf('<span class="views_text">Written By: %s in %s | %s </span>', $gallery['member'], $gallery['category_name'], htmlTime($gallery['dt_published']));
-        if(file_exists(BOARDDIR . '/yaportal/img/' . $gallery['image_name'])) {
+		$minFileName = str_replace('.jpg', '-min.jpg', $gallery['image_name']);
+        if(file_exists(BOARDDIR . '/yaportal/img/thumbs/' . $minFileName)) {
+            echo '<div align="center"><img src="' . $boardurl . '/yaportal/img/thumbs/' . $minFileName . '" height="auto" width="90%"></div>';
+		}
+        else if(file_exists(BOARDDIR . '/yaportal/img/' . $gallery['image_name'])) {
             echo '<div align="center"><img src="' . $boardurl . '/yaportal/img/' . $gallery['image_name'] . '" height="auto" width="90%"></div>';
         }
         echo '</div>';
@@ -46,11 +50,15 @@ function template_yaportal_gallery()
         echo '<div class="grid-item">';
 		echo '<h3 class="category_header"><a href="'.$scripturl.'?gallery/image/'.$gallery['id'].'/">'.$gallery['title'].'</a></h3>';
 		echo sprintf(
-			'<span class="views_text"> Views: %d%s</span>', $gallery['views'],
+			'<span class="views_text"> Views: %d%s', $gallery['views'],
 			( $context['comments-enabled'] == 1 ) ? ' | '.$txt['yaportal-comments'] . $gallery['comments'] : ''
 		);
-		echo sprintf('<span class="views_text"> | Written By: %s in %s | %s </span>', $gallery['member'], $gallery['category'], htmlTime($gallery['dt_published']));
-        if(file_exists(BOARDDIR . '/yaportal/img/' . $gallery['image_name'])) {
+		echo sprintf(' | Written By: %s in %s | %s </span>', $gallery['member'], $gallery['category'], htmlTime($gallery['dt_published']));
+		$minFileName = str_replace('.jpg', '-min.jpg', $gallery['image_name']);
+        if(file_exists(BOARDDIR . '/yaportal/img/thumbs/' . $minFileName)) {
+            echo '<div align="center"><img src="' . $boardurl . '/yaportal/img/thumbs/' . $minFileName . '" height="auto" width="90%"></div>';
+		}
+		else if(file_exists(BOARDDIR . '/yaportal/img/' . $gallery['image_name'])) {
             echo '<div align="center"><img src="' . $boardurl . '/yaportal/img/' . $gallery['image_name'] . '" height="auto" width="90%"></div>';
         }
         echo '</div>';

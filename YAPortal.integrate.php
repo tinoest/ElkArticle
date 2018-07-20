@@ -22,14 +22,16 @@ class YAPortal
 		$original = $_SERVER['QUERY_STRING'];
 
         $paths = array (
-			'~^article/$~'                      => 'action=article',
-			'~^article/([0-9]+)/$~'             => 'action=article&sa=article&id=%1$s',
-			'~^article/([A-Za-z0-9]+)/$~'       => 'action=article&sa=article&name=%1$s',
-			'~^gallery/$~'                      => 'action=gallery',
-			'~^gallery/([0-9]+)/$~'             => 'action=gallery&sa=gallery&id=%1$s',
-			'~^gallery/([A-Za-z0-9]+)/$~'       => 'action=gallery&sa=gallery&name=%1$s',
-			'~^gallery/image/([0-9]+)/$~'       => 'action=gallery&sa=image&id=%1$s',
-			'~^gallery/rawimage/([0-9]+)/$~'    => 'action=gallery&sa=rawimage&id=%1$s',
+			'~^article/$~'							    => 'action=article',
+			'~^article/([0-9]+)/$~'					    => 'action=article&sa=article&id=%1$s',
+			'~^article/([A-Za-z0-9]+)/$~'			    => 'action=article&sa=article&name=%1$s',
+			'~^gallery/$~'							    => 'action=gallery',
+			'~^gallery/([0-9]+)/$~'					    => 'action=gallery&sa=gallery&id=%1$s',
+			'~^gallery/([A-Za-z0-9-.]+)/$~'			    => 'action=gallery&sa=gallery&name=%1$s',
+			'~^gallery/image/([0-9]+)/$~'		    	=> 'action=gallery&sa=image&id=%1$s',
+			'~^gallery/image/([A-Za-z0-9-i.]+)/$~'      => 'action=gallery&sa=image&name=%1$s',
+			'~^gallery/rawimage/([0-9]+)/$~'		    => 'action=gallery&sa=rawimage&id=%1$s',
+			'~^gallery/rawimage/([A-Za-z0-9-.]+)/$~'    => 'action=gallery&sa=rawimage&name=%1$s',
 		);
 
 		foreach ($paths as $route => $destination) {

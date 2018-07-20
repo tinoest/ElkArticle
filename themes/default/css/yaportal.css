@@ -1,66 +1,66 @@
 .elk_article_container {
-	display: flex;
-	flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .elk_article_topPanel {
-	grid-column: span 3;
-	padding: 0.5em;
+    grid-column: span 3;
+    padding: 0.5em;
 }
 
 .elk_article_centerPanel {
-  	flex: 1;
-	padding: 0.5em;
+    flex: 1;
+    padding: 0.5em;
 }
 
 .elk_article_rightPanel {
-	padding: 0.5em;
+    padding: 0.5em;
 }
  
 .elk_article_leftPanel {
-	padding: 0.5em;
+    padding: 0.5em;
 }
 
 .elk_article_bottomPanel {
-	grid-column: span 3;
-	padding: 0.5em;
+    grid-column: span 3;
+    padding: 0.5em;
 }
 
 @media (max-device-width: 767px) {
-	.elk_article_topPanel {
-		order: 0;
-	}
-	.elk_article_rightPanel {
-		order: 2;
-	}
-	.elk_article_centerPanel {
-		order: 1;
-	}
-	.elk_article_leftPanel {
-		order: 3;
-	}
-	.elk_article_bottomPanel {
-		order: 4;
-	}
+    .elk_article_topPanel {
+        order: 0;
+    }
+    .elk_article_rightPanel {
+        order: 2;
+    }
+    .elk_article_centerPanel {
+        order: 1;
+    }
+    .elk_article_leftPanel {
+        order: 3;
+    }
+    .elk_article_bottomPanel {
+        order: 4;
+    }
 }
 
 @media (min-width: 768px) {
-	.elk_article_container {
-		display: grid;
-		grid-template-columns: 200px 1fr 200px;
-		grid-template-rows: auto 1fr auto;
-  	}
+    .elk_article_container {
+        display: grid;
+        grid-template-columns: 200px 1fr 200px;
+        grid-template-rows: auto 1fr auto;
+    }
 }
 
 /* Gallery CSS */
 @media (min-width: 1100px) {
     .elk_gallery_gridLayout {
-		display: grid;
-		grid-template-columns: 1fr 1fr 1fr;
-		grid-gap: 10px 10px;
-		display: -ms-grid;
-		ms-grid-columns: 1fr 1fr 1fr;
-	}
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 10px 10px;
+        display: -ms-grid;
+        ms-grid-columns: 1fr 1fr 1fr;
+    }
 }
 
 @media (max-device-width: 1099px) {
@@ -71,4 +71,8 @@
         display: -ms-grid;
         ms-grid-columns: 1fr;
     }
+}
+
+.elk_gallery_gridLayout span.views_text {
+    font-size: .600em;
 }
