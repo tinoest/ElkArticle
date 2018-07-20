@@ -107,20 +107,28 @@ function get_gallery( $search )
 
 
 
-function get_total_galleries( $search )
+function get_total_galleries( $search = null )
 {
 	$total_galleries	= 0;
 
-	$db 		= database();
-	$request 	= $db->query('', '
-		SELECT COUNT(id) as num_galleries
-		FROM {db_prefix}galleries
-		WHERE status = 1
-		AND category_id = {int:search}',
-		array (
-			'search' => $search
-		)
-	);
+    $db 		= database();
+    if(is_null($search)) {
+        $request 	= $db->query('', '
+            SELECT COUNT(id) as num_galleries
+            FROM {db_prefix}galleries'
+        );
+    }
+    else {
+        $request 	= $db->query('', '
+            SELECT COUNT(id) as num_galleries
+            FROM {db_prefix}galleries
+            WHERE status = 1
+            AND category_id = {int:search}',
+            array (
+                'search' => $search
+            )
+        );
+    }
 
 	$total_galleries = $db->fetch_assoc($request)['num_galleries'];
 
