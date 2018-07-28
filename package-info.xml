@@ -19,7 +19,6 @@
 		<require-dir name="yaportal" destination="BOARDDIR" />
 		<require-dir name="themes" destination="BOARDDIR" />
 		<require-dir name="sources" destination="BOARDDIR" />
-		<require-file name="YAPortal.integrate.php" destination="SOURCEDIR" />
 		<hook hook="integrate_pre_load" function="YAPortal::integrate_pre_load" file="SOURCEDIR/YAPortal.integrate.php" />
 		<hook hook="integrate_action_frontpage" function="YAPortal::integrate_action_frontpage" file="SOURCEDIR/YAPortal.integrate.php" />
 		<hook hook="integrate_menu_buttons" function="YAPortal::integrate_menu_buttons" file="SOURCEDIR/YAPortal.integrate.php" />
