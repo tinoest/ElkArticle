@@ -30,6 +30,9 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 			'addcategory' 		=> array($this, 'action_add_category'),
 			'editcategory' 		=> array($this, 'action_edit_category'),
 			'deletecategory' 	=> array($this, 'action_delete_category'),
+			'uploadimage' 	    => array($this, 'action_upload_image'),
+			'resizeimage' 	    => array($this, 'action_resize_image'),
+			'removeimage' 	    => array($this, 'action_remove_image'),
 		);
 		// We like action, so lets get ready for some
 		$action = new Action('');
@@ -200,8 +203,6 @@ class YAPortalAdminGallery_Controller extends Action_Controller
         $context['gallery_image']       = '';
         $image_name                     = null;
 
-        var_dump($_FILES);
-
         if(!empty($_FILES['gallery_image'])) {
             if(in_array(exif_imagetype($_FILES['gallery_image']['tmp_name']), array( IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG ) ) ) {
                 move_uploaded_file($_FILES['gallery_image']['tmp_name'], BOARDDIR . '/yaportal/img/' . $_FILES['gallery_image']['name']);
@@ -282,6 +283,7 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 		}
 
         $context['gallery_image_src']   = $boardurl . '/yaportal/img/' . $context['gallery_image'];
+        $context['gallery_image_name']  = urlencode($context['gallery_image']);
 
 		$context['gallery_categories']	= get_gallery_categories();
 
@@ -519,6 +521,36 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 		// Just Load the list again
 		$this->action_list_category();
 	}
+
+    public function action_upload_image()
+    {
+
+    }
+
+    public function action_resize_image()
+    {
+		require_once(SUBSDIR . '/YAPortalAdminGallery.subs.php');
+
+        if(!empty($_GET['image'])) {
+            //if (checkSession('get', '', false) !== '') {
+              //  return;
+            //}
+                
+            $imageName	=  urldecode($_GET['image']);
+            $fileName   = BOARDDIR . '/yaportal/img/' . $imageName;
+            $thumbName  = BOARDDIR . '/yaportal/img/thumbs/' . $imageName;
+            if(file_exists($fileName)) {
+                resize_image($fileName, $thumbName, array('height' => 480, 'width' => 640) );
+            }
+        }
+
+		$this->action_list_gallery();
+    }
+
+    public function action_remove_image()
+    {
+
+    }
 
 	public function list_galleries($start, $items_per_page, $sort)
 	{

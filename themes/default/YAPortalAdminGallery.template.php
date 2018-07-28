@@ -71,6 +71,7 @@ function template_yaportal_edit()
                         <input type="file" id="gallery_image" name="gallery_image" />
                     </div>
                     <div style="float: right;">
+					    <input type="submit" formaction="?action=admin;area=yaportalgallery;sa=resizeimage;image='. $context['gallery_image_name'] . '" value="Resize Image">
 					    <input type="submit" value="Submit">
                     </div>
 				</div>

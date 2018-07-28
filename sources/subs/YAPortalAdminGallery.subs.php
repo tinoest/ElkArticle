@@ -224,3 +224,38 @@ function delete_category($id)
 		)
 	);
 }
+
+function resize_image($photoString, $fileName, $dimensions)
+{
+
+    $width  = $dimensions['width'];
+    $height = $dimensions['height'];
+
+
+    // Get new dimensions
+    list($widthOriginal, $heightOriginal) = getimagesize($photoString);
+    // Check dimensions we want are not the same as the image
+    if(($widthOriginal != $width) || ($heightOriginal != $height)) {
+        $ratioOriginal = $widthOriginal / $heightOriginal;
+
+        if ( $width / $height > $ratioOriginal ) {
+            $width = $height * $ratioOriginal;
+        }
+        else {
+            $height = $width / $ratioOriginal;
+        }
+
+        // Resample
+        $image_p  = imagecreatetruecolor($width, $height);
+        $image    = imagecreatefromjpeg($photoString);
+        imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $widthOriginal, $heightOriginal);
+        // Output
+        imagejpeg($image_p, $fileName, 100);
+
+        return TRUE;
+    }
+    else {
+        return FALSE;
+    }
+}
+
