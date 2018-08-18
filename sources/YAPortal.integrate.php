@@ -245,9 +245,40 @@ class YAPortal
 
     public static function integrate_whos_online($actions)
     {
+        global $scripturl, $txt;
 
-        var_dump($actions);
+		loadLanguage('YAPortal');
 
+        if(array_key_exists('action', $actions) && $actions['action'] == 'article') {
+            require_once(SUBSDIR . '/YAPortal.subs.php');
+            if(array_key_exists('id', $actions) && !empty($actions['id'])) {
+                $articleData = get_article((int)$actions['id']);
+            }
+            else if(array_key_exists('name', $actions) && !empty($actions['name'])) {
+                $articleData = get_article($actions['name']);
+            }
+            if(!empty($articleData)) {
+                return sprintf($txt['yaportal_whos_online_article_name'], $articleData['id'], censorText($articleData['title']), $scripturl);
+            }
+            else {
+                return $txt['yaportal_whos_online_article_list'];
+            }
+        }
+        else if(array_key_exists('action', $actions) && $actions['action'] == 'gallery') {
+            require_once(SUBSDIR . '/YAPortalGallery.subs.php');
+            if(array_key_exists('id', $actions) && !empty($actions['id'])) {
+                $articleData = get_gallery((int)$actions['id']);
+            }
+            else if(array_key_exists('name', $actions) && !empty($actions['name'])) {
+                $articleData = get_gallery($actions['name']);
+            }
+            if(!empty($articleData)) {
+                return sprintf($txt['yaportal_whos_online_gallery_name'], $articleData['id'], censorText($articleData['title']), $scripturl);
+            }
+            else {
+                return $txt['yaportal_whos_online_gallery_list'];
+            }
+        }
     }
 
 }
