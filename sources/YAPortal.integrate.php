@@ -242,4 +242,12 @@ class YAPortal
 			),
 		);
 	}
+
+    public static function integrate_whos_online($actions)
+    {
+
+        var_dump($actions);
+
+    }
+
 }
