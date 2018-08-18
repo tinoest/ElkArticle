@@ -54,4 +54,4 @@ $txt['yaportal-galleries'] 		                = 'Galleries';
 $txt['yaportal_whos_online_article_list']       = 'Viewing the Article List';
 $txt['yaportal_whos_online_gallery_list']       = 'Viewing the Gallery List';
 $txt['yaportal_whos_online_article_name']       = 'Viewing the article &quot;<a href="%3$s?article/%1$s/">%2$s</a>&quot;.';
-$txt['yaportal_whos_online_gallery_name']       = 'Viewing the gallery &quot;<a href="%3$s?gallery/%1$s/">%2$s</a>&quot;.';
+$txt['yaportal_whos_online_gallery_name']       = 'Viewing the gallery &quot;<a href="%3$s?gallery/image/%1$s/">%2$s</a>&quot;.';
