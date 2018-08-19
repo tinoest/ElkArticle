@@ -62,6 +62,13 @@ class YAPortal_Controller extends Action_Controller implements Frontpage_Interfa
 		}
 		$context['comments-enabled'] 	= $modSettings['yaportal-enablecomments'];
 
+        // Build the breadcrumbs
+        $context['linktree'] = array_merge($context['linktree'], array(
+            array(
+                'url'   => $scripturl . '?article/',
+                'name'  => $txt['yaportal-articles'],
+            ),
+        ));
 		loadTemplate('YAPortal');
 	}
 

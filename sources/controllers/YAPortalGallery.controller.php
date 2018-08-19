@@ -146,7 +146,7 @@ class YAPortalGallery_Controller extends Action_Controller
         $context['linktree'] = array_merge($context['linktree'], array(
             array(
                 'url'   => $scripturl . '?gallery/',
-                'name'  => $txt['yaportal-gallery'],
+                'name'  => $txt['yaportal-galleries'],
             ),
         ));
 
@@ -188,7 +188,7 @@ class YAPortalGallery_Controller extends Action_Controller
         $context['linktree'] = array_merge($context['linktree'], array(
             array(
                 'url'   => $scripturl . '?gallery/',
-                'name'  => $txt['yaportal-gallery'],
+                'name'  => $txt['yaportal-galleries'],
             ),
             array(
                 'url'   => $scripturl . '?gallery/'.$gallery['category_id'].'/',
