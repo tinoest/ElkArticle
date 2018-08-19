@@ -85,10 +85,11 @@ class YAPortalGallery_Controller extends Action_Controller
 
 	public function action_yaportal_gallery()
 	{
-		global $context, $scripturl, $modSettings;
+		global $context, $scripturl, $txt, $modSettings;
 
 		require_once(SUBSDIR . '/YAPortalGallery.subs.php');
 
+        loadLanguage('YAPortal');
 		loadCSSFile('yaportal.css');
 
 		$context['page_title']		= $context['forum_name'];
@@ -141,6 +142,14 @@ class YAPortalGallery_Controller extends Action_Controller
 		  $context['page_index'] 		    = constructPageIndex($scripturl . '?action=gallery;sa=gallery;name='.$gallery_name.';start=%1$d', $start, $total_galleries, $per_page, true);
 		}
 
+        // Build the breadcrumbs
+        $context['linktree'] = array_merge($context['linktree'], array(
+            array(
+                'url'   => $scripturl . '?gallery/',
+                'name'  => $txt['yaportal-gallery'],
+            ),
+        ));
+
 		loadTemplate('YAPortalGallery');
 	}
 
@@ -174,6 +183,18 @@ class YAPortalGallery_Controller extends Action_Controller
 			$context['gallery_error']   = $txt['yaportal-not-found'];
 		}
 		$context['comments-enabled']    = $modSettings['yaportal-enablecomments'];
+
+        // Build the breadcrumbs
+        $context['linktree'] = array_merge($context['linktree'], array(
+            array(
+                'url'   => $scripturl . '?gallery/',
+                'name'  => $txt['yaportal-gallery'],
+            ),
+            array(
+                'url'   => $scripturl . '?gallery/'.$gallery['category_id'].'/',
+                'name'  => $gallery['category'],
+            ),
+        ));
 
 		loadTemplate('YAPortalGallery');
 	}

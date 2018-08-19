@@ -99,7 +99,7 @@ function template_yaportal_image()
                         <article class="post_wrapper forumposts">
                             <div align="center">';
                 if(file_exists(BOARDDIR . '/yaportal/img/' . $gallery['image_name'])) {
-                    $exifData = exif_read_data(BOARDDIR . '/yaportal/img/' . $gallery['image_name']);
+                    $exifData = @exif_read_data(BOARDDIR . '/yaportal/img/' . $gallery['image_name']);
                     echo '<img src="' . $boardurl . '/yaportal/img/' . $gallery['image_name'] . '" height="90%" width="90%">';
                 }
 

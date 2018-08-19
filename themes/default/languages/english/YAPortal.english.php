@@ -4,6 +4,7 @@ $txt['gallery_btn']                             = 'Gallery';
 $txt['article_btn']                             = 'Article';
 $txt['yaportal-desc']				            = 'The YAPortal Modification allows you add Articles to your forum, you can also edit available Categories, and it\'s Settings';
 $txt['yaportal-admin'] 			                = 'YAPortal';
+$txt['yaportal-gallery']         			    = 'Gallery';
 $txt['yaportal-gallery-options'] 			    = 'Gallery Settings';
 $txt['yaportal-frontpage-options'] 			    = 'Front Page Settings';
 $txt['yaportal-block-options'] 			        = 'Block Settings';
