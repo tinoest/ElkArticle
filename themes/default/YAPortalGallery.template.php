@@ -83,7 +83,8 @@ function template_yaportal_image()
 		</div>';
 	}
 	else {
-		$gallery = $context['gallery'];
+        $exifData   = array();
+		$gallery    = $context['gallery'];
 
 		echo '
 		<div id="eb_view_galleries">
@@ -98,16 +99,41 @@ function template_yaportal_image()
                         <article class="post_wrapper forumposts">
                             <div align="center">';
                 if(file_exists(BOARDDIR . '/yaportal/img/' . $gallery['image_name'])) {
+                    $exifData = exif_read_data(BOARDDIR . '/yaportal/img/' . $gallery['image_name']);
                     echo '<img src="' . $boardurl . '/yaportal/img/' . $gallery['image_name'] . '" height="90%" width="90%">';
                 }
 
-                echo '      </div>
-                            <div style="margin : 0.5em">'.$gallery['body'].'</div>
-                        </article>
+                echo '      </div>';
+
+                if(!empty($gallery['body'])) {
+                    echo '<div style="margin : 0.5em"><b>Description:</b><hr>'.$gallery['body'].'</div>';
+                }
+
+                if(!empty($exifData)) {
+                    echo '<div style="margin : 1em"><b>EXIF Data: </b><br><hr>';
+                    exif_data($exifData);
+                    echo '</div>';
+                }
+
+                echo '  </article>
                     </section>
 			    </div>
 		</div>';
 	}
+}
+
+function exif_data($exifData) 
+{
+    foreach($exifData as $k => $v) {
+        if(!is_array($v)) {
+            if(in_array($k, array('MimeType', 'Height', 'Width', 'ApertureFNumber', 'Make', 'Model'), true)) {
+                echo '<b>'.$k.':</b> '. $v.'<br>';
+            }
+        }
+        else {
+            exif_data($v);
+        }
+    }
 }
 
 function template_yaportal_raw_image()
