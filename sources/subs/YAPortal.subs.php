@@ -57,7 +57,7 @@ function get_article( $search )
 	$db 		= database();
 
 	$categories	= get_article_categories();
-    if( is_int( $search ) ) {
+    if( is_numeric( $search ) ) {
         $request  	= $db->query('', '
             SELECT id, category_id, member_id, dt_published, title, body, views, comments, status
             FROM {db_prefix}articles

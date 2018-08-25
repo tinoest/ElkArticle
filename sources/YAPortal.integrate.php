@@ -187,7 +187,7 @@ class YAPortal
 
 		$admin_areas['yaportal'] = array (
 			'title' => $txt['yaportal-admin'],
-			'permission' => array ('admin_forum'),
+			'permission' => array ('admin_forum' , 'yaportal_admin'),
 			'areas' => array (
 				'yaportalconfig' => array (
 					'label'       => $txt['yaportal-adminConfigurationMain'],
@@ -196,7 +196,7 @@ class YAPortal
 					'function'    => 'action_index',
 					'icon'        => 'transparent.png',
 					'class'       => 'admin_home_page',
-					'permission'  => array ( 'admin_forum' ),
+					'permission'  => array ( 'admin_forum', 'yaportal_manage_settings' ),
 					'subsections' => array (
 						'listsettings'	=> array ( $txt['yaportal-settings'] ),
 					),
@@ -208,7 +208,7 @@ class YAPortal
 					'function'    => 'action_index',
 					'icon'        => 'transparent.png',
 					'class'       => 'admin_home_page',
-					'permission'  => array ( 'admin_forum' ),
+					'permission'  => array ( 'admin_forum', 'yaportal_manage_articles' ),
 					'subsections' => array (
 						'listarticle' 	=> array ( $txt['yaportal-listarticle'] ),
 						'listcategory' 	=> array ( $txt['yaportal-listcategory'] ),
@@ -221,7 +221,7 @@ class YAPortal
 					'function'    => 'action_index',
 					'icon'        => 'transparent.png',
 					'class'       => 'admin_home_page',
-					'permission'  => array ( 'admin_forum' ),
+					'permission'  => array ( 'admin_forum', 'yaportal_manage_blocks' ),
 					'subsections' => array (
 						'listblock'	    => array ( $txt['yaportal-listblocks'] ),
 					),
@@ -233,7 +233,7 @@ class YAPortal
 					'function'    => 'action_index',
 					'icon'        => 'transparent.png',
 					'class'       => 'admin_home_page',
-					'permission'  => array ( 'admin_forum' ),
+					'permission'  => array ( 'admin_forum', 'yaportal_manage_gallery' ),
 					'subsections' => array (
 						'listgallery'	    => array ( $txt['yaportal-listgallery'] ),
 						'listcategory' 	    => array ( $txt['yaportal-listcategory'] ),
@@ -279,6 +279,20 @@ class YAPortal
                 return $txt['yaportal_whos_online_gallery_list'];
             }
         }
+    }
+
+    public static function integrate_load_permissions(&$permissionGroups, &$permissionList, &$leftPermissionGroups, &$hiddenPermissions, &$relabelPermissions)
+    {
+        $permissionList['membergroup'] = array_merge($permissionList['membergroup'], array(
+                'yaportal_admin'            => array(false, 'yaportal', 'yaportal'),
+                'yaportal_manage_settings'  => array(false, 'yaportal', 'yaportal'),
+                'yaportal_manage_blocks'    => array(false, 'yaportal', 'yaportal'),
+                'yaportal_manage_articles'  => array(false, 'yaportal', 'yaportal'),
+                'yaportal_manage_gallery'   => array(false, 'yaportal', 'yaportal'),
+            )
+        );
+        $permissionGroups['membergroup'][]  = 'yaportal';
+        $leftPermissionGroups[]             = 'yaportal';
     }
 
 }

@@ -196,7 +196,7 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 		// Set the defaults
 		$context['article_category']	= 1;
 		$context['article_subject'] 	= '';
-		$context['article_body'] 	= '';
+		$context['article_body'] 	    = '';
 
 		$status				= 1;
 		if(array_key_exists('article_status', $_POST)) {
@@ -211,13 +211,13 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 
 			$subject			= $_POST['article_subject'];
 			$body				= $_POST['article_body'];
-			$category_id			= $_POST['article_category'];
+			$category_id		= $_POST['article_category'];
 
 
-			$context['article_id']		= insert_article($subject, $body, $category_id, $user_info['id'], $status);
-			$context['article_subject'] 	= $subject;
-			$context['article_body'] 	= $body;
-			$context['article_category']	= $category_id;
+			$context['article_id']		    = insert_article($subject, $body, $category_id, $user_info['id'], $status);
+			$context['article_subject']     = $subject;
+			$context['article_body'] 	    = $body;
+			$context['article_category']    = $category_id;
 		}
 		else if ( (!empty($_POST['article_subject']) || !empty($_POST['article_body'])) && !empty($_POST['article_category']) && !empty($_POST['article_id'])) {
 			if (checkSession('post', '', false) !== '') {
@@ -231,35 +231,35 @@ class YAPortalAdminArticles_Controller extends Action_Controller
 			else {
 				$body			= null;
 			}
-			$category_id			= $_POST['article_category'];
+			$category_id		= $_POST['article_category'];
 			$article_id	 		= $_POST['article_id'];
 
 			update_article($subject, $body, $category_id, $article_id, $status);
 
-			$article_data			= get_article($article_id);
-			$context['article_id'] 		= $article_data['id'];
-			$context['article_subject'] 	= $article_data['title'];
-			$context['article_body'] 	= $article_data['body'];
-			$context['article_category']	= $article_data['category_id'];
-			$context['article_status']	= $article_data['status'];
+			$article_data			        = get_article($article_id);
+			$context['article_id'] 		    = $article_data['id'];
+			$context['article_subject']     = $article_data['title'];
+			$context['article_body'] 	    = $article_data['body'];
+			$context['article_category']    = $article_data['category_id'];
+			$context['article_status']	    = $article_data['status'];
 		}
 		else if (!empty($_GET['article_id'])) {
 			if (checkSession('get', '', false) !== '') {
 				return;
 			}
 
-			$article_id	 		= $_GET['article_id'];
-			$article_data			= get_article($article_id);
-			$context['article_id'] 		= $article_data['id'];
+			$article_id	 		            = $_GET['article_id'];
+			$article_data			        = get_article($article_id);
+			$context['article_id'] 		    = $article_data['id'];
 			$context['article_subject'] 	= $article_data['title'];
-			$context['article_body'] 	= $article_data['body'];
+			$context['article_body'] 	    = $article_data['body'];
 			$context['article_category']	= $article_data['category_id'];
-			$context['article_status']	= $article_data['status'];
+			$context['article_status']	    = $article_data['status'];
+            
 		}
 
 		$context['article_categories']	= get_article_categories();
-
-		$context['sub_template'] 	= 'yaportal_edit';
+		$context['sub_template'] 	    = 'yaportal_edit';
 
 		loadTemplate('YAPortalAdminArticles');
 	}

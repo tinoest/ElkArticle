@@ -57,3 +57,18 @@ $txt['yaportal_whos_online_article_list']       = 'Viewing the Article List';
 $txt['yaportal_whos_online_gallery_list']       = 'Viewing the Gallery List';
 $txt['yaportal_whos_online_article_name']       = 'Viewing the article &quot;<a href="%3$s?article/%1$s/">%2$s</a>&quot;.';
 $txt['yaportal_whos_online_gallery_name']       = 'Viewing the gallery &quot;<a href="%3$s?gallery/image/%1$s/">%2$s</a>&quot;.';
+
+
+// Permission
+$txt['permissiongroup_yaportal']                = 'YAPortal';
+$txt['permissiongroup_simple_yaportal']         = 'YAPortal';
+$txt['permissionname_yaportal_admin']           = 'Administrate portal';
+$txt['permissionhelp_yaportal_admin']           = 'This permission allows users to administrate YAPortal.';
+$txt['permissionname_yaportal_manage_blocks']   = 'Manage portal blocks';
+$txt['permissionhelp_yaportal_manage_blocks']   = 'This permission allows users to manage YAPortal blocks.';
+$txt['permissionname_yaportal_manage_articles'] = 'Manage portal articles';
+$txt['permissionhelp_yaportal_manage_articles'] = 'This permission allows users to manage YAPortal articles.';
+$txt['permissionname_yaportal_manage_gallery']  = 'Manage portal gallery';
+$txt['permissionhelp_yaportal_manage_gallery']  = 'This permission allows users to manage YAPortal gallery.';
+$txt['permissionname_yaportal_manage_settings'] = 'Manage portal settings';
+$txt['permissionhelp_yaportal_manage_settings'] = 'This permission allows users to manage YAPortal settings.';
