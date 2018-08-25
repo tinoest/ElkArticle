@@ -187,7 +187,7 @@ class YAPortal
 
 		$admin_areas['yaportal'] = array (
 			'title' => $txt['yaportal-admin'],
-			'permission' => array ('admin_forum' , 'yaportal_admin'),
+			'permission' => array ('admin_forum' , 'yaportal_admin', 'yaportal_manage_settings', 'yaportal_manage_articles', 'yaportal_manage_blocks', 'yaportal_manage_gallery' ),
 			'areas' => array (
 				'yaportalconfig' => array (
 					'label'       => $txt['yaportal-adminConfigurationMain'],
@@ -293,6 +293,22 @@ class YAPortal
         );
         $permissionGroups['membergroup'][]  = 'yaportal';
         $leftPermissionGroups[]             = 'yaportal';
+    }
+
+    public static function integrate_load_illegal_guest_permissions()
+    {
+        global $context;
+
+        // Guests shouldn't be able to have any portal specific permissions.
+        $context['non_guest_permissions'] = array_merge($context['non_guest_permissions'], array(
+                'yaportal_admin',
+                'yaportal_manage_settings',
+                'yaportal_manage_blocks',
+                'yaportal_manage_articles',
+                'yaportal_manage_gallery',
+            )
+        );
+
     }
 
 }

@@ -18,6 +18,11 @@ class YAPortalAdminGallery_Controller extends Action_Controller
 {
 	public function action_index()
 	{
+
+        if (!allowedTo('yaportal_admin')) {
+            isAllowedTo('yaportal_manage_settings');
+        }
+
 		require_once(SUBSDIR . '/Action.class.php');
 		// Where do you want to go today?
 		$subActions = array(

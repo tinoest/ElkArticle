@@ -27,6 +27,7 @@
 		<hook hook="integrate_admin_areas" function="YAPortal::integrate_admin_areas" file="SOURCEDIR/YAPortal.integrate.php" />
 		<hook hook="integrate_whos_online" function="YAPortal::integrate_whos_online" file="SOURCEDIR/YAPortal.integrate.php" />
 		<hook hook="integrate_load_permissions" function="YAPortal::integrate_load_permissions" file="SOURCEDIR/YAPortal.integrate.php" />
+		<hook hook="integrate_load_illegal_guest_permissions" function="YAPortal::integrate_load_illegal_guest_permissions" file="SOURCEDIR/YAPortal.integrate.php" />
 		<database>install.php</database>
 	</install>
 	<uninstall for="1.1 - 1.1.99">
@@ -38,6 +39,7 @@
 		<hook reverse="true" hook="integrate_admin_areas" function="YAPortal::integrate_admin_areas" file="SOURCEDIR/YAPortal.integrate.php" />
 		<hook reverse="true" hook="integrate_whos_online" function="YAPortal::integrate_whos_online" file="SOURCEDIR/YAPortal.integrate.php" />
 		<hook reverse="true" hook="integrate_load_permissions" function="YAPortal::integrate_load_permissions" file="SOURCEDIR/YAPortal.integrate.php" />
+		<hook reverse="true" hook="integrate_load_illegal_guest_permissions" function="YAPortal::integrate_load_illegal_guest_permissions" file="SOURCEDIR/YAPortal.integrate.php" />
 		<remove-file name="SOURCEDIR/YAPortal.integrate.php" />
 		<remove-file name="CONTROLLERDIR/YAPortal.controller.php" />
 		<remove-file name="ADMINDIR/YAPortalAdminArticles.controller.php" />
