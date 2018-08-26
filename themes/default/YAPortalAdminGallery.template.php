@@ -16,7 +16,7 @@ if (!defined('ELK'))
 
 function template_yaportal_edit()
 {
-	global $settings, $context, $scripturl;
+	global $settings, $context, $scripturl, $txt;
 
 	echo '<link rel="stylesheet" type="text/css" href="'.$settings['theme_url'].'/css/pell.css">
 		<h2 class="category_header">Post Image</h2>
@@ -52,7 +52,7 @@ function template_yaportal_edit()
 				echo '</select></dd>
 				<dt class="clear"><label for="gallery_status">Status:</label></dt>
 				<dd><select name="gallery_status">';
-				foreach( array( 0 => 'Disabled' , 1 => 'Enabled', 2 => 'Requires Approval' ) as $k => $v) {
+				foreach( array( 0 => $txt['yaportal-disabled'] , 1 => $txt['yaportal-enabled'], 2 => $txt['yaportal-approval'] ) as $k => $v) {
 					if($k == $context['gallery_status']) {
 						echo '<option value="'.$k.'" selected>'.$v.'</option>';
 					}

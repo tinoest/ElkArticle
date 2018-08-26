@@ -58,6 +58,11 @@ $txt['yaportal_whos_online_gallery_list']       = 'Viewing the Gallery List';
 $txt['yaportal_whos_online_article_name']       = 'Viewing the article &quot;<a href="%3$s?article/%1$s/">%2$s</a>&quot;.';
 $txt['yaportal_whos_online_gallery_name']       = 'Viewing the gallery &quot;<a href="%3$s?gallery/image/%1$s/">%2$s</a>&quot;.';
 
+$txt['yaportal-disabled']                       = 'Disabled';
+$txt['yaportal-enabled']                        = 'Enabled';
+$txt['yaportal-approval']                       = 'Requires Approval';
+$txt['yaportal-showfrontpage']                  = 'Show on front Page';
+$txt['yaportal-dontshowfrontpage']              = 'Don\'t show on front page';
 
 // Permission
 $txt['permissiongroup_yaportal']                = 'YAPortal';

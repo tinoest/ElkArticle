@@ -16,7 +16,8 @@ if (!defined('ELK'))
 
 function template_yaportal_edit()
 {
-	global $settings, $context, $scripturl;
+	global $settings, $context, $scripturl, $txt;
+
 
 	echo '<link rel="stylesheet" type="text/css" href="'.$settings['theme_url'].'/css/pell.css">
 		<h2 class="category_header">Post Article</h2>
@@ -52,7 +53,7 @@ function template_yaportal_edit()
 				echo '</select></dd>
 				<dt class="clear"><label for="article_status">Status:</label></dt>
 				<dd><select name="article_status">';
-				foreach( array( 0 => 'Disabled' , 1 => 'Show on front page', 2 => 'Don\'t show on front page' ) as $k => $v) {
+				foreach( array( 0 => $txt['yaportal-disabled'] , 1 => $txt['yaportal-showfrontpage'], 2 => $txt['yaportal-dontshowfrontpage'] ) as $k => $v) {
 					if($k == $context['article_status']) {
 						echo '<option value="'.$k.'" selected>'.$v.'</option>';
 					}
