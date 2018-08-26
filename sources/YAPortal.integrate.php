@@ -214,6 +214,7 @@ class YAPortal
 						'listcategory' 	=> array ( $txt['yaportal-listcategory'] ),
 					),
 				),
+                /*
 				'yaportalblocks' => array (
 					'label'       => $txt['yaportal-adminConfigurationBlocks'],
 					'file'        => 'YAPortalAdminBlocks.controller.php',
@@ -226,6 +227,7 @@ class YAPortal
 						'listblock'	    => array ( $txt['yaportal-listblocks'] ),
 					),
 				),
+                */
 				'yaportalgallery' => array (
 					'label'       => $txt['yaportal-adminConfigurationGallery'],
 					'file'        => 'YAPortalAdminGallery.controller.php',
