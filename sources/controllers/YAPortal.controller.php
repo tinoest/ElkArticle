@@ -60,7 +60,7 @@ class YAPortal_Controller extends Action_Controller implements Frontpage_Interfa
 		else {
 			$context['article_error']   = $txt['yaportal-not-found'];
 		}
-		$context['comments-enabled'] 	= $modSettings['yaportal-enablecomments'];
+		$context['comments-enabled'] 	= isset($modSettings['yaportal-enablecomments']) ? $modSettings['yaportal-enablecomments'] : 0;
 
         // Build the breadcrumbs
         $context['linktree'] = array_merge($context['linktree'], array(
@@ -113,12 +113,12 @@ class YAPortal_Controller extends Action_Controller implements Frontpage_Interfa
 			}
 		}
 
-		$articles	= get_articles($start, $per_page);
+		$articles	    = get_articles($start, $per_page);
 		$total_articles = get_total_articles();
 
-		$context['comments-enabled'] 	= $modSettings['yaportal-enablecomments'];
-		$context['articles'] 		= $articles;
-		$context['page_index'] 		= constructPageIndex($scripturl . '?action=home;start=%1$d', $start, $total_articles, $per_page, true);
+		$context['comments-enabled'] 	= isset($modSettings['yaportal-enablecomments']) ? $modSettings['yaportal-enablecomments'] : 0;
+		$context['articles'] 		    = $articles;
+		$context['page_index'] 		    = constructPageIndex($scripturl . '?action=home;start=%1$d', $start, $total_articles, $per_page, true);
 
 		loadTemplate('YAPortal');
 	}

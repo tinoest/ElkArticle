@@ -209,10 +209,12 @@ class YAPortalAdminGallery_Controller extends Action_Controller
         $image_name                     = null;
 
         if(!empty($_FILES['gallery_image'])) {
-            if(in_array(exif_imagetype($_FILES['gallery_image']['tmp_name']), array( IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG ) ) ) {
-                move_uploaded_file($_FILES['gallery_image']['tmp_name'], BOARDDIR . '/yaportal/img/' . $_FILES['gallery_image']['name']);
+            if(!empty($_FILES['gallery_image']['tmp_name'])) {
+                if(in_array(exif_imagetype($_FILES['gallery_image']['tmp_name']), array( IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG ) ) ) {
+                    move_uploaded_file($_FILES['gallery_image']['tmp_name'], BOARDDIR . '/yaportal/img/' . $_FILES['gallery_image']['name']);
+                }
+                $image_name                 = $_FILES['gallery_image']['name'];
             }
-            $image_name                 = $_FILES['gallery_image']['name'];
         }
 
 		$status				            = 1;

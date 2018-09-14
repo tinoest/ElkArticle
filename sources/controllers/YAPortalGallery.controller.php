@@ -72,6 +72,7 @@ class YAPortalGallery_Controller extends Action_Controller
 
 		$categories             = get_gallery_categories($start, $per_page);
 		$total_categories       = get_total_categories();
+        $gallery_categories     = array();
 
         foreach($categories as $id => $name) {
             $gallery_categories[] = get_category_image( $id );

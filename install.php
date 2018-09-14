@@ -181,7 +181,7 @@ function update_modSettings()
             'yaportal-rightPanel' 	    => 0,
             'yaportal-leftPanel' 	    => 0,
             'yaportal-bottomPanel' 	    => 0,
-            'yaportal-item-limit' 	    => 0,
+            'yaportal-item-limit' 	    => 1,
             'yaportal-enablecomments' 	=> 0,
     );
 
