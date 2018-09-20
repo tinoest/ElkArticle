@@ -38,6 +38,7 @@ class YAPortal_Controller extends Action_Controller implements Frontpage_Interfa
 		global $context, $scripturl, $txt, $modSettings;
 		loadLanguage('YAPortal');
 		loadCSSFile('yaportal.css');
+		loadTemplate('YAPortal');
 
 		require_once(SUBSDIR . '/YAPortal.subs.php');
 
@@ -60,7 +61,7 @@ class YAPortal_Controller extends Action_Controller implements Frontpage_Interfa
 		else {
 			$context['article_error']   = $txt['yaportal-not-found'];
 		}
-		$context['comments-enabled'] 	= isset($modSettings['yaportal-enablecomments']) ? $modSettings['yaportal-enablecomments'] : 0;
+		$context['comments-enabled'] 	= $modSettings['yaportal-enablecomments'];
 
         // Build the breadcrumbs
         $context['linktree'] = array_merge($context['linktree'], array(
@@ -69,7 +70,11 @@ class YAPortal_Controller extends Action_Controller implements Frontpage_Interfa
                 'name'  => $txt['yaportal-articles'],
             ),
         ));
-		loadTemplate('YAPortal');
+
+        if (!Template_Layers::getInstance()->hasLayers(true) && !in_array('yaportal', Template_Layers::getInstance()->getLayers())) {
+            Template_Layers::getInstance()->add('yaportal');
+        }
+
 	}
 
 	public function action_yaportal_index()
@@ -79,6 +84,7 @@ class YAPortal_Controller extends Action_Controller implements Frontpage_Interfa
 		require_once(SUBSDIR . '/YAPortal.subs.php');
 
 		loadCSSFile('yaportal.css');
+        loadTemplate('YAPortal');
 
 		$context['page_title']		= $context['forum_name'];
 		$context['sub_template'] 	= 'yaportal_index';
@@ -113,14 +119,16 @@ class YAPortal_Controller extends Action_Controller implements Frontpage_Interfa
 			}
 		}
 
-		$articles	    = get_articles($start, $per_page);
+		$articles	= get_articles($start, $per_page);
 		$total_articles = get_total_articles();
 
-		$context['comments-enabled'] 	= isset($modSettings['yaportal-enablecomments']) ? $modSettings['yaportal-enablecomments'] : 0;
-		$context['articles'] 		    = $articles;
-		$context['page_index'] 		    = constructPageIndex($scripturl . '?action=home;start=%1$d', $start, $total_articles, $per_page, true);
+		$context['comments-enabled'] 	= $modSettings['yaportal-enablecomments'];
+		$context['articles'] 		= $articles;
+		$context['page_index'] 		= constructPageIndex($scripturl . '?action=home;start=%1$d', $start, $total_articles, $per_page, true);
 
-		loadTemplate('YAPortal');
+        if (!Template_Layers::getInstance()->hasLayers(true) && !in_array('yaportal', Template_Layers::getInstance()->getLayers())) {
+            Template_Layers::getInstance()->add('yaportal');
+        }
 	}
 
 	public static function canFrontPage()

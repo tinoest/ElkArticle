@@ -14,15 +14,15 @@ if (!defined('ELK'))
 	die('No access...');
 }
 
-function template_yaportal_index()
+function template_yaportal_above()
 {
-	global $context, $txt, $scripturl;
+    global $context, $txt, $scripturl;
 
-	echo '<div class="elk_article_container">';
+	echo '<div class="yaportal_container">';
 
 	if(!empty($context['yaportal_topPanel'])) {
 		echo '
-		<div class="elk_article_topPanel">
+		<div class="yaportal_topPanel">
 			<h3 class="category_header">'.$context['yaportal_topPanel']['title'].'</h3>
 			'.$context['yaportal_topPanel']['content'].'
 		</div>';
@@ -30,7 +30,7 @@ function template_yaportal_index()
 
 	if(!empty($context['yaportal_rightPanel'])) {
     		echo '
-		<div class="elk_article_rightPanel">
+		<div class="yaportal_rightPanel">
 			<h3 class="category_header">'.$context['yaportal_rightPanel']['title'].'</h3>
 			'.$context['yaportal_rightPanel']['content'].'
 		</div>';
@@ -45,21 +45,16 @@ function template_yaportal_index()
 	else {
 		$style = 'style="grid-column: span 1"';
 	}
+	
+    echo '
+    <div class="yaportal_centerPanel" '.$style.'>';
 
-	echo'
-	<div class="elk_article_centerPanel" '.$style.'>';
-
-	foreach($context['articles'] as $article) {
-		echo '<h3 class="category_header"><a href="'.$scripturl.'?article/'.$article['id'].'/">'.$article['title'].'</a></h3>';
-		echo sprintf(
-			'<span class="views_text"> Views: %d%s</span>', $article['views'],
-			( $context['comments-enabled'] == 1 ) ? ' | '.$txt['yaportal-comments'] . $article['comments'] : ''
-		);
-		echo sprintf('<span class="views_text"> | Written By: %s in %s | %s </span>', $article['member'], $article['category'], htmlTime($article['dt_published']));
-		echo '<section><article class="post_wrapper forumposts"><div style="margin : 0.5em">'.$article['body'].'</div></article></section>';
+}
 
 
-	}
+function template_yaportal_below()
+{
+    global $context, $txt, $scripturl;
 
 	if (!empty($context['page_index'])) {
 		template_pagesection();
@@ -69,7 +64,7 @@ function template_yaportal_index()
 
 	if(!empty($context['yaportal_leftPanel'])) {
     		echo '
-		<div class="elk_article_leftPanel">
+		<div class="yaportal_leftPanel">
 			<h3 class="category_header">'.$context['yaportal_leftPanel']['title'].'</h3>
 			'.$context['yaportal_leftPanel']['content'].'
 		</div>';
@@ -77,14 +72,30 @@ function template_yaportal_index()
 
 	if(!empty($context['yaportal_bottomPanel'])) {
     		echo '
-		<div class="elk_article_bottomPanel">
+		<div class="yaportal_bottomPanel">
 			<h3 class="category_header">'.$context['yaportal_bottomPanel']['title'].'</h3>
 			'.$context['yaportal_bottomPanel']['content'].'
 		</div>';
 	}
 
-
 	echo '</div>';
+
+}
+
+function template_yaportal_index()
+{
+	global $context, $txt, $scripturl;
+
+
+	foreach($context['articles'] as $article) {
+		echo '<h3 class="category_header"><a href="'.$scripturl.'?article/'.$article['id'].'/">'.$article['title'].'</a></h3>';
+		echo sprintf(
+			'<span class="views_text"> Views: %d%s</span>', $article['views'],
+			( $context['comments-enabled'] == 1 ) ? ' | '.$txt['yaportal-comments'] . $article['comments'] : ''
+		);
+		echo sprintf('<span class="views_text"> | Written By: %s in %s | %s </span>', $article['member'], $article['category'], htmlTime($article['dt_published']));
+		echo '<section><article class="post_wrapper forumposts"><div style="margin : 0.5em">'.$article['body'].'</div></article></section>';
+	}
 }
 
 function template_yaportal()
@@ -93,26 +104,22 @@ function template_yaportal()
 
 	if(array_key_exists('article_error', $context) && !empty($context['article_error'])) {
 		echo '
-		<div id="eb_view_articles">
-			<div class="ea_article">
-				<h3 class="category_header">'.$context['article_error'].'</h3>
-			</div>
+		<div class="yaportal_article">
+			<h3 class="category_header">'.$context['article_error'].'</h3>
 		</div>';
 	}
 	else {
 		$article = $context['article'];
 
 		echo '
-		<div id="eb_view_articles">
-			<div class="ea_article">
-				<h3 class="category_header">'.$article['title'].'</h3>';
-				echo sprintf(
-					'<span class="views_text"> Views: %d%s</span>', $article['views'],
-					( $context['comments-enabled'] == 1 ) ? ' | '.$txt['yaportal-comments'] . $article['comments'] : ''
-				);
-				echo sprintf('<span class="views_text"> | Written By: %s in %s | %s </span>', $article['member'], $article['category'], htmlTime($article['dt_published']));
-				echo '<section><article class="post_wrapper forumposts"><div style="margin : 0.5em">'.$article['body'].'</div></article></section>
-			</div>
+		<div class="yaportal_article">
+			<h3 class="category_header">'.$article['title'].'</h3>';
+			echo sprintf(
+				'<span class="views_text"> Views: %d%s</span>', $article['views'],
+				( $context['comments-enabled'] == 1 ) ? ' | '.$txt['yaportal-comments'] . $article['comments'] : ''
+			);
+			echo sprintf('<span class="views_text"> | Written By: %s in %s | %s </span>', $article['member'], $article['category'], htmlTime($article['dt_published']));
+			echo '<section><article class="post_wrapper forumposts"><div style="margin : 0.5em">'.$article['body'].'</div></article></section>
 		</div>';
 	}
 }
