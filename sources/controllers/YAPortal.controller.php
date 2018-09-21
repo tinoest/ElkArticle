@@ -38,12 +38,12 @@ class YAPortal_Controller extends Action_Controller implements Frontpage_Interfa
 		global $context, $scripturl, $txt, $modSettings;
 		loadLanguage('YAPortal');
 		loadCSSFile('yaportal.css');
-		loadTemplate('YAPortal');
+		loadTemplate('YAPortalArticles');
 
 		require_once(SUBSDIR . '/YAPortal.subs.php');
 
 		$context['page_title']		= $context['forum_name'];
-		$context['sub_template'] 	= 'yaportal';
+		$context['sub_template'] 	= 'yaportal_article';
 		$article_id 			    = !empty($_REQUEST['id']) ? (int) $_REQUEST['id'] : 0;
 		$article_name 			    = !empty($_REQUEST['name']) ? (string) $_REQUEST['name'] : null;
         $article                    = array();
