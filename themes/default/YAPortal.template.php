@@ -56,9 +56,6 @@ function template_yaportal_below()
 {
     global $context, $txt, $scripturl;
 
-	if (!empty($context['page_index'])) {
-		template_pagesection();
-	}
 
 	echo '</div>';
 
@@ -78,14 +75,12 @@ function template_yaportal_below()
 		</div>';
 	}
 
-	echo '</div>';
 
 }
 
 function template_yaportal_index()
 {
 	global $context, $txt, $scripturl;
-
 
 	foreach($context['articles'] as $article) {
 		echo '<h3 class="category_header"><a href="'.$scripturl.'?article/'.$article['id'].'/">'.$article['title'].'</a></h3>';
@@ -96,4 +91,9 @@ function template_yaportal_index()
 		echo sprintf('<span class="views_text"> | Written By: %s in %s | %s </span>', $article['member'], $article['category'], htmlTime($article['dt_published']));
 		echo '<section><article class="post_wrapper forumposts"><div style="margin : 0.5em">'.$article['body'].'</div></article></section>';
 	}
+
+	if (!empty($context['page_index'])) {
+		template_pagesection();
+	}
+
 }

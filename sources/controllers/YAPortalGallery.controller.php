@@ -45,7 +45,7 @@ class YAPortalGallery_Controller extends Action_Controller
 		loadCSSFile('yaportal.css');
 
 		$context['page_title']		= $context['forum_name'];
-		$context['sub_template'] 	= 'yaportal_index';
+		$context['sub_template'] 	= 'yaportal_gallery_index';
 
 		// Set up for pagination
 		$start 		= !empty($_REQUEST['start']) ? (int) $_REQUEST['start'] : 0;
@@ -72,7 +72,6 @@ class YAPortalGallery_Controller extends Action_Controller
 
 		$categories             = get_gallery_categories($start, $per_page);
 		$total_categories       = get_total_categories();
-        $gallery_categories     = array();
 
         foreach($categories as $id => $name) {
             $gallery_categories[] = get_category_image( $id );

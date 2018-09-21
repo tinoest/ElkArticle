@@ -14,7 +14,7 @@ if (!defined('ELK'))
 	die('No access...');
 }
 
-function template_yaportal_index()
+function template_yaportal_gallery_index()
 {
 	global $context, $txt, $scripturl, $boardurl;
 

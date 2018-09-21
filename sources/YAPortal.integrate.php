@@ -62,7 +62,7 @@ class YAPortal
 
 	public static function integrate_action_frontpage(&$default_action)
 	{
-		global $modSettings;
+		global $modSettings, $txt, $context;
 
 		if(!empty($modSettings['yaportal-frontpage'])) {
 			$default_action = array (
@@ -71,6 +71,23 @@ class YAPortal
 				'function' 	=> 'action_yaportal'
 			);
 		}
+
+		loadLanguage('YAPortal');
+		loadCSSFile('yaportal.css');
+		loadTemplate('YAPortal');
+
+        if (!Template_Layers::getInstance()->hasLayers(true) && !in_array('yaportal', Template_Layers::getInstance()->getLayers())) {
+            Template_Layers::getInstance()->add('yaportal');
+        }
+
+		foreach(array('topPanel', 'rightPanel', 'leftPanel', 'bottomPanel') as $panel) {
+			if(!empty($modSettings['yaportal-'.$panel])) {
+				$context['yaportal_'.$panel]['title'] 	= $panel;
+				$context['yaportal_'.$panel]['content'] 	= '';
+			}
+		}
+
+        return;
 	}
 
 	public static function integrate_actions(&$actionArray, &$adminActions)
