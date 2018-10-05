@@ -18,24 +18,6 @@ function template_yaportal_above()
 {
     global $context, $txt, $scripturl;
 
-	echo '<div class="yaportal_container">';
-
-	if(!empty($context['yaportal_topPanel'])) {
-		echo '
-		<div class="yaportal_topPanel">
-			<h3 class="category_header">'.$context['yaportal_topPanel']['title'].'</h3>
-			'.$context['yaportal_topPanel']['content'].'
-		</div>';
-	}
-
-	if(!empty($context['yaportal_rightPanel'])) {
-    		echo '
-		<div class="yaportal_rightPanel">
-			<h3 class="category_header">'.$context['yaportal_rightPanel']['title'].'</h3>
-			'.$context['yaportal_rightPanel']['content'].'
-		</div>';
-	}
-
 	if(empty($context['yaportal_rightPanel']) && empty($context['yaportal_leftPanel'])) {
 		$style = 'style="grid-column: span 3"';
 	}
@@ -45,9 +27,29 @@ function template_yaportal_above()
 	else {
 		$style = 'style="grid-column: span 1"';
 	}
-	
-    echo '
-    <div class="yaportal_centerPanel" '.$style.'>';
+
+    $portalAbove    = new YAPortalTemplate("portalAbove.tpl");
+	if(!empty($context['yaportal_topPanel'])) {
+        $portalTop  = new YAPortalTemplate("portalTop.tpl");
+        $portalTop->set('content_topPanel_header',  $context['yaportal_topPanel']['title']);
+        $portalTop->set('content_topPanel',         $context['yaportal_topPanel']['content']);
+        $portalAbove->set('yaportal_topPanel',      $portalTop->output());
+    }
+    else {
+        $portalAbove->set('yaportal_topPanel',    '');
+    }
+	if(!empty($context['yaportal_rightPanel'])) {
+        $portalRight    = new YAPortalTemplate("portalRight.tpl");
+        $portalRight->set('content_rightPanel_header',  $context['yaportal_rightPanel']['title']);
+        $portalRight->set('content_rightPanel',         $context['yaportal_rightPanel']['content']);
+        $portalAbove->set('yaportal_rightPanel',        $portalRight->output());
+    }
+    else {
+        $portalAbove->set('yaportal_rightPanel',    '');
+
+    }
+    $portalAbove->set('content_centerPanel_style',  $style);
+    echo $portalAbove->output();
 
 }
 
