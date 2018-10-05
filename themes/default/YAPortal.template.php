@@ -58,23 +58,20 @@ function template_yaportal_below()
 {
     global $context, $txt, $scripturl;
 
-
 	echo '</div>';
 
 	if(!empty($context['yaportal_leftPanel'])) {
-    		echo '
-		<div class="yaportal_leftPanel">
-			<h3 class="category_header">'.$context['yaportal_leftPanel']['title'].'</h3>
-			'.$context['yaportal_leftPanel']['content'].'
-		</div>';
+        $portalLeft    = new YAPortalTemplate("portalLeft.tpl");
+    	$portalLeft->set('content_leftPanel_header',  $context['yaportal_leftPanel']['title']);
+        $portalLeft->set('content_leftPanel',         $context['yaportal_leftPanel']['content']);
+        echo $portalLeft->output();	
 	}
 
 	if(!empty($context['yaportal_bottomPanel'])) {
-    		echo '
-		<div class="yaportal_bottomPanel">
-			<h3 class="category_header">'.$context['yaportal_bottomPanel']['title'].'</h3>
-			'.$context['yaportal_bottomPanel']['content'].'
-		</div>';
+        $portalBelow    = new YAPortalTemplate("portalBottom.tpl");
+    	$portalBelow->set('content_bottomPanel_header',  $context['yaportal_bottomPanel']['title']);
+        $portalBelow->set('content_bottomPanel',         $context['yaportal_bottomPanel']['content']);
+        echo $portalBelow->output();
 	}
 
 
