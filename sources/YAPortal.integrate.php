@@ -58,6 +58,8 @@ class YAPortal
 			// clean the request to reset the _req instance
 			cleanRequest();
 		}
+
+        require_once(SUBSDIR . '/YAPortalTemplate.subs.php');
 	}
 
 	public static function integrate_action_frontpage(&$default_action)
