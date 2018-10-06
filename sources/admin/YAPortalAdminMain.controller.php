@@ -67,11 +67,13 @@ class YAPortalAdminMain_Controller extends Action_Controller
 				)
 			),
             // Block Options
-		    array ('title', 'yaportal-block-options'),
+		    /*
+            array ('title', 'yaportal-block-options'),
 			array ('check', 'yaportal-rightPanel'),
 			array ('check', 'yaportal-leftPanel'),
 			array ('check', 'yaportal-topPanel'),
 			array ('check', 'yaportal-bottomPanel'),
+            */
             // Article Options
 		    array ('title', 'yaportal-article-options'),
             array ('check', 'yaportal-article-menu-item'),
