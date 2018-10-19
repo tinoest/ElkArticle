@@ -10,8 +10,12 @@ Install using the ElkArte Package Manager
 ### Features ###
 
 * Article System
-* Block System
+* Download System
 * Gallery System
+
+### Work in progress ###
+* Commenting
+* Blocks / Panels
 
 ### Contribution guidelines ###
 
