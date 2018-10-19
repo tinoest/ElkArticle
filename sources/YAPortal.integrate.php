@@ -32,6 +32,9 @@ class YAPortal
 			'~^gallery/image/([A-Za-z0-9-i.]+)/$~'      => 'action=gallery&sa=image&name=%1$s',
 			'~^gallery/rawimage/([0-9]+)/$~'		    => 'action=gallery&sa=rawimage&id=%1$s',
 			'~^gallery/rawimage/([A-Za-z0-9-.]+)/$~'    => 'action=gallery&sa=rawimage&name=%1$s',
+			'~^download/$~'							    => 'action=download',
+			'~^download/([0-9]+)/$~'					=> 'action=download&sa=view&id=%1$s',
+			'~^download/([A-Za-z0-9-.]+)/$~'			=> 'action=download&sa=view&name=%1$s',
 		);
 
 		foreach ($paths as $route => $destination) {
@@ -260,6 +263,19 @@ class YAPortal
 						'listcategory' 	    => array ( $txt['yaportal-listcategory'] ),
 					),
 				),
+				'yaportaldownload' => array (
+					'label'       => $txt['yaportal-adminConfigurationDownloads'],
+					'file'        => 'YAPortalAdminDownloads.controller.php',
+					'controller'  => 'YAPortalAdminDownload_Controller',
+					'function'    => 'action_index',
+					'icon'        => 'transparent.png',
+					'class'       => 'admin_home_page',
+					'permission'  => array ( 'admin_forum', 'yaportal_manage_download' ),
+					'subsections' => array (
+						'listdownload'	    => array ( $txt['yaportal-listdownload'] ),
+						'listcategory' 	    => array ( $txt['yaportal-listcategory'] ),
+					),
+				),
 			),
 		);
 	}
@@ -310,6 +326,7 @@ class YAPortal
                 'yaportal_manage_blocks'    => array(false, 'yaportal', 'yaportal'),
                 'yaportal_manage_articles'  => array(false, 'yaportal', 'yaportal'),
                 'yaportal_manage_gallery'   => array(false, 'yaportal', 'yaportal'),
+                'yaportal_manage_download'  => array(false, 'yaportal', 'yaportal'),
             )
         );
         $permissionGroups['membergroup'][]  = 'yaportal';
@@ -327,6 +344,7 @@ class YAPortal
                 'yaportal_manage_blocks',
                 'yaportal_manage_articles',
                 'yaportal_manage_gallery',
+                'yaportal_manage_download',
             )
         );
 

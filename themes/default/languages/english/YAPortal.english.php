@@ -14,6 +14,7 @@ $txt['yaportal-adminConfigurationMain'] 		= 'YAPortal Settings';
 $txt['yaportal-adminConfigurationBlocks'] 		= 'YAPortal Blocks';
 $txt['yaportal-adminConfigurationArticles'] 	= 'YAPortal Articles';
 $txt['yaportal-adminConfigurationGallery'] 		= 'YAPortal Gallery';
+$txt['yaportal-adminConfigurationDownloads'] 	= 'YAPortal Downloads';
 $txt['yaportal-addarticle']			            = 'Add Article';
 $txt['yaportal-addcategory'] 			        = 'Add Category';
 $txt['yaportal-addgallery'] 			        = 'Add Image';
