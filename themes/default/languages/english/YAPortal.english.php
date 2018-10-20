@@ -7,6 +7,7 @@ $txt['yaportal-admin'] 			                = 'YAPortal';
 $txt['yaportal-articles']         			    = 'Articles';
 $txt['yaportal-galleries']         			    = 'Galleries';
 $txt['yaportal-downloads']         			    = 'Downloads';
+$txt['yaportal-download']         			    = 'Download';
 $txt['yaportal-gallery-options'] 			    = 'Gallery Settings';
 $txt['yaportal-frontpage-options'] 			    = 'Front Page Settings';
 $txt['yaportal-block-options'] 			        = 'Block Settings';

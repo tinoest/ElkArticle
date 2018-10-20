@@ -227,15 +227,15 @@ class YAPortalAdminDownloads_Controller extends Action_Controller
 				return;
 			}
 
-			$subject			        = $_POST['download_subject'];
-			$body				        = $_POST['download_body'];
-			$category_id			    = $_POST['download_category'];
+			$subject			            = $_POST['download_subject'];
+			$body				            = $_POST['download_body'];
+			$category_id			        = $_POST['download_category'];
 
-			$context['download_id']		= insert_download($subject, $body, $category_id, $user_info['id'], $download_link, $status);
-			$context['download_subject'] = $subject;
-			$context['download_body'] 	= $body;
-			$context['download_category']= $category_id;
-			$context['download_link']   = $download_link;
+			$context['download_id']		    = insert_download($subject, $body, $category_id, $user_info['id'], $download_link, $status);
+			$context['download_subject']    = $subject;
+			$context['download_body'] 	    = $body;
+			$context['download_category']   = $category_id;
+			$context['download_link']       = $download_link;
 		}
 		else if ( (!empty($_POST['download_subject']) || !empty($_POST['download_body'])) && !empty($_POST['download_category']) && !empty($_POST['id'])) {
 			if (checkSession('post', '', false) !== '') {
@@ -250,7 +250,7 @@ class YAPortalAdminDownloads_Controller extends Action_Controller
 				$body			= null;
 			}
 			$category_id		= $_POST['download_category'];
-			$download_id	 		= $_POST['id'];
+			$download_id	 	= $_POST['id'];
 
             if(!empty($download_link)) {
                 // Are we changing the download? remove the old one if we are
@@ -265,13 +265,13 @@ class YAPortalAdminDownloads_Controller extends Action_Controller
 
 			update_download($subject, $body, $category_id, $download_id, $download_link, $status);
 
-			$download_data			    = get_download($download_id);
+			$download_data			        = get_download($download_id);
 			$context['download_id'] 		= $download_data['id'];
-			$context['download_subject'] = $download_data['title'];
-			$context['download_body'] 	= $download_data['body'];
-			$context['download_category']= $download_data['category_id'];
-			$context['download_status']	= $download_data['status'];
-			$context['download_link']   = $download_data['download_link'];
+			$context['download_subject']    = $download_data['title'];
+			$context['download_body'] 	    = $download_data['body'];
+			$context['download_category']   = $download_data['category_id'];
+			$context['download_status']	    = $download_data['status'];
+			$context['download_link']       = $download_data['download_link'];
 		}
 		else if (!empty($_GET['id'])) {
 			if (checkSession('get', '', false) !== '') {
@@ -279,16 +279,16 @@ class YAPortalAdminDownloads_Controller extends Action_Controller
 			}
 
 			$download_id	 		        = $_GET['id'];
-			$download_data			    = get_download($download_id);
+			$download_data			        = get_download($download_id);
 			$context['download_id'] 		= $download_data['id'];
-			$context['download_subject'] = $download_data['title'];
-			$context['download_body'] 	= $download_data['body'];
-			$context['download_category']= $download_data['category_id'];
-			$context['download_status']	= $download_data['status'];
-			$context['download_link']   = $download_data['download_link'];
+			$context['download_subject']    = $download_data['title'];
+			$context['download_body'] 	    = $download_data['body'];
+			$context['download_category']   = $download_data['category_id'];
+			$context['download_status']	    = $download_data['status'];
+			$context['download_link']       = $download_data['download_link'];
 		}
 
-        $context['download_link_src']   = $boardurl . '/yaportal/downloads/' . $context['download_link'];
+        $context['download_link_src']       = $boardurl . '/yaportal/downloads/' . $context['download_link'];
         $context['download_download_link']  = urlencode($context['download_link']);
 
 		$context['download_categories']	= get_download_categories();

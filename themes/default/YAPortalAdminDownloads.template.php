@@ -71,7 +71,6 @@ function template_yaportal_edit()
                         <input type="file" id="download_link" name="download_link" />
                     </div>
                     <div style="float: right;">
-					    <input type="submit" formaction="?action=admin;area=yaportaldownload;sa=resizeimage;image='. $context['download_link'] . '" value="Resize Image">
 					    <input type="submit" value="Submit">
                     </div>
 				</div>
@@ -95,7 +94,7 @@ function template_yaportal_edit()
 		echo '</script>';
 
         if(!empty($context['download_link_src'])) {
-            echo '<h2> Current Image: </h2><img src="'. $context['download_link_src'] .'" alt="" height="50%" width="50%">';
+            echo '<a href="'. $context['download_link_src'] .'" download>'.$txt['yaportal-download'].'</a>';
         }
 }
 
