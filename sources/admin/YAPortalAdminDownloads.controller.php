@@ -30,14 +30,13 @@ class YAPortalAdminDownloads_Controller extends Action_Controller
 			'listdownload' 		=> array($this, 'action_list_download'),
 			'adddownload' 		=> array($this, 'action_edit_download'),
 			'editdownload' 		=> array($this, 'action_edit_download'),
-			'deletedownload'		=> array($this, 'action_delete_download'),
+			'deletedownload'	=> array($this, 'action_delete_download'),
 			'listcategory' 		=> array($this, 'action_list_category'),
 			'addcategory' 		=> array($this, 'action_add_category'),
 			'editcategory' 		=> array($this, 'action_edit_category'),
 			'deletecategory' 	=> array($this, 'action_delete_category'),
-			'uploadimage' 	    => array($this, 'action_upload_image'),
-			'resizeimage' 	    => array($this, 'action_resize_image'),
-			'removeimage' 	    => array($this, 'action_remove_image'),
+			'uploaddownload' 	=> array($this, 'action_upload_download'),
+			'removedownload' 	=> array($this, 'action_remove_download'),
 		);
 		// We like action, so lets get ready for some
 		$action = new Action('');
@@ -210,8 +209,8 @@ class YAPortalAdminDownloads_Controller extends Action_Controller
 
         if(!empty($_FILES['download_link'])) {
             if(!empty($_FILES['download_link']['tmp_name'])) {
-                if(in_array(exif_imagetype($_FILES['download_link']['tmp_name']), array( IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG ) ) ) {
-                    move_uploaded_file($_FILES['download_link']['tmp_name'], BOARDDIR . '/yaportal/img/' . $_FILES['download_link']['name']);
+                if(in_array(pathinfo($_FILES['download_link']['name'], PATHINFO_EXTENSION), array( 'zip', 'gz', 'tar.gz', 'pdf' ) ) ) {
+                    move_uploaded_file($_FILES['download_link']['tmp_name'], BOARDDIR . '/yaportal/downloads/' . $_FILES['download_link']['name']);
                 }
                 $download_link                 = $_FILES['download_link']['name'];
             }
@@ -254,11 +253,11 @@ class YAPortalAdminDownloads_Controller extends Action_Controller
 			$download_id	 		= $_POST['id'];
 
             if(!empty($download_link)) {
-                // Are we changing the image? remove the old one if we are
+                // Are we changing the download? remove the old one if we are
 			    $download_data	    = get_download($download_id);
                 if($download_data['download_link'] != $download_link) {
-                    $fileName   = BOARDDIR . '/yaportal/img/' . $download_data['download_link'];
-                    if(file_exists( $fileName )) {
+                    $fileName   = BOARDDIR . '/yaportal/downloads/' . $download_data['download_link'];
+                    if(file_exists( $fileName ) && !is_dir( $fileName )) {
                         unlink( $fileName );
                     }
                 }
@@ -289,7 +288,7 @@ class YAPortalAdminDownloads_Controller extends Action_Controller
 			$context['download_link']   = $download_data['download_link'];
 		}
 
-        $context['download_link_src']   = $boardurl . '/yaportal/img/' . $context['download_link'];
+        $context['download_link_src']   = $boardurl . '/yaportal/downloads/' . $context['download_link'];
         $context['download_download_link']  = urlencode($context['download_link']);
 
 		$context['download_categories']	= get_download_categories();
@@ -312,7 +311,7 @@ class YAPortalAdminDownloads_Controller extends Action_Controller
 
 			$id	        =  $_GET['id'];
             $download    = get_download($id);
-            $fileName   = BOARDDIR . '/yaportal/img/' . $download['download_link'];
+            $fileName   = BOARDDIR . '/yaportal/downloads/' . $download['download_link'];
 
 			delete_download($id);
 
@@ -529,32 +528,12 @@ class YAPortalAdminDownloads_Controller extends Action_Controller
 		$this->action_list_category();
 	}
 
-    public function action_upload_image()
+    public function action_upload_download()
     {
 
     }
 
-    public function action_resize_image()
-    {
-		require_once(SUBSDIR . '/YAPortalAdminDownloads.subs.php');
-
-        if(!empty($_GET['image'])) {
-            //if (checkSession('get', '', false) !== '') {
-              //  return;
-            //}
-                
-            $imageName	=  urldecode($_GET['image']);
-            $fileName   = BOARDDIR . '/yaportal/img/' . $imageName;
-            $thumbName  = BOARDDIR . '/yaportal/img/thumbs/' . $imageName;
-            if(file_exists($fileName)) {
-                resize_image($fileName, $thumbName, array('height' => 480, 'width' => 640) );
-            }
-        }
-
-		$this->action_list_download();
-    }
-
-    public function action_remove_image()
+    public function action_remove_download()
     {
 
     }
