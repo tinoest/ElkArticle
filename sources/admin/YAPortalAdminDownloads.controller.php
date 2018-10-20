@@ -205,15 +205,15 @@ class YAPortalAdminDownloads_Controller extends Action_Controller
 		$context['download_category']	= 1;
 		$context['download_subject'] 	= '';
 		$context['download_body'] 	    = '';
-        $context['download_image']       = '';
-        $image_name                     = null;
+        $context['download_link']       = '';
+        $download_link                  = '';
 
-        if(!empty($_FILES['download_image'])) {
-            if(!empty($_FILES['download_image']['tmp_name'])) {
-                if(in_array(exif_imagetype($_FILES['download_image']['tmp_name']), array( IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG ) ) ) {
-                    move_uploaded_file($_FILES['download_image']['tmp_name'], BOARDDIR . '/yaportal/img/' . $_FILES['download_image']['name']);
+        if(!empty($_FILES['download_link'])) {
+            if(!empty($_FILES['download_link']['tmp_name'])) {
+                if(in_array(exif_imagetype($_FILES['download_link']['tmp_name']), array( IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG ) ) ) {
+                    move_uploaded_file($_FILES['download_link']['tmp_name'], BOARDDIR . '/yaportal/img/' . $_FILES['download_link']['name']);
                 }
-                $image_name                 = $_FILES['download_image']['name'];
+                $download_link                 = $_FILES['download_link']['name'];
             }
         }
 
@@ -232,11 +232,11 @@ class YAPortalAdminDownloads_Controller extends Action_Controller
 			$body				        = $_POST['download_body'];
 			$category_id			    = $_POST['download_category'];
 
-			$context['download_id']		= insert_download($subject, $body, $category_id, $user_info['id'], $image_name, $status);
+			$context['download_id']		= insert_download($subject, $body, $category_id, $user_info['id'], $download_link, $status);
 			$context['download_subject'] = $subject;
 			$context['download_body'] 	= $body;
 			$context['download_category']= $category_id;
-			$context['download_image']   = $image_name;
+			$context['download_link']   = $download_link;
 		}
 		else if ( (!empty($_POST['download_subject']) || !empty($_POST['download_body'])) && !empty($_POST['download_category']) && !empty($_POST['id'])) {
 			if (checkSession('post', '', false) !== '') {
@@ -253,18 +253,18 @@ class YAPortalAdminDownloads_Controller extends Action_Controller
 			$category_id		= $_POST['download_category'];
 			$download_id	 		= $_POST['id'];
 
-            if(!empty($image_name)) {
+            if(!empty($download_link)) {
                 // Are we changing the image? remove the old one if we are
 			    $download_data	    = get_download($download_id);
-                if($download_data['image_name'] != $image_name) {
-                    $fileName   = BOARDDIR . '/yaportal/img/' . $download_data['image_name'];
+                if($download_data['download_link'] != $download_link) {
+                    $fileName   = BOARDDIR . '/yaportal/img/' . $download_data['download_link'];
                     if(file_exists( $fileName )) {
                         unlink( $fileName );
                     }
                 }
             }
 
-			update_download($subject, $body, $category_id, $download_id, $image_name, $status);
+			update_download($subject, $body, $category_id, $download_id, $download_link, $status);
 
 			$download_data			    = get_download($download_id);
 			$context['download_id'] 		= $download_data['id'];
@@ -272,7 +272,7 @@ class YAPortalAdminDownloads_Controller extends Action_Controller
 			$context['download_body'] 	= $download_data['body'];
 			$context['download_category']= $download_data['category_id'];
 			$context['download_status']	= $download_data['status'];
-			$context['download_image']   = $download_data['image_name'];
+			$context['download_link']   = $download_data['download_link'];
 		}
 		else if (!empty($_GET['id'])) {
 			if (checkSession('get', '', false) !== '') {
@@ -286,11 +286,11 @@ class YAPortalAdminDownloads_Controller extends Action_Controller
 			$context['download_body'] 	= $download_data['body'];
 			$context['download_category']= $download_data['category_id'];
 			$context['download_status']	= $download_data['status'];
-			$context['download_image']   = $download_data['image_name'];
+			$context['download_link']   = $download_data['download_link'];
 		}
 
-        $context['download_image_src']   = $boardurl . '/yaportal/img/' . $context['download_image'];
-        $context['download_image_name']  = urlencode($context['download_image']);
+        $context['download_link_src']   = $boardurl . '/yaportal/img/' . $context['download_link'];
+        $context['download_download_link']  = urlencode($context['download_link']);
 
 		$context['download_categories']	= get_download_categories();
 
@@ -312,7 +312,7 @@ class YAPortalAdminDownloads_Controller extends Action_Controller
 
 			$id	        =  $_GET['id'];
             $download    = get_download($id);
-            $fileName   = BOARDDIR . '/yaportal/img/' . $download['image_name'];
+            $fileName   = BOARDDIR . '/yaportal/img/' . $download['download_link'];
 
 			delete_download($id);
 

@@ -20,7 +20,7 @@ function get_downloads( $start, $per_page, $search)
 
 	$categories	= get_download_categories();
 	$request  	= $db->query('', '
-		SELECT id, category_id, member_id, dt_published, title, body, image_name, views, comments
+		SELECT id, category_id, member_id, dt_published, title, body, download_link, views, comments
 		FROM {db_prefix}downloads
 		WHERE status = 1
         AND category_id = {int:search}
@@ -66,7 +66,7 @@ function get_download( $search )
 
     if( is_numeric($search) ) {
         $request  	= $db->query('', '
-            SELECT id, category_id, member_id, dt_published, title, body, image_name, views, comments, status
+            SELECT id, category_id, member_id, dt_published, title, body, download_link, views, comments, status
             FROM {db_prefix}downloads
             WHERE id = {int:id}',
             array (
@@ -76,7 +76,7 @@ function get_download( $search )
     }
     else {
         $request  	= $db->query('', '
-            SELECT id, category_id, member_id, dt_published, title, body, image_name, views, comments, status
+            SELECT id, category_id, member_id, dt_published, title, body, download_link, views, comments, status
             FROM {db_prefix}downloads
             WHERE title = {string:title}',
             array (
@@ -224,7 +224,7 @@ function get_total_categories()
 	return $count;
 }
 
-function get_category_image( $search )
+function get_category_download( $search )
 {
 	$db 		= database();
 
@@ -232,7 +232,7 @@ function get_category_image( $search )
 
     if( is_numeric($search) ) {
         $request  	= $db->query('', '
-            SELECT id, category_id, member_id, dt_published, title, body, image_name, views, comments, status
+            SELECT id, category_id, member_id, dt_published, title, body, download_link, views, comments, status
             FROM {db_prefix}downloads
             WHERE category_id = {int:id}
             LIMIT 1',

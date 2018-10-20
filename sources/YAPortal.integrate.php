@@ -266,7 +266,7 @@ class YAPortal
 				'yaportaldownload' => array (
 					'label'       => $txt['yaportal-adminConfigurationDownloads'],
 					'file'        => 'YAPortalAdminDownloads.controller.php',
-					'controller'  => 'YAPortalAdminDownload_Controller',
+					'controller'  => 'YAPortalAdminDownloads_Controller',
 					'function'    => 'action_index',
 					'icon'        => 'transparent.png',
 					'class'       => 'admin_home_page',
