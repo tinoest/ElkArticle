@@ -122,6 +122,14 @@ class YAPortal
 				'action_index'
 			);
         }
+
+        if(!empty($modSettings['yaportal-download-menu-item'])) {
+            $actionArray['gallery'] = array (
+				'YAPortalDownload.controller.php',
+				'YAPortalDownload_Controller',
+				'action_index'
+			);
+        }
 	}
 
 	public static function integrate_current_action(&$current_action)

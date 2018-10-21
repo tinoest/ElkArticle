@@ -91,6 +91,9 @@ class YAPortalAdminMain_Controller extends Action_Controller
 				)
 			),
 			array ('check', 'yaportal-gallery-enablecomments'),
+            // Download options
+		    array ('title', 'yaportal-download-options'),
+            array ('check', 'yaportal-download-menu-item'),
 		);
 		// Load the settings to the form class
 		$elkArticleSettings->settings($config_vars);
