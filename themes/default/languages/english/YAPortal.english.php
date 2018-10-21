@@ -2,6 +2,7 @@
 $txt['home_btn'] 				                = 'Home';
 $txt['gallery_btn']                             = 'Gallery';
 $txt['article_btn']                             = 'Article';
+$txt['download_btn']                            = 'Download';
 $txt['yaportal-desc']				            = 'The YAPortal Modification allows you add Articles to your forum, you can also edit available Categories, and it\'s Settings';
 $txt['yaportal-admin'] 			                = 'YAPortal';
 $txt['yaportal-articles']         			    = 'Articles';

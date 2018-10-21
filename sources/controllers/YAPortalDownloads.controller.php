@@ -72,7 +72,7 @@ class YAPortalDownloads_Controller extends Action_Controller
 		$total_categories       = get_total_categories();
 
         foreach($categories as $id => $name) {
-            $download_categories[] = get_category_image( $id );
+            $download_categories[] = get_category_download( $id );
         }
 
 		$context['downloads'] 		    = $download_categories;
