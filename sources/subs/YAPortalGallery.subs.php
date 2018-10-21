@@ -235,6 +235,7 @@ function get_category_image( $search )
             SELECT id, category_id, member_id, dt_published, title, body, image_name, views, comments, status
             FROM {db_prefix}galleries
             WHERE category_id = {int:id}
+            AND status = 1
             LIMIT 1',
             array (
                 'id' => $search,

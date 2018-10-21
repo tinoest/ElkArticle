@@ -235,6 +235,7 @@ function get_category_download( $search )
             SELECT id, category_id, member_id, dt_published, title, body, download_link, views, comments, status
             FROM {db_prefix}downloads
             WHERE category_id = {int:id}
+            AND status = 1
             LIMIT 1',
             array (
                 'id' => $search,

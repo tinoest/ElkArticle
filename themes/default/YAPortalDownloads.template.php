@@ -20,11 +20,16 @@ function template_yaportal_download_index()
 
     echo '<div class="elk_download_gridLayout">';
 
+    var_dump($context['downloads']);
 	if(is_array($context['downloads'])) {
         foreach($context['downloads'] as $download) {
             echo '<div class="grid-item">';
             echo '<h3 class="category_header"><a href="'.$scripturl.'?download/'.$download['category_id'].'/">'.$download['category_name'].'</a></h3>';
             echo sprintf('<span class="views_text">Written By: %s in %s | %s </span>', $download['member'], $download['category_name'], htmlTime($download['dt_published']));
+            echo '<hr>';
+            if(!empty($download['download_download_link'])) {
+                echo '<a href="'. $download['download_download_link'] .'" download>'.$txt['yaportal-download'].'</a>';
+            }            
             echo '</div>';
         }
 	}
@@ -43,19 +48,16 @@ function template_yaportal_download()
 
 	foreach($context['downloads'] as $download) {
         echo '<div class="grid-item">';
-		echo '<h3 class="category_header"><a href="'.$scripturl.'?download/image/'.$download['id'].'/">'.$download['title'].'</a></h3>';
+		echo '<h3 class="category_header">', $download['title'], '</h3>';
 		echo sprintf(
 			'<span class="views_text"> Views: %d%s', $download['views'],
 			( $context['comments-enabled'] == 1 ) ? ' | '.$txt['yaportal-comments'] . $download['comments'] : ''
 		);
 		echo sprintf(' | Written By: %s in %s | %s </span>', $download['member'], $download['category'], htmlTime($download['dt_published']));
-		$minFileName = str_replace('.jpg', '-min.jpg', $download['image_name']);
-        if(file_exists(BOARDDIR . '/yaportal/img/thumbs/' . $minFileName)) {
-            echo '<div align="center"><img src="' . $boardurl . '/yaportal/img/thumbs/' . $minFileName . '" height="auto" width="90%"></div>';
-		}
-		else if(file_exists(BOARDDIR . '/yaportal/img/' . $download['image_name'])) {
-            echo '<div align="center"><img src="' . $boardurl . '/yaportal/img/' . $download['image_name'] . '" height="auto" width="90%"></div>';
-        }
+        echo '<hr>';
+        if(!empty($download['download_link_src'])) {
+            echo '<a href="'. $download['download_link_src'] .'" download>'.$txt['yaportal-download'].'</a>';
+        }            
         echo '</div>';
 	}
 	echo '</div>';
