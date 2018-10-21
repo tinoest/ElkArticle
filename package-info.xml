@@ -50,6 +50,7 @@
 		<remove-file name="ADMINDIR/YAPortalAdminGallery.controller.php" />
 		<remove-file name="ADMINDIR/YAPortalAdminMain.controller.php" />
 		<remove-file name="SUBSDIR/YAPortal.subs.php" />
+		<remove-file name="SUBSDIR/YAPortalSEO.subs.php" />
 		<remove-file name="SUBSDIR/YAPortalSanitise.subs.php" />
 		<remove-file name="SUBSDIR/YAPortalTemplate.subs.php" />
 		<remove-file name="SUBSDIR/YAPortalGallery.subs.php" />

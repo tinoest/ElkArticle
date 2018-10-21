@@ -9,7 +9,7 @@
  */
 class YAPortalSEO {
 
-    private $latinCharMap = array(
+    private static $latinCharMap = array(
         'A'  => array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Ā', 'Ă', 'Ą', 'Ǎ', 'Ǻ'),
         'AE' => array('Æ', 'Ǽ'),
         'C'  => array('Ç', 'Ć', 'Ċ', 'Ĉ', 'Č'),
@@ -42,7 +42,7 @@ class YAPortalSEO {
         global $boardurl, $scripturl, $modSettings;
 
         if($convertToLatin == true) {
-            foreach ($latinCharMap as $to => $from) {
+            foreach (YAPortalSEO::$latinCharMap as $to => $from) {
                 $string = preg_replace("/(" . implode('|', $from) . ")/u", $to, $string);
 
                 foreach ($from as &$value) {
