@@ -22,17 +22,20 @@ function template_yaportal_gallery_index()
 
 	if(is_array($context['galleries'])) {
         foreach($context['galleries'] as $gallery) {
-            echo '<div class="grid-item">';
-            echo '<h3 class="category_header"><a href="'.$scripturl.'?gallery/'.$gallery['category_id'].'/">'.$gallery['category_name'].'</a></h3>';
-            echo sprintf('<span class="views_text">Written By: %s in %s | %s </span>', $gallery['member'], $gallery['category_name'], htmlTime($gallery['dt_published']));
+            $portalGallery = new YAPortalTemplate("portalGallery.tpl");
+            $portalGallery->set('path',             $scripturl.'?gallery/'.$gallery['category_id'].'/');
+            $portalGallery->set('title',            $gallery['category_name']);
+            $portalGallery->set('category',         $gallery['category_name']);
+            $portalGallery->set('author',           $gallery['member']);
+            $portalGallery->set('published',        htmlTime($gallery['dt_published']));
             $minFileName = str_replace('.jpg', '-min.jpg', $gallery['image_name']);
             if(file_exists(BOARDDIR . '/yaportal/img/thumbs/' . $minFileName)) {
-                echo '<div align="center"><img src="' . $boardurl . '/yaportal/img/thumbs/' . $minFileName . '" height="auto" width="90%"></div>';
+                $portalGallery->set('image_path',   $boardurl . '/yaportal/img/thumbs/' . $minFileName);
             }
             else if(file_exists(BOARDDIR . '/yaportal/img/' . $gallery['image_name'])) {
-                echo '<div align="center"><img src="' . $boardurl . '/yaportal/img/' . $gallery['image_name'] . '" height="auto" width="90%"></div>';
+                $portalGallery->set('image_path',   $boardurl . '/yaportal/img/' . $gallery['image_name']);
             }
-            echo '</div>';
+            echo $portalGallery->output();
         }
 	}
 	echo '</div>';
