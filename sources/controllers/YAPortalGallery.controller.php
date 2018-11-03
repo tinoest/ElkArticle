@@ -22,7 +22,7 @@ class YAPortalGallery_Controller extends Action_Controller
 		// Where do you want to go today?
 		$subActions = array(
 			'index'		=> array($this, 'action_yaportal_index'),
-			'gallery' 	=> array($this, 'action_yaportal_gallery'),
+			'category' 	=> array($this, 'action_yaportal_gallery'),
 			'image' 	=> array($this, 'action_yaportal_image'),
 			'rawimage' 	=> array($this, 'action_yaportal_raw_image'),
 		);
@@ -145,7 +145,7 @@ class YAPortalGallery_Controller extends Action_Controller
         // Build the breadcrumbs
         $context['linktree'] = array_merge($context['linktree'], array(
             array(
-                'url'   => $scripturl . '?gallery/',
+                'url'   => YAPortalSEO::generateUrlString(array('action' => 'gallery'), true, true),
                 'name'  => $txt['yaportal-galleries'],
             ),
         ));
@@ -187,11 +187,11 @@ class YAPortalGallery_Controller extends Action_Controller
         // Build the breadcrumbs
         $context['linktree'] = array_merge($context['linktree'], array(
             array(
-                'url'   => $scripturl . '?gallery/',
+                'url'   => YAPortalSEO::generateUrlString(array('action' => 'gallery'), true, true),
                 'name'  => $txt['yaportal-galleries'],
             ),
             array(
-                'url'   => $scripturl . '?gallery/'.$gallery['category_id'].'/',
+                'url'   => YAPortalSEO::generateUrlString(array('action' => 'gallery', 'sa' => 'category', 'id' => $gallery['category_id']), true, true),
                 'name'  => $gallery['category'],
             ),
         ));

@@ -26,8 +26,8 @@ class YAPortal
 			'~^article/([0-9]+)/$~'					    => 'action=article&sa=article&id=%1$s',
 			'~^article/([A-Za-z0-9]+)/$~'			    => 'action=article&sa=article&name=%1$s',
 			'~^gallery/$~'							    => 'action=gallery',
-			'~^gallery/([0-9]+)/$~'					    => 'action=gallery&sa=gallery&id=%1$s',
-			'~^gallery/([A-Za-z0-9-.]+)/$~'			    => 'action=gallery&sa=gallery&name=%1$s',
+			'~^gallery/category/([0-9]+)/$~'			=> 'action=gallery&sa=category&id=%1$s',
+			'~^gallery/category/([A-Za-z0-9-.]+)/$~'	=> 'action=gallery&sa=category&name=%1$s',
 			'~^gallery/image/([0-9]+)/$~'		    	=> 'action=gallery&sa=image&id=%1$s',
 			'~^gallery/image/([A-Za-z0-9-i.]+)/$~'      => 'action=gallery&sa=image&name=%1$s',
 			'~^gallery/rawimage/([0-9]+)/$~'		    => 'action=gallery&sa=rawimage&id=%1$s',
@@ -62,7 +62,8 @@ class YAPortal
 			cleanRequest();
 		}
 		
-		require_once(SUBSDIR.'/YAPortalTemplate.subs.php');
+        require_once(SUBSDIR . '/YAPortalSEO.subs.php');
+		require_once(SUBSDIR . '/YAPortalTemplate.subs.php');
 	}
 
 	public static function integrate_action_frontpage(&$default_action)

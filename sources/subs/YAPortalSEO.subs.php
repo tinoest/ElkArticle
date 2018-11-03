@@ -36,34 +36,43 @@ class YAPortalSEO {
         'Z'  => array('Ź', 'Ż', 'Ž'),
     );
 
-    public static function getUrlString($string, $convertToLatin = true, $lowerCase = true)
+    public static function generateUrlString($params = array(), $convertToLatin = true, $lowerCase = true)
     {
 
         global $boardurl, $scripturl, $modSettings;
 
         if($convertToLatin == true) {
             foreach (YAPortalSEO::$latinCharMap as $to => $from) {
-                $string = preg_replace("/(" . implode('|', $from) . ")/u", $to, $string);
+                $params = preg_replace("/(" . implode('|', $from) . ")/u", $to, $params);
 
                 foreach ($from as &$value) {
                     $value = mb_strtolower($value, 'UTF-8');
                 }
 
-                $string = preg_replace("/(" . implode('|', $from) . ")/u", strtolower($to), $string);
+                $params = preg_replace("/(" . implode('|', $from) . ")/u", strtolower($to), $params);
             }
         }
 
         if ($lowerCase == true) {
-            $string = strtolower($string);
+            $params = array_map('strtolower', $params);
         }
 
         // replace non-latin letters to "-"
-        $string = preg_replace('/[^A-Za-z0-9]+/', '-', $string);
+        $params     = preg_replace('/[^A-Za-z0-9]+/', '-', $params);
         // remove "-" from the beginning and end
-        $string = preg_replace('/(^[-]+)|([.]*[-]$)/', '', $string);
+        $params     = preg_replace('/(^[-]+)|([.]*[-]$)/', '', $params);
 
-        if(!empty($string)) {
-            return $string;
+        $modSettings['yaportal-seo'] = true;
+        if(!empty($modSettings['yaportal-seo'])) {
+            $urlString  = implode('/', array_values($params));
+            $urlString  .= '/';
+        }
+        else {
+            $urlString  = http_build_query($params);
+        }
+
+        if(!empty($urlString)) {
+            return $scripturl.'?'.$urlString;
         }
         else {
             return false;

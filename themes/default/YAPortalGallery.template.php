@@ -22,8 +22,9 @@ function template_yaportal_gallery_index()
 
 	if(is_array($context['galleries'])) {
         foreach($context['galleries'] as $gallery) {
-            $portalGallery = new YAPortalTemplate("portalGallery.tpl");
-            $portalGallery->set('path',             $scripturl.'?gallery/'.$gallery['category_id'].'/');
+            $urlPath        = YAPortalSEO::generateUrlString(array('action' => 'gallery', 'sa' => 'category', 'id' => $gallery['category_id']), true, true);
+            $portalGallery  = new YAPortalTemplate("portalGallery.tpl");
+            $portalGallery->set('path',             $urlPath);
             $portalGallery->set('views',            '');
             $portalGallery->set('comments',         '');
             $portalGallery->set('title',            $gallery['category_name']);
@@ -54,12 +55,13 @@ function template_yaportal_gallery()
     echo '<div class="elk_gallery_gridLayout">';
 
 	foreach($context['galleries'] as $gallery) {
-        $portalGallery = new YAPortalTemplate("portalGallery.tpl");
-        $portalGallery->set('path',             $scripturl.'?gallery/'.$gallery['category_id'].'/');
-        $portalGallery->set('title',            $gallery['category_name']);
+        $urlPath        = YAPortalSEO::generateUrlString(array('action' => 'gallery', 'sa' => 'image', 'id' => $gallery['id']), true, true);
+        $portalGallery  = new YAPortalTemplate("portalGallery.tpl");
+        $portalGallery->set('path',             $urlPath);
+        $portalGallery->set('title',            $gallery['title']);
         $portalGallery->set('views',            'Views: '.$gallery['views']);
-        $portalGallery->set('comments',         ( $context['comments-enabled'] == 1 ) ? ' | '.$txt['yaportal-comments'] . $gallery['comments'] .' ' : ' ');
-        $portalGallery->set('category',         $gallery['category_name']);
+        $portalGallery->set('comments',         ( $context['comments-enabled'] == 1 ) ? ' | '.$txt['yaportal-comments'] . $gallery['comments'] .' | ' : ' | ');
+        $portalGallery->set('category',         $gallery['category']);
         $portalGallery->set('author',           $gallery['member']);
         $portalGallery->set('published',        htmlTime($gallery['dt_published']));
         $minFileName = str_replace('.jpg', '-min.jpg', $gallery['image_name']);
