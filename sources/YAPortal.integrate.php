@@ -22,9 +22,13 @@ class YAPortal
 		$original = $_SERVER['QUERY_STRING'];
 
         $paths = array (
+            // Article 
 			'~^article/$~'							    => 'action=article',
-			'~^article/([0-9]+)/$~'					    => 'action=article&sa=view&id=%1$s',
-			'~^article/([A-Za-z0-9]+)/$~'			    => 'action=article&sa=view&name=%1$s',
+			'~^article/category/([0-9]+)/$~'			=> 'action=article&sa=category&id=%1$s',
+			'~^article/category/([A-Za-z0-9]+)/$~'		=> 'action=article&sa=category&name=%1$s',
+			'~^article/view/([0-9]+)/$~'				=> 'action=article&sa=view&id=%1$s',
+			'~^article/view/([A-Za-z0-9]+)/$~'			=> 'action=article&sa=view&name=%1$s',
+            // Gallery
 			'~^gallery/$~'							    => 'action=gallery',
 			'~^gallery/category/([0-9]+)/$~'			=> 'action=gallery&sa=category&id=%1$s',
 			'~^gallery/category/([A-Za-z0-9-.]+)/$~'	=> 'action=gallery&sa=category&name=%1$s',
@@ -32,6 +36,7 @@ class YAPortal
 			'~^gallery/image/([A-Za-z0-9-i.]+)/$~'      => 'action=gallery&sa=image&name=%1$s',
 			'~^gallery/rawimage/([0-9]+)/$~'		    => 'action=gallery&sa=rawimage&id=%1$s',
 			'~^gallery/rawimage/([A-Za-z0-9-.]+)/$~'    => 'action=gallery&sa=rawimage&name=%1$s',
+            // Downloads
 			'~^download/$~'							    => 'action=download',
 			'~^download/category/([0-9]+)/$~'			=> 'action=download&sa=category&id=%1$s',
 			'~^download/category/([A-Za-z0-9-.]+)/$~'	=> 'action=download&sa=category&name=%1$s',
