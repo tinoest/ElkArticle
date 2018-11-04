@@ -13,7 +13,7 @@ Install using the ElkArte Package Manager
 * Download System
 * Gallery System
 
-### Work in progress ###
+### Work in Progress ###
 * Commenting
 * Blocks / Panels
 
