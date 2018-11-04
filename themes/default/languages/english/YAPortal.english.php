@@ -72,6 +72,9 @@ $txt['yaportal-approval']                       = 'Requires Approval';
 $txt['yaportal-showfrontpage']                  = 'Show on front Page';
 $txt['yaportal-dontshowfrontpage']              = 'Don\'t show on front page';
 
+$txt['yaportal-seo-options']			        = 'YAPortal SEO';
+$txt['yaportal-seo']			                = 'Enable SEO links?';
+
 // Permission
 $txt['permissiongroup_yaportal']                = 'YAPortal';
 $txt['permissiongroup_simple_yaportal']         = 'YAPortal';

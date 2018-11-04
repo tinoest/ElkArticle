@@ -83,7 +83,7 @@ function template_yaportal_index()
 
 	foreach($context['articles'] as $article) {
         $portalMain = new YAPortalTemplate("portalMain.tpl");
-        $portalMain->set('path',        $scripturl.'?article/'.$article['id'].'/');
+        $portalMain->set('path',        YAPortalSEO::generateUrlString(array('action' => 'article', 'sa' => 'view', 'id' => $article['id']), true, true));
         $portalMain->set('views',       $article['views']);
         $portalMain->set('comments',    ( $context['comments-enabled'] == 1 ) ? ' | '.$txt['yaportal-comments'] . $article['comments'] : '');
         $portalMain->set('author',      $article['member']);

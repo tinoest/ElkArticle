@@ -22,6 +22,7 @@ class YAPortalDownloads_Controller extends Action_Controller
 		// Where do you want to go today?
 		$subActions = array(
 			'index'		=> array($this, 'action_yaportal_index'),
+			'category' 	=> array($this, 'action_yaportal_category'),
 			'view' 	    => array($this, 'action_yaportal_download'),
 		);
 
@@ -61,6 +62,11 @@ class YAPortalDownloads_Controller extends Action_Controller
 
 		loadTemplate('YAPortalDownloads');
 	}
+	
+    public function action_yaportal_category()
+    {
+
+    }
 
 	public function action_yaportal_download()
 	{

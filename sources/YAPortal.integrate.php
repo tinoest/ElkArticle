@@ -23,8 +23,8 @@ class YAPortal
 
         $paths = array (
 			'~^article/$~'							    => 'action=article',
-			'~^article/([0-9]+)/$~'					    => 'action=article&sa=article&id=%1$s',
-			'~^article/([A-Za-z0-9]+)/$~'			    => 'action=article&sa=article&name=%1$s',
+			'~^article/([0-9]+)/$~'					    => 'action=article&sa=view&id=%1$s',
+			'~^article/([A-Za-z0-9]+)/$~'			    => 'action=article&sa=view&name=%1$s',
 			'~^gallery/$~'							    => 'action=gallery',
 			'~^gallery/category/([0-9]+)/$~'			=> 'action=gallery&sa=category&id=%1$s',
 			'~^gallery/category/([A-Za-z0-9-.]+)/$~'	=> 'action=gallery&sa=category&name=%1$s',
@@ -33,8 +33,10 @@ class YAPortal
 			'~^gallery/rawimage/([0-9]+)/$~'		    => 'action=gallery&sa=rawimage&id=%1$s',
 			'~^gallery/rawimage/([A-Za-z0-9-.]+)/$~'    => 'action=gallery&sa=rawimage&name=%1$s',
 			'~^download/$~'							    => 'action=download',
-			'~^download/([0-9]+)/$~'					=> 'action=download&sa=view&id=%1$s',
-			'~^download/([A-Za-z0-9-.]+)/$~'			=> 'action=download&sa=view&name=%1$s',
+			'~^download/category/([0-9]+)/$~'			=> 'action=download&sa=category&id=%1$s',
+			'~^download/category/([A-Za-z0-9-.]+)/$~'	=> 'action=download&sa=category&name=%1$s',
+			'~^download/view/([0-9]+)/$~'				=> 'action=download&sa=view&id=%1$s',
+			'~^download/view/([A-Za-z0-9-.]+)/$~'		=> 'action=download&sa=view&name=%1$s',
 		);
 
 		foreach ($paths as $route => $destination) {

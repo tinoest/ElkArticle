@@ -24,7 +24,7 @@ class YAPortal_Controller extends Action_Controller implements Frontpage_Interfa
 
         $subActions = array(
 			'index'		=> array($this, 'action_yaportal_index'),
-			'article' 	=> array($this, 'action_yaportal'),
+			'view' 	    => array($this, 'action_yaportal'),
 		);
 
 		$action     = new Action('');
@@ -66,7 +66,7 @@ class YAPortal_Controller extends Action_Controller implements Frontpage_Interfa
         // Build the breadcrumbs
         $context['linktree'] = array_merge($context['linktree'], array(
             array(
-                'url'   => $scripturl . '?article/',
+                'url'   => YAPortalSEO::generateUrlString(array('action' => 'article'), true, true),
                 'name'  => $txt['yaportal-articles'],
             ),
         ));

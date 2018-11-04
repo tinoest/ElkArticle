@@ -94,6 +94,9 @@ class YAPortalAdminMain_Controller extends Action_Controller
             // Download options
 		    array ('title', 'yaportal-download-options'),
             array ('check', 'yaportal-download-menu-item'),
+            // SEOoptions
+		    array ('title', 'yaportal-seo-options'),
+            array ('check', 'yaportal-seo'),
 		);
 		// Load the settings to the form class
 		$elkArticleSettings->settings($config_vars);

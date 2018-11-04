@@ -18,17 +18,20 @@ function template_yaportal_download_index()
 {
 	global $context, $txt, $scripturl, $boardurl;
 
+    var_dump($context['downloads']);
     echo '<div class="elk_download_gridLayout">';
 	if(is_array($context['downloads'])) {
         foreach($context['downloads'] as $download) {
-            echo '<div class="grid-item">';
-            echo '<h3 class="category_header"><a href="'.$scripturl.'?download/'.$download['category_id'].'/">'.$download['category_name'].'</a></h3>';
-            echo sprintf('<span class="views_text">Written By: %s in %s | %s </span>', $download['member'], $download['category_name'], htmlTime($download['dt_published']));
-            echo '<hr>';
-            if(!empty($download['download_download_link'])) {
-                echo '<a href="'. $download['download_download_link'] .'" download>'.$txt['yaportal-download'].'</a>';
-            }            
-            echo '</div>';
+            $portalDownloads  = new YAPortalTemplate("portalDownload.tpl");
+            $portalDownloads->set('path',       YAPortalSEO::generateUrlString(array('action' => 'download', 'sa' => 'category', 'id' => $download['category_id']), true, true));
+            $portalDownloads->set('views',      '');
+            $portalDownloads->set('comments',   '');
+            $portalDownloads->set('title',      $download['category_name']);
+            $portalDownloads->set('category',   $download['category_name']);
+            $portalDownloads->set('author',     $download['member']);
+            $portalDownloads->set('published',  htmlTime($download['dt_published']));
+            $portalDownloads->set('download',   empty($download['download_link_src']) ? '' : '<a href="'. $download['download_link_src'] .'" download>'.$txt['yaportal-download'].'</a>');
+            echo $portalDownloads->output();
         }
 	}
 	echo '</div>';
