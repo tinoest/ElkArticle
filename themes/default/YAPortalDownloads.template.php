@@ -18,7 +18,6 @@ function template_yaportal_download_index()
 {
 	global $context, $txt, $scripturl, $boardurl;
 
-    var_dump($context['downloads']);
     echo '<div class="elk_download_gridLayout">';
 	if(is_array($context['downloads'])) {
         foreach($context['downloads'] as $download) {
