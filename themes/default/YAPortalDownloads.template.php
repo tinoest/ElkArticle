@@ -30,7 +30,7 @@ function template_yaportal_download_index()
             $portalDownloads->set('author',     $download['member']);
             $portalDownloads->set('published',  htmlTime($download['dt_published']));
             $portalDownloads->set('download',   empty($download['download_link_src']) ? '' : '<a href="'. $download['download_link_src'] .'" download>'.$txt['yaportal-download'].'</a>');
-            echo $portalDownloads->output();
+            $portalDownloads->output();
         }
 	}
 	echo '</div>';

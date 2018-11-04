@@ -27,7 +27,7 @@ class YAPortalTemplate {
 		$this->values[$key] = $value;
 	}
 
-	public function output() {
+	public function output($echo = true) {
 
 		if (!file_exists($this->templatePath.$this->file)) {
 			return false;
@@ -41,7 +41,13 @@ class YAPortalTemplate {
 			$output 	= str_replace($tagToReplace, $value, $output);
 		}
 
-		return $output;
+        if($echo == true) {
+            echo $output;
+        }
+        else {
+		    return $output;
+        }
+
 	}
 }
 

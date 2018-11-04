@@ -21,7 +21,7 @@ function template_yaportal_article()
 	if(array_key_exists('article_error', $context) && !empty($context['article_error'])) {
         $portalError = new YAPortalTemplate("portalError.tpl");
         $portalError->set('error',  $context['article_error']);
-        echo $portalError->output();
+        $portalError->output();
 	}
 	else {
 		$article = $context['article'];
@@ -34,6 +34,18 @@ function template_yaportal_article()
         $portalArticle->set('published',   htmlTime($article['dt_published']));
         $portalArticle->set('title',       $article['title']);
         $portalArticle->set('body',        $article['body']);
-        echo $portalArticle->output();
-	}
+        $portalArticle->output();
+        template_yaportal_comments();
+    }
+}
+
+function template_yaportal_comments()
+{
+
+    $portalComments = new YAPortalTemplate("portalComments.tpl");
+    $portalComments->set('post_url',    '');
+    $portalComments->set('label',       '');
+    $portalComments->set('comment',     '');
+    $portalComments->output();
+
 }

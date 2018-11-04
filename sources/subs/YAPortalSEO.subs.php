@@ -62,7 +62,6 @@ class YAPortalSEO {
         // remove "-" from the beginning and end
         $params     = preg_replace('/(^[-]+)|([.]*[-]$)/', '', $params);
 
-        $modSettings['yaportal-seo'] = true;
         if(!empty($modSettings['yaportal-seo'])) {
             $urlString  = implode('/', array_values($params));
             $urlString  .= '/';

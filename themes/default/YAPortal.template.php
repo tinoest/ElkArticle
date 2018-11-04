@@ -49,7 +49,7 @@ function template_yaportal_above()
 
     }
     $portalAbove->set('content_centerPanel_style',  $style);
-    echo $portalAbove->output();
+    $portalAbove->output();
 
 }
 
@@ -64,14 +64,14 @@ function template_yaportal_below()
         $portalLeft    = new YAPortalTemplate("portalLeft.tpl");
     	$portalLeft->set('content_leftPanel_header',  $context['yaportal_leftPanel']['title']);
         $portalLeft->set('content_leftPanel',         $context['yaportal_leftPanel']['content']);
-        echo $portalLeft->output();	
+        $portalLeft->output();	
 	}
 
 	if(!empty($context['yaportal_bottomPanel'])) {
         $portalBelow    = new YAPortalTemplate("portalBottom.tpl");
     	$portalBelow->set('content_bottomPanel_header',  $context['yaportal_bottomPanel']['title']);
         $portalBelow->set('content_bottomPanel',         $context['yaportal_bottomPanel']['content']);
-        echo $portalBelow->output();
+        $portalBelow->output();
 	}
 
 
@@ -91,7 +91,7 @@ function template_yaportal_index()
         $portalMain->set('published',   htmlTime($article['dt_published']));
         $portalMain->set('title',       $article['title']);
         $portalMain->set('body',        $article['body']);
-        echo $portalMain->output();
+        $portalMain->output();
 	}
 
 	if (!empty($context['page_index'])) {

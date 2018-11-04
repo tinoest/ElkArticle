@@ -38,7 +38,7 @@ function template_yaportal_gallery_index()
             else if(file_exists(BOARDDIR . '/yaportal/img/' . $gallery['image_name'])) {
                 $portalGallery->set('image_path',   $boardurl . '/yaportal/img/' . $gallery['image_name']);
             }
-            echo $portalGallery->output();
+            $portalGallery->output();
         }
 	}
 	echo '</div>';
@@ -71,7 +71,8 @@ function template_yaportal_gallery()
         else if(file_exists(BOARDDIR . '/yaportal/img/' . $gallery['image_name'])) {
             $portalGallery->set('image_path',   $boardurl . '/yaportal/img/' . $gallery['image_name']);
         }
-        echo $portalGallery->output();
+        $portalGallery->output();
+
 	}
 	echo '</div>';
 
