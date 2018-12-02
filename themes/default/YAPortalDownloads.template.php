@@ -54,6 +54,7 @@ function template_yaportal_download()
     $portalDownloads->set('title',          $download['title']);
     $portalDownloads->set('category',       $download['category']);
     $portalDownloads->set('author',         $download['member']);
+    $portalDownloads->set('body',           $download['body']);
     $portalDownloads->set('published',      htmlTime($download['dt_published']));
     $portalDownloads->set('download_link',  empty($download['download_link_src']) ? '' : $download['download_link_src']);
     $portalDownloads->set('download_name',  $txt['yaportal-download']);
