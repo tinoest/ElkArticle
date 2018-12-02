@@ -46,20 +46,19 @@ function template_yaportal_download()
 
     echo '<div class="elk_download_gridLayout">';
 
-	foreach($context['downloads'] as $download) {
-        echo '<div class="grid-item">';
-		echo '<h3 class="category_header">', $download['title'], '</h3>';
-		echo sprintf(
-			'<span class="views_text"> Views: %d%s', $download['views'],
-			( $context['comments-enabled'] == 1 ) ? ' | '.$txt['yaportal-comments'] . $download['comments'] : ''
-		);
-		echo sprintf(' | Written By: %s in %s | %s </span>', $download['member'], $download['category'], htmlTime($download['dt_published']));
-        echo '<hr>';
-        if(!empty($download['download_link_src'])) {
-            echo '<a href="'. $download['download_link_src'] .'" download>'.$txt['yaportal-download'].'</a>';
-        }            
-        echo '</div>';
-	}
+	$download = $context['downloads'];
+    $portalDownloads  = new YAPortalTemplate("portalDownloadSingle.tpl");
+    $portalDownloads->set('path',           YAPortalSEO::generateUrlString(array('action' => 'download', 'sa' => 'category', 'id' => $download['category_id']), true, true));
+    $portalDownloads->set('views',          $download['views']);
+    $portalDownloads->set('comments',       ( $context['comments-enabled'] == 1 ) ? ' | '.$txt['yaportal-comments'] . $download['comments'] : '' );
+    $portalDownloads->set('title',          $download['title']);
+    $portalDownloads->set('category',       $download['category']);
+    $portalDownloads->set('author',         $download['member']);
+    $portalDownloads->set('published',      htmlTime($download['dt_published']));
+    $portalDownloads->set('download_link',  empty($download['download_link_src']) ? '' : $download['download_link_src']);
+    $portalDownloads->set('download_name',  $txt['yaportal-download']);
+    $portalDownloads->output();
+
 	echo '</div>';
 
 	if (!empty($context['page_index'])) {

@@ -70,7 +70,7 @@ class YAPortalSEO {
             $urlString  = http_build_query($params);
         }
 
-        if(!empty($urlString) {
+        if(!empty($urlString)) {
             if(!empty($modSettings['yaportal-seo-strip-index'])) {
                 return parse_url($scripturl, PHP_URL_SCHEME).'://'.parse_url($scripturl, PHP_URL_HOST).'/'.$urlString;
             } 

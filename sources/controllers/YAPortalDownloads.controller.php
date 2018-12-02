@@ -115,7 +115,7 @@ class YAPortalDownloads_Controller extends Action_Controller
         // Build the breadcrumbs
         $context['linktree'] = array_merge($context['linktree'], array(
             array(
-                'url'   => $scripturl . '?download/',
+                'url'   => YAPortalSEO::generateUrlString(array('action' => 'download'), true, true),
                 'name'  => $txt['yaportal-downloads'],
             ),
         ));
