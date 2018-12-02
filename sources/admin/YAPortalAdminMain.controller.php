@@ -97,6 +97,7 @@ class YAPortalAdminMain_Controller extends Action_Controller
             // SEOoptions
 		    array ('title', 'yaportal-seo-options'),
             array ('check', 'yaportal-seo'),
+            array ('check', 'yaportal-seo-strip-index'),
 		);
 		// Load the settings to the form class
 		$elkArticleSettings->settings($config_vars);

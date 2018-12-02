@@ -74,6 +74,7 @@ $txt['yaportal-dontshowfrontpage']              = 'Don\'t show on front page';
 
 $txt['yaportal-seo-options']			        = 'YAPortal SEO';
 $txt['yaportal-seo']			                = 'Enable SEO links?';
+$txt['yaportal-seo-strip-index']			    = 'Remove index.php from SEO link?';
 
 // Permission
 $txt['permissiongroup_yaportal']                = 'YAPortal';
