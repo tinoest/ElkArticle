@@ -186,7 +186,7 @@ class YAPortal
 			$buttons = elk_array_insert($buttons, 'home', array (
 				'gallery' => array(
 					'title' 	    => $txt['gallery_btn'],
-					'href' 		    => $scripturl . '?action=gallery',
+                    'href'          => YAPortalSEO::generateUrlString(array('action' => 'gallery'), true, true),
 					'data-icon'     => 'i-gallery',
 					'show'          => true,
 					'action_hook' 	=> true,
@@ -208,7 +208,7 @@ class YAPortal
             $buttons = elk_array_insert($buttons, 'home', array (
 				'article' => array(
 					'title' 	    => $txt['article_btn'],
-					'href' 		    => $scripturl . '?action=article',
+                    'href'          => YAPortalSEO::generateUrlString(array('action' => 'article'), true, true),
 					'data-icon'     => 'i-newspaper',
 					'show'          => true,
 					'action_hook' 	=> true,
@@ -230,7 +230,7 @@ class YAPortal
             $buttons = elk_array_insert($buttons, 'home', array (
 				'download' => array(
 					'title' 	    => $txt['download_btn'],
-					'href' 		    => $scripturl . '?action=download',
+                    'href'          => YAPortalSEO::generateUrlString(array('action' => 'download'), true, true),
 					'data-icon'     => 'i-newspaper',
 					'show'          => true,
 					'action_hook' 	=> true,
