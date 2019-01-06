@@ -65,10 +65,10 @@ class YAPortalDownloads_Controller extends Action_Controller
 	
     public function action_yaportal_category()
     {
-
+        $this->action_yaportal_download( true );
     }
 
-	public function action_yaportal_download()
+	public function action_yaportal_download( $multiple = false )
 	{
 		global $context, $scripturl, $txt, $modSettings, $boardurl;
 
@@ -104,7 +104,13 @@ class YAPortalDownloads_Controller extends Action_Controller
             $downloads[$id]['download_link_src']        = $boardurl . '/yaportal/downloads/' . $download['download_link'];
         }
 
-		$context['downloads'] 		        = $downloads;
+        if($multiple == true) {
+		    $context['downloads'] 		    = $downloads;
+        }
+        else {
+		    $context['downloads'] 		    = array_shift($downloads);
+        }
+
 		if(!empty($download_id)) {
 		  $context['page_index'] 		    = constructPageIndex($scripturl . '?action=download;sa=download;id='.$download_id.';start=%1$d', $start, $total_downloads, $per_page, true);
 		}
@@ -115,7 +121,7 @@ class YAPortalDownloads_Controller extends Action_Controller
         // Build the breadcrumbs
         $context['linktree'] = array_merge($context['linktree'], array(
             array(
-                'url'   => YAPortalSEO::generateUrlString(array('action' => 'download'), true, true),
+                'url'   => $scripturl . '?download/',
                 'name'  => $txt['yaportal-downloads'],
             ),
         ));
