@@ -78,7 +78,7 @@ class YAPortalGallery_Controller extends Action_Controller
         }
 
 		$context['galleries'] 		    = $gallery_categories;
-		$context['page_index'] 		    = constructPageIndex($scripturl . '?action=gallery;start=%1$d', $start, $total_categories, $per_page, true);
+		$context['page_index'] 		    = constructPageIndex(YAPortalSEO::generateUrlString(array('action' => 'gallery'), true, true).';start=%1$d', $start, $total_galleries, $per_page, true);
 
 		loadTemplate('YAPortalGallery');
 	}
@@ -136,10 +136,10 @@ class YAPortalGallery_Controller extends Action_Controller
 		$context['comments-enabled'] 	= $modSettings['yaportal-enablecomments'];
 		$context['galleries'] 		    = $galleries;
 		if(!empty($gallery_id)) {
-		  $context['page_index'] 		    = constructPageIndex($scripturl . '?action=gallery;sa=category;id='.$gallery_id.';start=%1$d', $start, $total_galleries, $per_page, true);
+		  $context['page_index'] 		    = constructPageIndex(YAPortalSEO::generateUrlString(array('action' => 'gallery', 'sa' => 'category', 'id' => $gallery_id), true, true).';start=%1$d', $start, $total_galleries, $per_page, true);
 		}
 		else {
-		  $context['page_index'] 		    = constructPageIndex($scripturl . '?action=gallery;sa=category;name='.$gallery_name.';start=%1$d', $start, $total_galleries, $per_page, true);
+		  $context['page_index'] 		    = constructPageIndex(YAPortalSEO::generateUrlString(array('action' => 'gallery', 'sa' => 'category', 'name' => $gallery_name), true, true).';start=%1$d', $start, $total_galleries, $per_page, true);
 		}
 
         // Build the breadcrumbs

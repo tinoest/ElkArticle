@@ -23,25 +23,29 @@ class YAPortal
 
         $paths = array (
             // Article 
-			'~^article/$~'							    => 'action=article',
-			'~^article/category/([0-9]+)/$~'			=> 'action=article&sa=category&id=%1$s',
-			'~^article/category/([A-Za-z0-9]+)/$~'		=> 'action=article&sa=category&name=%1$s',
-			'~^article/view/([0-9]+)/$~'				=> 'action=article&sa=view&id=%1$s',
-			'~^article/view/([A-Za-z0-9]+)/$~'			=> 'action=article&sa=view&name=%1$s',
+			'~^article/$~'							                => 'action=article',
+			'~^article/category/([0-9]+)/$~'			            => 'action=article&sa=category&id=%1$s',
+			'~^article/category/([0-9]+)/(;[A-za-z0-9-.=]+)/?$~'    => 'action=article&sa=category&id=%1$s%2$s',
+			'~^article/category/([0-9]+)-([0-9]+)/$~'	            => 'action=article&sa=category&id=%1$s&start=%2$s',
+			'~^article/category/([A-Za-z0-9]+)/$~'		            => 'action=article&sa=category&name=%1$s',
+			'~^article/view/([0-9]+)/$~'				            => 'action=article&sa=view&id=%1$s',
+			'~^article/view/([A-Za-z0-9]+)/$~'			            => 'action=article&sa=view&name=%1$s',
             // Gallery
-			'~^gallery/$~'							    => 'action=gallery',
-			'~^gallery/category/([0-9]+)/$~'			=> 'action=gallery&sa=category&id=%1$s',
-			'~^gallery/category/([A-Za-z0-9-.]+)/$~'	=> 'action=gallery&sa=category&name=%1$s',
-			'~^gallery/image/([0-9]+)/$~'		    	=> 'action=gallery&sa=image&id=%1$s',
-			'~^gallery/image/([A-Za-z0-9-i.]+)/$~'      => 'action=gallery&sa=image&name=%1$s',
-			'~^gallery/rawimage/([0-9]+)/$~'		    => 'action=gallery&sa=rawimage&id=%1$s',
-			'~^gallery/rawimage/([A-Za-z0-9-.]+)/$~'    => 'action=gallery&sa=rawimage&name=%1$s',
+			'~^gallery/$~'							                => 'action=gallery',
+			'~^gallery/category/([0-9]+)/$~'			            => 'action=gallery&sa=category&id=%1$s',
+			'~^gallery/category/([0-9]+)/(;[A-za-z0-9-.=]+)/?$~'    => 'action=gallery&sa=category&id=%1$s%2$s',
+			'~^gallery/category/([A-Za-z0-9-.]+)/$~'	            => 'action=gallery&sa=category&name=%1$s',
+			'~^gallery/image/([0-9]+)/$~'		    	            => 'action=gallery&sa=image&id=%1$s',
+			'~^gallery/image/([A-Za-z0-9-i.]+)/$~'                  => 'action=gallery&sa=image&name=%1$s',
+			'~^gallery/rawimage/([0-9]+)/$~'		                => 'action=gallery&sa=rawimage&id=%1$s',
+			'~^gallery/rawimage/([A-Za-z0-9-.]+)/$~'                => 'action=gallery&sa=rawimage&name=%1$s',
             // Downloads
-			'~^download/$~'							    => 'action=download',
-			'~^download/category/([0-9]+)/$~'			=> 'action=download&sa=category&id=%1$s',
-			'~^download/category/([A-Za-z0-9-.]+)/$~'	=> 'action=download&sa=category&name=%1$s',
-			'~^download/view/([0-9]+)/$~'				=> 'action=download&sa=view&id=%1$s',
-			'~^download/view/([A-Za-z0-9-.]+)/$~'		=> 'action=download&sa=view&name=%1$s',
+			'~^download/$~'							                => 'action=download',
+			'~^download/category/([0-9]+)/$~'			            => 'action=download&sa=category&id=%1$s',
+			'~^download/category/([0-9]+)/(;[A-za-z0-9-.=]+)/?$~'   => 'action=download&sa=category&id=%1$s%2$s',
+			'~^download/category/([A-Za-z0-9-.]+)/$~'           	=> 'action=download&sa=category&name=%1$s',
+			'~^download/view/([0-9]+)/$~'				            => 'action=download&sa=view&id=%1$s',
+			'~^download/view/([A-Za-z0-9-.]+)/$~'		            => 'action=download&sa=view&name=%1$s',
 		);
 
 		foreach ($paths as $route => $destination) {
@@ -57,6 +61,7 @@ class YAPortal
 					$_SERVER['QUERY_STRING'] = vsprintf($destination, $matches);
 				}
 				else {
+                    var_dump($destination);
 					$_SERVER['QUERY_STRING'] = $destination;
 				}
 			}
