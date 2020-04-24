@@ -78,7 +78,7 @@ class YAPortalGallery_Controller extends Action_Controller
         }
 
 		$context['galleries'] 		    = $gallery_categories;
-		$context['page_index'] 		    = constructPageIndex(YAPortalSEO::generateUrlString(array('action' => 'gallery'), true, true).';start=%1$d', $start, $total_galleries, $per_page, true);
+		$context['page_index'] 		    = constructPageIndex(YAPortalSEO::generateUrlString(array('action' => 'gallery'), true, true).';start=%1$d', $start, $total_categories, $per_page, true);
 
 		loadTemplate('YAPortalGallery');
 	}
